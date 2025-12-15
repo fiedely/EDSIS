@@ -1,0 +1,7 @@
+{
+  "name": "edsis-root",
+  "private": true,
+  "scripts": {
+    "emulators": "firebase emulators:start --import=./firebase-data --export-on-exit"
+  }
+}

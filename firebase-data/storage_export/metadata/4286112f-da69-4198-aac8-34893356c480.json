@@ -1,0 +1,19 @@
+{
+  "name": "Callisa-Azur Onyx 50x30.jpg",
+  "bucket": "edievo-project.firebasestorage.app",
+  "metageneration": 1,
+  "generation": 1765801623752,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "ac468fc8-9d19-4c38-ba58-792cede57d5b"
+  ],
+  "etag": "+H+75TUtAYM+PlHKB+k19SLakwU",
+  "customMetadata": {},
+  "timeCreated": "2025-12-15T12:27:03.753Z",
+  "updated": "2025-12-15T12:27:03.753Z",
+  "size": 5327144,
+  "md5Hash": "AXg+ySgIYDuWkzd3z/Bjhw==",
+  "crc32c": "2623636626"
+}

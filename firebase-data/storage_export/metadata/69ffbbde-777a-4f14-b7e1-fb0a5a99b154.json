@@ -1,0 +1,19 @@
+{
+  "name": "micro-orange.jpg",
+  "bucket": "edievo-project.firebasestorage.app",
+  "metageneration": 1,
+  "generation": 1765801624942,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "12361030-6f52-4f50-8eed-fb7d472137c6"
+  ],
+  "etag": "5S2pnoycs84DPnQlJPLVrr8/hc0",
+  "customMetadata": {},
+  "timeCreated": "2025-12-15T12:27:04.942Z",
+  "updated": "2025-12-15T12:27:04.942Z",
+  "size": 31255,
+  "md5Hash": "ByrXqKJ5C3jkBgLxqzT5pg==",
+  "crc32c": "1335391272"
+}

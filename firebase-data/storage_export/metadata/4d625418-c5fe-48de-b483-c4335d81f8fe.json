@@ -1,0 +1,19 @@
+{
+  "name": "micro-corten.jpg",
+  "bucket": "edievo-project.firebasestorage.app",
+  "metageneration": 1,
+  "generation": 1765801616548,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "05009500-43f5-471e-a07b-e6569550553c"
+  ],
+  "etag": "bpwpOJw20+V1qcgfduNAx1MaJ0c",
+  "customMetadata": {},
+  "timeCreated": "2025-12-15T12:26:56.548Z",
+  "updated": "2025-12-15T12:26:56.548Z",
+  "size": 31585,
+  "md5Hash": "t0eYPgFV2MGkrFvAzjBwnw==",
+  "crc32c": "1957105361"
+}

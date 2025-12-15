@@ -1,0 +1,19 @@
+{
+  "name": "Zafferano-Riga.jpg",
+  "bucket": "edievo-project.firebasestorage.app",
+  "metageneration": 1,
+  "generation": 1765801625827,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "744be5d7-a219-4f2b-92d9-8b58e4f3c96e"
+  ],
+  "etag": "+7vSstlIM+devcAD26SQWCAKnTk",
+  "customMetadata": {},
+  "timeCreated": "2025-12-15T12:27:05.827Z",
+  "updated": "2025-12-15T12:27:05.827Z",
+  "size": 7289,
+  "md5Hash": "asUwQ+klzw4YFxympb5TdA==",
+  "crc32c": "3575219123"
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Callisa-Azur Cerulean 45x45.jpg",
+  "bucket": "edievo-project.firebasestorage.app",
+  "metageneration": 1,
+  "generation": 1765801618767,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "6dad7a05-e66f-4fbe-9ccc-36c5b66debe8"
+  ],
+  "etag": "kDaZjLL2tRrZjuRiOPBpmCrv9AM",
+  "customMetadata": {},
+  "timeCreated": "2025-12-15T12:26:58.767Z",
+  "updated": "2025-12-15T12:26:58.767Z",
+  "size": 6043810,
+  "md5Hash": "9fxC4OSSQui4uuySjmK3sQ==",
+  "crc32c": "1308298326"
+}

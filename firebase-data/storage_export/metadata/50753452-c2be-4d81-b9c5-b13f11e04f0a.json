@@ -1,0 +1,19 @@
+{
+  "name": "poldina micro-black.jpg",
+  "bucket": "edievo-project.firebasestorage.app",
+  "metageneration": 1,
+  "generation": 1765801612129,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "4ace04c0-343b-4570-b66f-78d6747e5f59"
+  ],
+  "etag": "1Tf1+bRoToNVuAuIrrKj+VYRZIE",
+  "customMetadata": {},
+  "timeCreated": "2025-12-15T12:26:52.130Z",
+  "updated": "2025-12-15T12:26:52.130Z",
+  "size": 49184,
+  "md5Hash": "EzfqYnbw6QmzZ6ZU5th+Ww==",
+  "crc32c": "1037155527"
+}

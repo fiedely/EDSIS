@@ -1,0 +1,19 @@
+{
+  "name": "ED Aviv.jpg",
+  "bucket": "edievo-project.firebasestorage.app",
+  "metageneration": 1,
+  "generation": 1765801616135,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "1c2c8f25-2fbd-488b-ad49-8d0ca3eab63e"
+  ],
+  "etag": "dsxYXDpVQL4kddmq9NcRei/wMhM",
+  "customMetadata": {},
+  "timeCreated": "2025-12-15T12:26:56.135Z",
+  "updated": "2025-12-15T12:26:56.135Z",
+  "size": 33769253,
+  "md5Hash": "obZcqPN0LF6T6QNByvop/g==",
+  "crc32c": "4191149948"
+}

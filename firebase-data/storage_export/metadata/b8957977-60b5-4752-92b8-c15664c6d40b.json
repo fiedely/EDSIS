@@ -1,0 +1,19 @@
+{
+  "name": "poldina peanut-heart.jpg",
+  "bucket": "edievo-project.firebasestorage.app",
+  "metageneration": 1,
+  "generation": 1765801625695,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "add4c406-52ef-449a-9dd7-a147572511f0"
+  ],
+  "etag": "PzbcLU4E1x62yghslhfz2BXycTU",
+  "customMetadata": {},
+  "timeCreated": "2025-12-15T12:27:05.695Z",
+  "updated": "2025-12-15T12:27:05.695Z",
+  "size": 5999,
+  "md5Hash": "AhMNv1sZK2iPFqsPKkq3eg==",
+  "crc32c": "1809461265"
+}

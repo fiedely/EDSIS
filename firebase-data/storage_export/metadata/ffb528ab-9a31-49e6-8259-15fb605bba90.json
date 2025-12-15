@@ -1,0 +1,19 @@
+{
+  "name": "Orchestra.jpg",
+  "bucket": "edievo-project.firebasestorage.app",
+  "metageneration": 1,
+  "generation": 1765801626013,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "172458cb-39dc-4d51-804a-4c1fafec8ccf"
+  ],
+  "etag": "9zBKyhI/QxnW2jVovHfbX++uQIY",
+  "customMetadata": {},
+  "timeCreated": "2025-12-15T12:27:06.013Z",
+  "updated": "2025-12-15T12:27:06.013Z",
+  "size": 70874,
+  "md5Hash": "hG3iPE4dpRwg9pByc9BJ+w==",
+  "crc32c": "3985815922"
+}

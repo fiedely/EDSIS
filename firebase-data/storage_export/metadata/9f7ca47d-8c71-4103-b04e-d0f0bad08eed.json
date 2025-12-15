@@ -1,0 +1,19 @@
+{
+  "name": "micro-sand.jpg",
+  "bucket": "edievo-project.firebasestorage.app",
+  "metageneration": 1,
+  "generation": 1765801625469,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "851153b1-37e7-43e6-a6ec-b223b6bbe672"
+  ],
+  "etag": "T49LsXXAM5oSNNKLEpE0wF+aqtk",
+  "customMetadata": {},
+  "timeCreated": "2025-12-15T12:27:05.469Z",
+  "updated": "2025-12-15T12:27:05.469Z",
+  "size": 12169,
+  "md5Hash": "dZDWCTvVvoXcxkkmfwempQ==",
+  "crc32c": "1930182603"
+}

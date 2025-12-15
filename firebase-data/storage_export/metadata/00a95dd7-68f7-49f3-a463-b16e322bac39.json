@@ -1,0 +1,19 @@
+{
+  "name": "ED Mezzo.jpg",
+  "bucket": "edievo-project.firebasestorage.app",
+  "metageneration": 1,
+  "generation": 1765801624728,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "e474f80e-4118-432b-adb7-14e8677104c0"
+  ],
+  "etag": "KCesYKrCOvuCYG4f1Ud3z7PUnKA",
+  "customMetadata": {},
+  "timeCreated": "2025-12-15T12:27:04.728Z",
+  "updated": "2025-12-15T12:27:04.728Z",
+  "size": 4236361,
+  "md5Hash": "vypwI29mOfX/ir0vdbO6OQ==",
+  "crc32c": "2403778400"
+}

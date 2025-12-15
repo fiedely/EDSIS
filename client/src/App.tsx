@@ -2,9 +2,11 @@ import { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import Layout from './components/Layout';
 import type { Product } from './types';
-import { buildProductTree, type GroupNode } from './utils'; // <--- Fixed: Added 'type'
-import { ChevronDown, ChevronRight, Box, Layers } from 'lucide-react'; // <--- Fixed: Removed 'Archive'
+import { buildProductTree, type GroupNode } from './utils';
+import { ChevronDown, ChevronRight, Layers, ChevronsDown, ChevronsUp } from 'lucide-react';
 import clsx from 'clsx';
+import ProductDetailModal from './components/ProductDetailModal';
+import StorageImage from './components/StorageImage';
 
 function App() {
   const [activeTab, setActiveTab] = useState('BRAND');
@@ -13,6 +15,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   
   const [expandedKeys, setExpandedKeys] = useState<Set<string>>(new Set());
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,16 +41,21 @@ function App() {
     setExpandedKeys(newSet);
   };
 
+  // --- Refinement #2: Multi-Keyword Smart Search ---
   const treeData = useMemo(() => {
     const filtered = products.filter(p => {
       if (!searchQuery) return true;
-      const q = searchQuery.toLowerCase();
-      return (
-        p.brand?.toLowerCase().includes(q) ||
-        p.category?.toLowerCase().includes(q) ||
-        p.collection?.toLowerCase().includes(q) ||
-        p.code?.toLowerCase().includes(q)
-      );
+      
+      // Split by comma, trim whitespace, and ignore empty strings
+      const terms = searchQuery.toLowerCase().split(',').map(t => t.trim()).filter(t => t.length > 0);
+      
+      if (terms.length === 0) return true;
+
+      // Create a giant string of all searchable text for this product
+      const searchableText = `${p.brand} ${p.category} ${p.collection} ${p.code}`.toLowerCase();
+      
+      // AND Logic: The product must contain EVERY term entered
+      return terms.every(term => searchableText.includes(term));
     });
 
     let levels: string[] = [];
@@ -59,6 +67,30 @@ function App() {
     return buildProductTree(filtered, levels);
   }, [products, activeTab, searchQuery]);
 
+  // --- Refinement #1: Expand/Collapse All Logic ---
+  const handleExpandAll = () => {
+    const allKeys = new Set<string>();
+    
+    // Recursive helper to find all keys in the current tree
+    const traverse = (nodes: GroupNode[], parentKey = '') => {
+        nodes.forEach(node => {
+            const uniqueKey = parentKey ? `${parentKey}-${node.key}` : node.key;
+            allKeys.add(uniqueKey);
+            
+            // If it has subgroups, we might want to auto-expand the "ALL" section too? 
+            // Let's stick to expanding the groups for cleanliness.
+            // if (node.subgroups.length > 0) allKeys.add(`${uniqueKey}-ALL`);
+
+            traverse(node.subgroups, uniqueKey);
+        });
+    };
+    traverse(treeData);
+    setExpandedKeys(allKeys);
+  };
+
+  const handleCollapseAll = () => {
+    setExpandedKeys(new Set());
+  };
 
   const renderNode = (node: GroupNode, parentKey: string = '') => {
     const uniqueKey = parentKey ? `${parentKey}-${node.key}` : node.key;
@@ -67,8 +99,6 @@ function App() {
 
     return (
       <div key={uniqueKey} className={clsx("border-gray-100", isDeepLevel ? "border-l-2 ml-4" : "border-b bg-white")}>
-        
-        {/* Header Row */}
         <div 
           onClick={() => toggleExpand(uniqueKey)}
           className={clsx(
@@ -97,11 +127,8 @@ function App() {
           )}
         </div>
 
-        {/* Expanded Content */}
         {isExpanded && (
           <div className="animate-in slide-in-from-top-1 duration-200">
-            
-            {/* 1. "ALL" Group (Only if there are subgroups) */}
             {node.subgroups.length > 0 && (
                <div className="border-b border-gray-100 last:border-0 ml-4 border-l-2 border-primary/20">
                   <div 
@@ -113,7 +140,6 @@ function App() {
                     <span className="ml-auto text-gray-400">{node.items.length} Items</span>
                     {expandedKeys.has(`${uniqueKey}-ALL`) ? <ChevronDown size={14}/> : <ChevronRight size={14}/>}
                   </div>
-                  
                   {expandedKeys.has(`${uniqueKey}-ALL`) && (
                     <div className="pl-4">
                       {node.items.map(item => renderItemCard(item))}
@@ -121,11 +147,7 @@ function App() {
                   )}
                </div>
             )}
-
-            {/* 2. Subgroups */}
             {node.subgroups.map(subgroup => renderNode(subgroup, uniqueKey))}
-
-            {/* 3. Items (Leaf Level) */}
             {node.subgroups.length === 0 && (
               <div className="pl-4 pb-2 bg-gray-50/50">
                 {node.items.map(item => renderItemCard(item))}
@@ -138,10 +160,20 @@ function App() {
   };
 
   const renderItemCard = (item: Product) => (
-    <div key={item.id} className="p-3 flex gap-3 border-b border-gray-200/50 last:border-0 hover:bg-white transition-colors cursor-pointer group bg-white">
-      <div className="w-10 h-10 bg-gray-100 border border-gray-200 flex-shrink-0 flex items-center justify-center text-gray-300">
-        <Box size={16}/>
+    <div 
+        key={item.id} 
+        onClick={() => setSelectedProduct(item)} 
+        className="p-3 flex gap-3 border-b border-gray-200/50 last:border-0 hover:bg-white transition-colors cursor-pointer group bg-white"
+    >
+      {/* Thumbnail Image */}
+      <div className="w-12 h-12 flex-shrink-0 bg-gray-100 border border-gray-200 overflow-hidden">
+        <StorageImage 
+            filename={item.image_url} 
+            alt={item.collection} 
+            className="w-full h-full object-cover" 
+        />
       </div>
+
       <div className="flex-grow">
         <div className="text-sm font-bold text-gray-800 line-clamp-1">{item.collection}</div>
         <div className="text-[10px] text-gray-500 font-medium">
@@ -156,37 +188,65 @@ function App() {
   );
 
   return (
-    <Layout 
-      activeTab={activeTab} 
-      onTabChange={(tab) => {
-        setActiveTab(tab);
-        setExpandedKeys(new Set());
-        setSearchQuery(''); 
-      }}
-      searchQuery={searchQuery}
-      onSearchChange={setSearchQuery}
-    >
-      {loading ? (
-        <div className="p-10 text-center text-gray-400 text-sm animate-pulse flex flex-col items-center gap-2">
-          <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-          Syncing Inventory...
-        </div>
-      ) : (
-        <div className="pb-10">
-          {searchQuery && (
-            <div className="p-4 bg-gray-50 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200">
-              Found {treeData.reduce((acc, node) => acc + node.items.length, 0)} groups
+    <>
+        <Layout 
+            activeTab={activeTab} 
+            onTabChange={(tab) => {
+                setActiveTab(tab);
+                setExpandedKeys(new Set());
+                setSearchQuery(''); 
+            }}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+        >
+        {loading ? (
+            <div className="p-10 text-center text-gray-400 text-sm animate-pulse flex flex-col items-center gap-2">
+            <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+            Syncing Inventory...
             </div>
-          )}
+        ) : (
+            <div className="pb-10">
+                {/* Control Bar: Expand/Collapse & Counts */}
+                <div className="sticky top-0 z-10 bg-gray-50/95 backdrop-blur-sm border-b border-gray-200 px-4 py-2 flex justify-between items-center shadow-sm">
+                    <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                        {searchQuery ? (
+                            <>Found {treeData.reduce((acc, node) => acc + node.items.length, 0)} items</>
+                        ) : (
+                            <>{treeData.length} Groups</>
+                        )}
+                    </span>
+                    
+                    <div className="flex gap-4">
+                        <button 
+                            onClick={handleExpandAll}
+                            className="flex items-center gap-1 text-[10px] font-bold text-gray-600 hover:text-primary transition-colors"
+                        >
+                            <ChevronsDown size={14} /> EXPAND ALL
+                        </button>
+                        <button 
+                            onClick={handleCollapseAll}
+                            className="flex items-center gap-1 text-[10px] font-bold text-gray-600 hover:text-primary transition-colors"
+                        >
+                            <ChevronsUp size={14} /> COLLAPSE ALL
+                        </button>
+                    </div>
+                </div>
 
-          {treeData.map(node => renderNode(node))}
-          
-          {treeData.length === 0 && (
-            <div className="p-10 text-center text-gray-400 text-sm">No items found.</div>
-          )}
-        </div>
-      )}
-    </Layout>
+                {treeData.map(node => renderNode(node))}
+                
+                {treeData.length === 0 && (
+                    <div className="p-10 text-center text-gray-400 text-sm">No items found.</div>
+                )}
+            </div>
+        )}
+        </Layout>
+
+        <ProductDetailModal 
+            product={selectedProduct} 
+            isOpen={!!selectedProduct} 
+            onClose={() => setSelectedProduct(null)} 
+        />
+    </>
   );
 }
 

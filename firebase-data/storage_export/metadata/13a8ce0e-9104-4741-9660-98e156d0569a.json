@@ -1,0 +1,19 @@
+{
+  "name": "aaaaaaaaaaa.jpg",
+  "bucket": "edievo-project.firebasestorage.app",
+  "metageneration": 1,
+  "generation": 1765801618195,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "08602f87-1b3b-4421-8832-ba96727ab8d0"
+  ],
+  "etag": "XJczRaEHYwef4eG9z9Q41RXzKBQ",
+  "customMetadata": {},
+  "timeCreated": "2025-12-15T12:26:58.195Z",
+  "updated": "2025-12-15T12:26:58.195Z",
+  "size": 105683,
+  "md5Hash": "ZYz5JQpM91FCtzcnx7YTcg==",
+  "crc32c": "2121178441"
+}

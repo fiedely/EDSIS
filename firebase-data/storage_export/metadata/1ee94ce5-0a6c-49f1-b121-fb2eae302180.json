@@ -1,0 +1,19 @@
+{
+  "name": "micro-gold.jpg",
+  "bucket": "edievo-project.firebasestorage.app",
+  "metageneration": 1,
+  "generation": 1765801620331,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "08b93cc5-f91e-4405-b502-2a5fb6fa1fd8"
+  ],
+  "etag": "sS6uMEtxgH8wM+Y7+Y3T8jAuJIY",
+  "customMetadata": {},
+  "timeCreated": "2025-12-15T12:27:00.331Z",
+  "updated": "2025-12-15T12:27:00.331Z",
+  "size": 50678,
+  "md5Hash": "ZZr27Ra8BxCMla7f/se2Bg==",
+  "crc32c": "1437578076"
+}

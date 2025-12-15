@@ -1,0 +1,19 @@
+{
+  "name": "ED-Monogram red white.jpg",
+  "bucket": "edievo-project.firebasestorage.app",
+  "metageneration": 1,
+  "generation": 1765801616873,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "1cb24f87-0fb3-409e-80e8-676e4d9b35e3"
+  ],
+  "etag": "R+UDTx0g+z5kX+7av7JbIsSnnbU",
+  "customMetadata": {},
+  "timeCreated": "2025-12-15T12:26:56.874Z",
+  "updated": "2025-12-15T12:26:56.874Z",
+  "size": 1160880,
+  "md5Hash": "fSLIb3A6iQ/Fb8EHmM4D9Q==",
+  "crc32c": "99757606"
+}

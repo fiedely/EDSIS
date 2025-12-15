@@ -1,0 +1,19 @@
+{
+  "name": "poldina micro-corten.jpg",
+  "bucket": "edievo-project.firebasestorage.app",
+  "metageneration": 1,
+  "generation": 1765801625483,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "97e79f55-5ca3-40eb-980b-9ae7efa1d317"
+  ],
+  "etag": "Vi19tOpaNcUq/3TA60cWAcf6DSo",
+  "customMetadata": {},
+  "timeCreated": "2025-12-15T12:27:05.483Z",
+  "updated": "2025-12-15T12:27:05.483Z",
+  "size": 31585,
+  "md5Hash": "t0eYPgFV2MGkrFvAzjBwnw==",
+  "crc32c": "1957105361"
+}

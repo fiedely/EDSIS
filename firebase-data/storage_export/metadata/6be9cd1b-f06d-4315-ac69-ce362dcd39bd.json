@@ -1,0 +1,19 @@
+{
+  "name": "micro-sage green.jpg",
+  "bucket": "edievo-project.firebasestorage.app",
+  "metageneration": 1,
+  "generation": 1765801624238,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "3db3c22e-9e9e-4b37-8785-18646dcd8ac0"
+  ],
+  "etag": "Hgo+YarmMzQsk/uoq/bJrcbECxU",
+  "customMetadata": {},
+  "timeCreated": "2025-12-15T12:27:04.238Z",
+  "updated": "2025-12-15T12:27:04.238Z",
+  "size": 26483,
+  "md5Hash": "C9pFEscRxHfpMmgJm4dqNw==",
+  "crc32c": "1474425056"
+}

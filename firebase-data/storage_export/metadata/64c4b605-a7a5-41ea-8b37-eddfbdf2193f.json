@@ -1,0 +1,19 @@
+{
+  "name": "Blueside-elio.jpeg",
+  "bucket": "edievo-project.firebasestorage.app",
+  "metageneration": 1,
+  "generation": 1765801622008,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "d4b4d0e5-a7ab-4891-8b47-554848771bed"
+  ],
+  "etag": "xLD+/r9PYWHipJAgPH6+fsyoYe0",
+  "customMetadata": {},
+  "timeCreated": "2025-12-15T12:27:02.008Z",
+  "updated": "2025-12-15T12:27:02.008Z",
+  "size": 23642,
+  "md5Hash": "SmB73UpTBBxNQBcVTKnK9g==",
+  "crc32c": "4249722699"
+}
