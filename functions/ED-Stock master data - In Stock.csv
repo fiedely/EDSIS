@@ -1,0 +1,634 @@
+ unique id,image,brand,category,collection,code,finishing,size,quantity,detail,currency in euro,retail price in euro,rate,currency,retail price,discount,nett price,location,status,arriving ETA,booking,booking expired,mix category
+1,Blueside-glenda ball candle holder_clear.jpg,BLUESIDE,Accessories - Living,Glenda Ball Candle holder,BSBM077858,Clear,Ø 190 x 190mm,10,-,€,418,"19,000",Rp,"7,942,000",,,WH Barito,,,,,Accessories
+2,Blueside-glenda candle holder_clear.jpg,BLUESIDE,Accessories - Living,Glenda Candle holder,BSBM076021,Clear,Ø 160 x 280mm,10,-,€,490,"19,000",Rp,"9,310,000",,,WH Barito,,,,,Accessories
+3,Blueside-ambrosia flat version_clear.jpg,BLUESIDE,Tableware,Ambrosia Flat version,BSDN087964,Clear,Ø 150 x H 160 mm,4,-,€,140,"19,000",Rp,"2,660,000",,,WH Barito,,,,,
+4,Blueside-anastasia infuser_clear.jpeg,BLUESIDE,Tableware,Anastasia Infusiera,BSDN071759,Clear,Ø 32 x H 150 mm,6,-,€,110,"19,000",Rp,"2,090,000",,,WH Barito,,,,,
+5,Blueside-bea teapot_clear.jpeg,BLUESIDE,Tableware,"Bea, Teapot",BSDN078120,Clear,Ø 120 x H 210 mm,10,-,€,374,"19,000",Rp,"7,106,000",,,WH Barito,,,,,
+6,Blueside-briki coffee cup_clear.jpg,BLUESIDE,Tableware,"Briki, Coffee cup",BSDN089466,Clear,Ø  63 x H. 68 mm,12,-,€,58,"19,000",Rp,"1,102,000",,,WH Barito,,,,,
+7,Blueside-briki turkish coffee maker for 2_clear.jpg,BLUESIDE,Tableware,"Briki, Turkish Coffee maker for 2 people",BSDN089465,Clear,"Ø 80 x H 90mm, handle 150mm lenght",6,-,€,136,"19,000",Rp,"2,584,000",,,WH Barito,,,,,
+8,Blueside-briki turkish coffee maker for 4_clear.jpg,BLUESIDE,Tableware,"Briki, Turkish Coffee maker for 4 people",BSDN089464,Clear,"Ø 107 x H 120mm, handle 200mm lenght",4,-,€,148,"19,000",Rp,"2,812,000",,,WH Barito,,,,,
+9,Blueside-chadi glass_clear.jpeg,BLUESIDE,Tableware,"Chàdi, oxygenating glass",BSDN090945,Clear,Ø 95 x H 292 mm,1,-,€,128,"19,000",Rp,"2,433,900",,,WH Barito,,,,,
+10,Blueside-chino glass for cocktails and spirits_clear.jpeg,BLUESIDE,Tableware,Chino Glass,BSDN071757,Clear,Ø 110 x H 164 mm,24,-,€,98,"19,000",Rp,"1,862,000",,,WH Barito,,,,,
+11,Blueside-cucumber glass_clear.jpeg,BLUESIDE,Tableware,Cucumber Beer and long drink glass,BSDN064017,Clear,Ø 90 x H 223 mm,12,-,€,138,"19,000",Rp,"2,622,000",,,WH Barito,,,,,
+12,Blueside-dotto big flat plate_clear.jpg,BLUESIDE,Tableware,Dotto Big Plate ,BSDP085038,Clear,Ø 200 x 24 mm,3,-,€,122,"19,000",Rp,"2,318,000",,,WH Barito,,,,,
+13,Blueside-duck small_clear.jpg,BLUESIDE,Tableware,"Duck, Small Bottle",BSDN069513,Clear,Ø 65 x H 200 mm,4,-,€,132,"19,000",Rp,"2,508,000",,,WH Barito,,,,,
+14,Blueside-duck tall_clear.jpg,BLUESIDE,Tableware,"Duck, Tall Bottle",BSDN069514,Clear,Ø 75 x H 230 mm,4,-,€,132,"19,000",Rp,"2,508,000",,,WH Barito,,,,,
+15,Blueside-Elio-small.jpeg,BLUESIDE,Tableware,Elio Champagne Glass,BSDN090269,Clear,Ø 107 x H 195 mm,36,-,€,108,"19,000",Rp,"2,052,000",,,WH Barito,,,,,
+16,Blueside-emilio collins glass_clear.jpg,BLUESIDE,Tableware,Emilio Collins Glass,BSDN090261,Clear,Ø 75 x H145 mm,12,-,€,114,"19,000",Rp,"2,166,000",,,WH Barito,,,,,
+17,Blueside-fred glass_clear.jpg,BLUESIDE,Tableware,Fred Glass for distilates,BSDN069515,Clear,Ø 80 x H 66 mm,12,-,€,78,"19,000",Rp,"1,482,000",,,WH Barito,,,,,
+18,Blueside-gino glass_clear.jpeg,BLUESIDE,Tableware,Gino Gin Tonic cocktail,BSDN090257,Clear,Ø 100 x H 197 mm,30,-,€,108,"19,000",Rp,"2,052,000",,,WH Barito,,,,,
+19,Blueside-ibridi bottle_clear.jpeg,BLUESIDE,Tableware,Ibridi Bottle,BSDN069523,Clear,Ø 85 x H 240 mm,4,-,€,122,"19,000",Rp,"2,318,000",,,WH Barito,,,,,
+20,Blueside-ibridi glass_clear.jpg,BLUESIDE,Tableware,Ibridi Glass,BSDN069522,Clear,Ø 96 x H 65 mm,12,-,€,98,"19,000",Rp,"1,862,000",,,WH Barito,,,,,
+21,Blueside-ivo collins glass_clear.jpg,BLUESIDE,Tableware,lvo Collins Glass,BSDN090251,Clear,Ø 58 x H 140 mm,24,-,€,58,"19,000",Rp,"1,102,000",,,WH Barito,,,,,
+22,Blueside-margot margarita glass_clear.jpg,BLUESIDE,Tableware,"Margot Margarita Glass
+",BSDN090259,Clear,Ø 140 x H 230 mm,30,-,€,118,"19,000",Rp,"2,242,000",,,WH Barito,,,,,
+23,Blueside-modigliani red wine glass_clear.jpeg,BLUESIDE,Tableware,Modigliani Red Wine Glass,BSDN063971,Clear,Ø 92 x H 320 mm,24,-,€,102,"19,000",Rp,"1,938,000",,,WH Barito,,,,,
+24,Blueside-modigliani red wine glass_clear.jpeg,BLUESIDE,Tableware,Modigliani White Wine Glass,BSDN063969,Clear,Ø 81 x H 260 mm,25,-,€,102,"19,000",Rp,"1,938,000",,,WH Barito,,,,,
+25,Blueside-mood flute glass_clear.jpeg,BLUESIDE,Tableware,Mood Flute Glass,BSDN072873,Clear,Ø 58 x H 225 mm,12,-,€,138,"19,000",Rp,"2,622,000",,,WH Barito,,,,,
+26,Blueside-oscar with teapot_clear.jpeg,BLUESIDE,Tableware,Oscar with teapot,BSDN078132,Clear,"Base Ø 240 x H 190 mm,  Body 250 x H 407mm",1,-,€,"4,730","19,000",Rp,"89,870,000",,,WH Barito,,,,,
+27,Blueside-ottavio water glass_clear.jpg,BLUESIDE,Tableware,Ottavio Water glass,BSBM084627,Clear,Ø 65 x H 75 mm,12,-,€,64,"19,000",Rp,"1,216,000",,,WH Barito,,,,,
+28,Blueside-phil decanter_clear.jpg,BLUESIDE,Tableware,"Phil Decanter, Classic coffee-pot for filter coffee",BSDN082270,Clear,Ø 110 x H 186 mm,5,-,€,158,"19,000",Rp,"3,002,000",,,WH Barito,,,,,
+29,Blueside-phil ninetythree kettle_clear.jpg,BLUESIDE,Tableware,Phil Ninetythree Kettle,BSDN082271,Clear,"Ø 130 x H 225 mm
+without spout",9,-,€,304,"19,000",Rp,"5,776,000",,,WH Barito,,,,,
+30,Blueside-phil ten coffee powder measure_clear.jpg,BLUESIDE,Tableware,"Phil Ten, Coffee Powder Measure",BSDN082272,Clear,20x9x6 cm,4,-,€,72,"19,000",Rp,"1,368,000",,,WH Barito,,,,,
+31,Blueside-philomena glass server_clear.jpg,BLUESIDE,Tableware,Philomena Glass server,BSDN088366,Clear,"overall size
+Ø 170 x L 90 x H 133 mm ",10,-,€,234,"19,000",Rp,"4,446,000",,,WH Barito,,,,,
+32,Blueside-pilaf rice portioner_clear.jpg,BLUESIDE,Tableware,Pilaf Rise Portiner,BSDN087966,Clear,Ø 72 x H 188mm,16,-,€,130,"19,000",Rp,"2,470,000",,,WH Barito,,,,,
+33,Blueside-plustio flute glass_clear.jpeg,BLUESIDE,Tableware,Plustio Flute Glass,BSDN066385,Clear,Ø 50 x H 210 mm,12,-,€,56,"19,000",Rp,"1,064,000",,,WH Barito,,,,,
+34,Blueside-pop cocktail glass_clear.jpg,BLUESIDE,Tableware,Pop Cocktail glass,BSDN090255,Clear,Ø 75 x H 220 mm,28,-,€,104,"19,000",Rp,"1,976,000",,,WH Barito,,,,,
+35,Blueside-sailor baloon_clear.jpg,BLUESIDE,Tableware,Sailor Baloon for spirits and red wines,BSBM080033,Clear,Ø134 x H 161 mm,18,-,€,140,"19,000",Rp,"2,660,000",,,WH Barito,,,,,
+36,Blueside-minishot small glasses_clear.jpeg,BLUESIDE,Tableware,"Small glasses - Minishot
+",BSDN064054,Clear,Ø 57 x H 42 mm,12,-,€,54,"19,000",Rp,"1,026,000",,,WH Barito,,,,,
+37,Blueside-shot small glasses_clear.jpg,BLUESIDE,Tableware,Small glasses - Shot,BSDN064053,Clear,Ø 57 x H 65 mm,12,-,€,54,"19,000",Rp,"1,026,000",,,WH Barito,,,,,
+38,Blueside-shot L tumbler_clear.jpeg,BLUESIDE,Tableware,Shot L Tumbler Glass,BSDN083755,Clear,Ø 75 x H 80 mm,12,-,€,48,"19,000",Rp,"912,000",,,WH Barito,,,,,
+39,Blueside-shot XL tumbler_clear.jpg,BLUESIDE,Tableware,Shot XL Tumbler Glass,BSDN083756,Clear,Ø 75 x H 110 mm,12,-,€,48,"19,000",Rp,"912,000",,,WH Barito,,,,,
+40,Blueside-sospiro glass_clear.jpg,BLUESIDE,Tableware,Sospiro Tavern Glass,BSDN089792,Clear,Ø 50 x H 68 mm,18,-,€,58,"19,000",Rp,"1,102,000",,,WH Barito,,,,,
+41,Blueside-suk glass_clear.jpg,BLUESIDE,Tableware,Suk Glass,BSDN071762,Clear,Ø 95 x H 95 mm,12,-,€,60,"19,000",Rp,"1,140,000",,,WH Barito,,,,,
+42,Blueside-tag saucer warmer_clear.jpg,BLUESIDE,Tableware,Tag Saucer Warmer,BSDP090247,Clear,Ø 80 x L 118 x H 185 mm,4,-,€,378,"19,000",Rp,"7,182,000",,,WH Barito,,,,,
+43,Blueside-tazzazen cafe americano set cup_clear.jpeg,BLUESIDE,Tableware,Tazzazen caffe americano set,BSDR064307,Clear,Ø 75 x H 110mm,12,"Cup, Tazzazen and Stiring Rod",€,74,"19,000",Rp,"1,406,000",,,WH Barito,,,,,
+44,Blueside-tazzazen cappucino or tea cup_clear.jpg,BLUESIDE,Tableware,Tazzazen cappuccino/tea set,BSDN064297,Clear,Ø 75 x H 80 mm,12,"Cup, Tazzazen and Stiring Rod",€,66,"19,000",Rp,"1,254,000",,,WH Barito,,,,,
+45,Blueside-tazzazen espresso cup_clear.jpg,BLUESIDE,Tableware,Tazzazen caffe espresso set,BSDR064308,Clear,Ø 58 x H 65mm,12,"Cup, Tazzazen and Stiring Rod",€,60,"19,000",Rp,"1,140,000",,,WH Barito,,,,,
+46,Blueside-tulipano glass_clear.jpg,BLUESIDE,Tableware,Tulipano Glass,BSDN064286,Clear,Ø 72 x H 110 mm,24,-,€,66,"19,000",Rp,"1,254,000",,,WH Barito,,,,,
+47,Blueside-vinicio decanter_clear2.jpeg,BLUESIDE,Tableware,Vinicio Decanter,BSDN071816,Clear,Ø 184 x H 320 mm,7,-,€,320,"19,000",Rp,"6,080,000",,,WH Barito,,,,,
+48,Blueside-xeno cocktail glass_clear.jpeg,BLUESIDE,Tableware,Xeno Cocktail Glass,BSDN090253,Clear,Ø 105 x H 208 mm,30,-,€,108,"19,000",Rp,"2,052,000",,,WH Barito,,,,,
+49,Blueside-bolina large vase_clear.jpg,BLUESIDE,Vase,Bolina Large Vase,BSDN086424,Clear,Ø 200x 400 mm,4,-,€,992,"19,000",Rp,"18,848,000",,,WH Barito,,,,,Accessories
+50,Blueside-cino vase_clear.jpg,BLUESIDE,Vase,Cino Vase,BSDN085658,Clear,Ø 150 x 68 mm,6,-,€,158,"19,000",Rp,"3,002,000",,,WH Barito,,,,,Accessories
+51,Blueside-nassa vase_clear.jpg,BLUESIDE,Vase,Nassa Vase,BSDN086419,Clear,Ø 100x 300 mm,4,-,€,352,"19,000",Rp,"6,688,000",,,WH Barito,,,,,Accessories
+52,Blueside-tears big flower vase_clear.jpg,BLUESIDE,Vase,Tears Big Flower vase,BSBM069519,Clear,Ø 150 x 400mm,4,-,€,418,"19,000",Rp,"7,942,000",,,WH Barito,,,,,Accessories
+53,Blueside-vasetto tall flower vase_clear.jpg,BLUESIDE,Vase,Vasetti Tall Flower Vase,BSBM084623,Clear,Ø 52 x 200 mm,6,-,€,94,"19,000",Rp,"1,786,000",,,WH Barito,,,,,Accessories
+54,Blueside-vento vase_clear.jpg,BLUESIDE,Vase,Vento Vase,BSDN086422,Clear,Ø 100x 250 mm,4,-,€,290,"19,000",Rp,"5,510,000",,,WH Barito,,,,,Accessories
+55,Callisa-Pillow Small.jpeg,CALLISA,Accessories - Living,Pillow,-,Cover in fabric,60x60 cm,6,Inner + Cover,Rp,"1,750,000",,Rp,"1,750,000",,,Showroom Display,,,,,
+56,Callisa-Verve Bronze Small.jpeg,CALLISA,Accessories - Living,Verve Bronze,-,Cover in fabric,45x45 cm,4,Inner + Cover,Rp,"675,000",,Rp,"675,000",,,Showroom Display,,,,,
+57,Callisa-Verve Persian Small.jpeg,CALLISA,Accessories - Living,Verve Persian,-,Cover in fabric,50X50 cm,4,Inner + Cover,Rp,"900,000",,Rp,"900,000",,,Showroom Display,,,,,
+58,Callisa-Peachy Line Small.jpeg,CALLISA,Accessories - Living,Peachy Line,-,Cover in fabric,50x50 cm,2,Inner + Cover,Rp,"950,000",,Rp,"950,000",,,Showroom Display,,,,,
+59,Callisa-Emerald Pattern Small.jpeg,CALLISA,Accessories - Living,Emerald Pattern,-,Cover in fabric,50X50 cm,2,Inner + Cover,Rp,"950,000",,Rp,"950,000",,,Showroom Display,,,,,
+60,Callisa-Azur Cerulean 45x45 Small.jpeg,CALLISA,Accessories - Living,Azur Cerulean,-,Cover in fabric,45x45 cm,2,Inner + Cover,Rp,"1,750,000",,Rp,"1,750,000",,,Showroom Display,,,,,
+61,Callisa-Azur Sorrel 45x45 Small.jpeg,CALLISA,Accessories - Living,Azur Sorrel,-,Cover in fabric,45x45 cm,2,Inner + Cover,Rp,"1,750,000",,Rp,"1,750,000",,,Showroom Display,,,,,
+62,Callisa-Azur Onyx 45x45 Small.jpeg,CALLISA,Accessories - Living,Azur Onyx,-,Cover in fabric,45x45 cm,2,Inner + Cover,Rp,"1,750,000",,Rp,"1,750,000",,,Showroom Display,,,,,
+63,Callisa-Azur Sorrel 50x30 Small.jpeg,CALLISA,Accessories - Living,Azur Sorrel,-,Cover in fabric,50x30 cm,1,Inner + Cover,Rp,"1,650,000",,Rp,"1,650,000",,,Showroom Display,,,,,
+64,Callisa-Azur Onyx 50x30 Small.jpeg,CALLISA,Accessories - Living,Azur Onyx,-,Cover in fabric,50x30 cm,1,Inner + Cover,Rp,"1,650,000",,Rp,"1,650,000",,,Showroom Display,,,,,
+65,Callisa-Geo Line Small.jpeg,CALLISA,Accessories - Living,Geo Line,-,Cover in fabric,50x30 cm,2,Inner + Cover,Rp,"765,000",,Rp,"765,000",,,Showroom Display,,,,,
+66, ,CALLISA,Accessories - Living,Boho Orange,-,Cover in fabric,45x30 cm,1,Inner + Cover,Rp,"600,000",,Rp,"600,000",,,Showroom Display,,,,,
+67,Callisa-Midnight Angular Small.jpeg,CALLISA,Accessories - Living,Midnight Angular,-,Cover in fabric,50x50 cm,4,Inner + Cover,Rp,"1,250,000",,Rp,"1,250,000",,,Showroom Display,,,,,
+68,Callisa-Rhythmic Blocks Small.jpeg,CALLISA,Accessories - Living,Rhythmic Blocks,-,Cover in fabric,50x50 cm,2,Inner + Cover,Rp,"1,500,000",,Rp,"1,500,000",,,Showroom Display,,,,,
+69,Callisa-Etched Grid Small.jpeg,CALLISA,Accessories - Living,Etched Grid,-,Cover in fabric,50x50 cm,2,Inner + Cover,Rp,"1,500,000",,Rp,"1,500,000",,,Showroom Display,,,,,
+70,Callisa-Diamonback Small.jpeg,CALLISA,Accessories - Living,Diamonback,-,Cover in fabric,45x45 cm,2,Inner + Cover,Rp,"800,000",,Rp,"800,000",,,Showroom Display,,,,,
+71,Callisa-Tartan Twist.jpg,CALLISA,Accessories - Living,Tartan Twist,-,Cover in fabric,50x50 cm,2,Inner + Cover,Rp,"1,750,000",,Rp,"1,750,000",,,Showroom Display,,,,,
+72,Callisa-Azur Terra 50x50 cm.jpg,CALLISA,Accessories - Living,Azur Terra,-,Cover in fabric,50x50 cm,2,Inner + Cover,Rp,"2,000,000",,Rp,"2,000,000",,,Showroom Display,,,,,
+73,Callisa- Azur Mirage 50x50.jpeg,CALLISA,Accessories - Living,Azur Mirage,-,Cover in fabric,50x50 cm,2,Inner + Cover,Rp,"2,000,000",,Rp,"2,000,000",,,Showroom Display,,,,,
+74,Officine Gullo-prized walnut chopping board_wood.jpg,GULLO,Accessories - Kitchen,Prized Walnut Chopping Board,4TW17080008G,Solid Walnut Wood,-,,-,€,856,"19,000",Rp,"16,260,200",,,Lenore Display,,,,,Accessories
+75,Officine Gullo-semi recessed with step wash basin_brushed stainless steel.jpg,GULLO,Accessories - Kitchen,Semi-recessed Washbasin w/ single sink and step for tap,1A012010015A,Brushed Stainless Steel,900 x 583 x 180 mm,,"including stainless steel dish rack, Arc x Grill Drainer, and soap dish",€,"11,998","19,000",Rp,"227,962,000",,,Lenore Display,,,,,Accessories
+76,Officine Gullo-tap with arc petal handles_burnished brass.jpg,GULLO,Accessories - Kitchen,Single-hole Countertop Tap w/Arc Spout and Petal Handles,2A011N50027A,Solid Satin Nickeled Brass,-,,-,€,"3,025","19,000",Rp,"57,475,000",,,Lenore Display,,,,,Accessories
+77,Officine Gullo-jar set 5 pcs_copper.jpg,GULLO,Accessories - Kitchen,Set of 5 Copper Jars w/ English captions,4TW24060003F,Copper,-,,-,€,"1,144","19,000",Rp,"21,736,000",,,Lenore Display,,,,,Accessories
+78,Officine Gullo-pan set 4 pcs_copper.jpg,GULLO,Accessories - Kitchen,4 Copper Pan Set ,1TW26069002A,Copper,-,,-,€,"5,557","19,000",Rp,"105,586,800",,,Lenore Display,,,,,Accessories
+79,Officine Gullo-professional knife set_stainless.jpg,GULLO,Accessories - Kitchen,"Professional Knife Set, w/ Forged steel blades",1TW18990011A,Stainless Steel,-,,-,€,"3,777","19,000",Rp,"71,770,600",,,Lenore Display,,,,,Accessories
+80,Officine Gullo-knife block for 6 knives_solid oak.jpg,GULLO,Accessories - Kitchen,"Knife Block, w/ 6 holes for knives ",1TW17990001A,"Solid Oak Wood, Structure in Brass",-,,-,€,"1,430","19,000",Rp,"27,170,000",,,Lenore Display,,,,,Accessories
+81,Officine Gullo-shelf 5 rods 2000mm_burnished brass.jpg,GULLO,Accessories - Kitchen,Solid Brass Shelf w/ 5 Oval rods,1A024050016A,Brass,2000 mm,,-,€,"3,463","19,000",Rp,"65,791,110",,,Lenore Display,,,,,Accessories
+82,Officine Gullo-chopping board 60x40_laminated ash.jpg,GULLO,Accessories - Kitchen,Countertop Chopping Board ,4TW17080010G,Ash Wood w/ vertical grain and treated w/ oil,600 x 400 mm,,-,€,"1,423","19,000",Rp,"27,044,600",,,Lenore Display,,,,,Accessories
+83,Officine Gullo-soap stone chopping board_wood.jpg,GULLO,Accessories - Kitchen,Carved Soapstone Chopping Board,1TW17990002A,Stainless Steel support,-,,-,€,946,"19,000",Rp,"17,974,000",,,Lenore Display,,,,,Accessories
+84,Officine Gullo-OGS 128 Professional_platinum matte gunmetal.jpg,GULLO,Kitchen Appliances,OGS 128 Cooking Range,1M000ZV0001A,"Trim in Gunmetal, Structure in Platinum - Matte (14-0961O)",W. 128 cm,1,"128 cm Structure with 80 cm Electric Oven and 40 cm Cabinet Door, Gas Type : LPG",€,"78,426","19,000",Rp,"1,490,096,090",,,Showroom Display,,,,,
+85,Officine Gullo-FIORENTINA cooking range 122_cashew matte burnished copper.jpg,GULLO,Kitchen Appliances,Fiorentina 120 Dual Fuel - Glass Door,1M002ZV0012A,"Trim in Burnished Copper, Structure in Cashew - Matte (03-3286O)",W.122 cm,1,"6 burner positions with a 5 in 1 Crescendo burner, and with two self-cleaning convection ovens ",€,"54,545","19,000",Rp,"1,036,348,236",,,Showroom Display,,,,,
+86,Officine Gullo-FIORENTINA cooking range 91_vanilla frost glossy satin nickel.jpg,GULLO,Kitchen Appliances,Fiorentina 90 Dual Fuel - Solid Door,1M002ZV0003A,"Trim in Satin Nickel, Structure in Vanilla Frost - Glossy (03-1489L)",W. 91cm,1,"6 burners and multifunction electric oven with extra-large
+capacity (161 liters)",€,"38,501","19,000",Rp,"731,514,630",,,Showroom Display,,,,,
+87,Restart 90 arrancia x chrome.jpg,GULLO,Kitchen Appliances,Restart 90 cm 1 Oven - Solid Door,1M003ZV0011A,"Trim in Polished Chrome, Structure in Arancia di Sicilia - Glossy (03-1489L)",W. 90 cm,1,5 burners + electric oven,€,"19,491","19,000",Rp,"370,335,080",,,Showroom Display,,,,,
+88,OGS island hood custom-matcha.jpg,GULLO,Kitchen Appliances,High Bell Island Professional Hood,1MCCPP025IS,"Trim in Gold 24K, Structure in Matcha - Glossy (07-2361L)","W. 240, D.150 cm",,Customize Hood,€,"152,060","19,000",Rp,"2,889,141,520",,,Lenore Display,,,,,
+89,Gullo - Straight Side Pyramid Hood_platinum x gun metal.jpeg,GULLO,Kitchen Appliances,Straight Side Pyramid Professional Hood,1M007ZV0007A,"Trim in Gunmetal, Structure in Platinum - Matte (14-0961O)
+",W. 128 cm,1,Hood for wall installation,€,"31,415","19,000",Rp,"596,890,510",,,WH Semarang,,,,,
+90,Officine Gullo-blast chiller_matcha glossy gold 24k.jpg,GULLO,Kitchen Appliances,Blast Chiller ,1E006IX0001A,"Trim in Gold 24K, Structure in Matcha - Glossy (07-2361L)","W. 60 cm, H. 60 cm",,Cladding + Appliances,€,"20,875","19,000",Rp,"396,625,570",,,Lenore Display,,,,,
+91,Officine Gullo-Gaggenau built in multifunction oven_200 series.jpg,GULLO,Kitchen Appliances,Gaggenau Series 200 Built-in Multifunction Oven,1E005GG0001A,,"W. 60 cm, H. 60 cm",,Appliances Only,€,"7,660","19,000",Rp,"145,547,600",,,Lenore Display,not for sale,,,,
+92,Officine Gullo-cladding multifunction oven gaggenau 200 series_matcha glossy gold 24k.jpg,GULLO,Kitchen Appliances,Cladding for Multifunction Oven Gaggenau 200 series,1CL05GG0001A,"Trim in Gold 24K, Structure in Matcha - Glossy (07-2361L)","W. 60 cm, H. 60 cm",,Cladding Only,€,"7,663","19,000",Rp,"145,604,030",,,Lenore Display,,,,,
+93,Officine Gullo-gaggenau built in combi steam_series 200.jpg,GULLO,Kitchen Appliances,Gaggenau Series 200 Built-in Combi-Steam ,1E005GG0008A,,"W. 60 cm, H. 60 cm",,Appliances Only,€,"10,628","19,000",Rp,"201,935,800",,,Lenore Display,not for sale,,,,
+94,Officine Gullo-cladding combi steam oven gaggenau 200 series_matcha glossy gold 24k.jpg,GULLO,Kitchen Appliances,Cladding for Combi-Steam Oven Gaggenau 200 series ,1CL05GG0008A,"Trim in Gold 24K, Structure in Matcha - Glossy (07-2361L)","W. 60 cm, H. 60 cm",,Cladding Only,€,"7,033","19,000",Rp,"133,634,600",,,Lenore Display,,,,,
+95,Officine Gullo-Gaggenau Single Door Refrigerator_400 series.jpg,GULLO,Kitchen Appliances,Gaggenau Series 400 Single Door Refrigerator,1E006GG0008A,,W. 75 cm,,Appliances Only,€,"20,511","19,000",Rp,"389,701,400",,,Lenore Display,not for sale,,,,
+96,Officine Gullo-cladding single door fridge gaggenau 400 series_matcha glossy gold 24k.jpg,GULLO,Kitchen Appliances,Cladding for Single Door Refrigerator Gaggenau 400 series ,1CL06GG00009A,"Trim in Gold 24K, Structure in Matcha - Glossy (07-2361L)",W. 75 cm,,Cladding Only,€,"14,904","19,000",Rp,"283,180,370",,,Lenore Display,,,,,
+97,Officine Gullo-Gaggenau Single Door Freezer_400 series.jpg,GULLO,Kitchen Appliances,Gaggenau Series 400 Single Door Freezer,1E006GG0009A,,W. 75 cm,,Appliances Only,€,"21,285","19,000",Rp,"404,415,000",,,Lenore Display,not for sale,,,,
+98,Officine Gullo-cladding single door freezer gaggenau 400 series_matcha glossy gold 24k.jpg,GULLO,Kitchen Appliances,Cladding for Single Door Freezer Gaggenau 400 series ,1CL06GG0013A,"Trim in Gold 24K, Structure in Matcha - Glossy (07-2361L)",W. 75 cm,,Cladding Only,€,"14,904","19,000",Rp,"283,180,370",,,Lenore Display,,,,,
+99,Officine Gullo-gaggenau tempered wine cellar_series 400.jpg,GULLO,Kitchen Appliances,Gaggenau Serie 400 Tempered Wine Cellar ,1E006GG0010A,,"W. 60 cm, H. 45 cm",,Appliances Only,€,"16,867","19,000",Rp,"320,480,600",,,Lenore Display,not for sale,,,,
+100,Officine Gullo-cladding wine cellar gaggenau 400 series_matcha glossy gold 24k.jpg,GULLO,Kitchen Appliances,Cladding for Wine Cellar Gaggenau 400 series ,1CL06GG0007A,"Trim in Gold 24K, Structure in Matcha - Glossy (07-2361L)","W. 60 cm, H. 45 cm",,Cladding Only,€,"16,329","19,000",Rp,"310,243,780",,,Lenore Display,,,,,
+101,OGS island custom-matcha.jpg,GULLO,Kitchen Appliances,OGS Tailor Made Professional Island Cooking Machine,1MC00ZV0007A-1MC00ZV0006A,"Trim in Gold 24K, Structure in Matcha - Glossy (07-2361L)",240 x 150 x H.90 cm,,Customize Island,€,"278,845","19,000",Rp,"5,298,055,000",,,Lenore Display,,,,,
+102,Officine Gullo-Gaggenau Coffee Machine_200 series.jpg,GULLO,Kitchen Appliances,Gaggenau Coffee Machine 200 Series ,1E009GG0001A,,"W. 60 cm, H. 60 cm",,Appliances Only,€,"8,034","19,000",Rp,"152,653,600",,,Lenore Display,not for sale,,,,
+103,Officine Gullo-cladding coffee machine gaggenau 200 series_matcha glossy gold 24k.jpg,GULLO,Kitchen Appliances,Cladding for Coffee Machine Gaggenau 200 series,1CL09GG0001A,"Trim in Gold 24K, Structure in Matcha - Glossy (07-2361L)","W. 60 cm, H. 60 cm",,Cladding Only,€,"6,682","19,000",Rp,"126,952,870",,,Lenore Display,,,,,
+104,Pianca-Peonia cushion_jazz 30.jpg,PIANCA,Accessories - Living,Peonia Cushion,99PE760/H.JZ30,Fabric Jazz 30 - Cat. H,600 x 600 mm,1,Cushion cover with inner ,€,456,"19,000",Rp,"8,664,000",,,Showroom Display,,,,,
+105,Pianca-Peonia cushion_pasca 11.jpg,PIANCA,Accessories - Living,Peonia Cushion,99PE735/C.PC11,Fabric Pasca 11 - Cat. C,600 x 350 mm,1,Cushion cover with inner ,€,256,"19,000",Rp,"4,864,000",,,Showroom Display,,,,,
+106,Pianca contralto hanger.jpeg,PIANCA,Accessories - Night,Contralto Valet,35LSG,"Tray Finish Wood Borgogna, Structure Matt Titanio, Mirror Argento, Base Terrazo Rugantino",470 x 380 x 1640 mm,1,-,€,"5,424","19,000",Rp,"103,056,000",,,Showroom Display,,,,,
+107,Pianca-All In armchair_jazz 30 & rovere borgogna.jpg,PIANCA,Armchair,All-in,D9AL060/H.A_SP,"Fabric Jazz 30 - Cat H, Legs in Wood Rovere Borgogna",1070 x 760 x 735 mm,,-,€,"7,338","19,000",Rp,"139,422,000",,,Lenore Display,,,,,Loose Furnitures
+108,Pianca-Naan armchair with swivel_Polo 14.jpg,PIANCA,Armchair,Naan,D9NA000/H.KO,"Leather Polo 14 - Cat. H, Base in Matt Nero Metal",830 x 760 x 690 mm,2,with swivel base,€,"5,196","19,000",Rp,"98,724,000",,,Showroom Display,,,,,Loose Furnitures
+109,"Pianca-Ella armchair fixed base_doge 22, jazz 30, ottone anticato.jpg",PIANCA,Armchair,Ella ,D9EL080/H.9N,"External Finish Leather Doge 22, Internal Finish Fabric Jazz 30 - Cat. H, Base Matt Ottone Antico ",800 x 820 x 850 mm,1,-,€,"5,014","19,000",Rp,"95,266,000",,,Showroom Display,,,,,Loose Furnitures
+110,Pianca-Calatea armchair_lord 87 & velvet 11.jpg,PIANCA,Armchair,Calatea,D9CA010/P.RB,"Lord Leather 87, Fabric Velvet 11 - Cat. P ",750 x 910 x 940 mm,1,"Armchair only, sold seperately with ottoman",€,"6,630","19,000",Rp,"125,970,000",,,Showroom Display,,,,,Loose Furnitures
+111,Pianca-Calatea ottoman_lord 87 & velvet 11.jpg,PIANCA,Armchair,Calatea,D9CA070/P.RB,"Lord Leather 87, Fabric Velvet 11 - Cat. P ",640 x 530 x 440 mm,1,"Ottoman only, sold seperately with armchair",€,"2,470","19,000",Rp,"46,930,000",,,Showroom Display,,,,,Loose Furnitures
+112,Pianca-Embrace bed_leather vintage 31.jpg,PIANCA,Bed,Embrace,WEMR37N/PY,Vintage Leather 31,2060 x 2300 x 942 mm,1,for mattres 180 x 200,€,"8,806","19,000",Rp,"167,314,000",20%+20%,"107,080,960",Showroom Display,,,,,Loose Furnitures
+113,Pianca-Abaco coffee table 60cm_top & structure in titanio.jpg,PIANCA,Coffee Table,Abaco,T0A6A/THTH,"Top in Matt Titanio Metal, Structure in Matt Titanio Metal ",D 600 x 450 mm,1,-,€,"2,208","19,000",Rp,"41,952,000",,,Showroom Display,,,,,Loose Furnitures
+114,Pianca-Abaco coffee table 90cm_top marble carrara & structure in titanio.jpg,PIANCA,Coffee Table,Abaco,T0A90/TH9W,"Top in Gioia Di Carrara Glossy Marble, Structure in Matt Titanio Metal",D 900 x 180 mm,1,-,€,"2,564","19,000",Rp,"48,716,000",,,Showroom Display,,,,,Loose Furnitures
+115,Pianca-Abaco coffee table 76cm_top hermes hard leather & structure in titanio.jpg,PIANCA,Coffee Table,Abaco,T0A7B/THD0,"Top in Hermes Hard Leather, Structure in Matt Titanio Metal ",D 760 x 300 mm,1,-,€,"2,032","19,000",Rp,"38,608,000",,,Showroom Display,,,,,Loose Furnitures
+116,Pianca-Scacco high coffee table 43cm_top linoleum nebbia & structure frassino nero.jpg,PIANCA,Coffee Table,Scacco,249904/P5JE,"Top in Linoleum Nebbia, Structure in Frassino Nero Wood",D 430 x 450 mm,2,High Coffee Table,€,"3,092","19,000",Rp,"58,748,000",,,Showroom Display,,,,,Loose Furnitures
+117,Pianca-Scacco coffee table 63cm_top linoleum chequerboard & structure frassino nero.jpg,PIANCA,Coffee Table,Scacco,249907/P5JE,"Top in Linoleum Nebbia W/ Chequerboard Pattern, Structure in Frassino Nero Wood",D 630 x 450 mm,1,High Coffee Table,€,"3,890","19,000",Rp,"73,910,000",,,Showroom Display,,,,,Loose Furnitures
+118,Pianca contralto low.jpeg,PIANCA,Coffee Table,Contralto,35LTB/9G9NRBVD,"Wood Borgogna, Matt Onice",D. 380 x 450 mm,1,Low Coffee Table,€,"1,900","19,000",Rp,"36,100,000",,,Showroom Display,,,,,Loose Furnitures
+119,Pianca-Fushimi coffee table_fior di pesco & borgogna.jpg,PIANCA,Coffee Table,Fushimi,T0K72/9SRB,"Fior di Pesco Marble Glossy, Structure: Wood Borgogna",1200 x 750 x 420 mm,1,-,€,"4,844","19,000",Rp,"92,036,000",,,Showroom Display,,,,,Loose Furnitures
+120,"Pianca-Orchestra with armrest_jazz 11, borgogna.jpg",PIANCA,Dining Chair,Orchestra,01148/RBJZ11,"Fabric Jazz 1 - Cat H, Legs in Wood Rovere Borgogna",570 x 550 x 810 mm,,with armrest,€,"2,354","19,000",Rp,"44,726,000",,,Lenore Display,,,,,Loose Furnitures
+121,"Pianca-Ettore round table with lazy susan_fior di pesco, high gloss ecru, glossy titanio.jpg",PIANCA,Dining Table,Ettore,TOR140/9T5K9T,"Top Finish Fior Di Pesco Matt Mable, Lazy Suzan Fior Di Pesco Matt Marble, Pedestal High Gloss Ecru, Base Glossy Titanio",D. 1400 x 740 mm,1,with lazy susan,€,"14,892","19,000",Rp,"282,948,000",20%+20%,"181,086,720",Showroom Display,,,,,Loose Furnitures
+122,Pianca-Cubo_jazz 30.jpg,PIANCA,Ottoman,Cubo,D9CU845/H.PN,Fabric Jazz 30 - Cat. H,450 x 450 x 430 mm,1,-,€,972,"19,000",Rp,"18,468,000",,,Showroom Display,,,,,Loose Furnitures
+123,"Pianca-Cornice sideboard 2100 H 700_borgogna, cashmere, synthetic leather creta.jpg",PIANCA,Sideboard,Cornice,,"Top Finish Synthetic Leather Creta, Back Finish Wood Borgogna, Interior Finish Matt Cashmere, Door Finish Wood Borgogna, Shelf Finish Tramsparemt Glass",2100 x 450 x 700 mm,1,-,€,"8,742","19,000",Rp,"166,098,000",,,Showroom Display,,,,,Loose Furnitures
+124,Pianca-delano sofa.jpg,PIANCA,Sofa ,Delano Up,D9DP992/H,"Fabric Mimosa 05 - Cat. A, Triangular Corner Ottoman in Leather Polo 14 - Cat. H",4830 x 990 x 720 mm,1,Structure in removable fabric/leather,€,"17,822","19,000",Rp,"338,618,000",20%+20%,"216,715,520",WH Pintu Air,,,,,Loose Furnitures
+125,Pianca-Peonia Sofa.jpeg,PIANCA,Sofa ,Peonia,D9PE291S/C.KO,"Fabric Malva 09 - Cat. C, Base Metal Matt Black",2898 x 1465 x 801 mm,1,Structure in non removable fabric,€,"11,648","19,000",Rp,"221,312,000",,,Showroom Display,,,,,Loose Furnitures
+126,"Pianca-Chloe vanity with mirror_matt ecru, doge 22, ottone anticato.jpg",PIANCA,Vanity,Chloe,2U39FX/PH5D,"Top Finish Matt Ecru, Structure Leather Doge 22, Mirror Matt Ottone Anticato",1170 x 550 x 915 mm,1,-,€,"7,284","19,000",Rp,"138,396,000",20%+20%,"88,573,440",Showroom Display,,,,,Loose Furnitures
+127,Pianca-Anteprima & island up.jpg,PIANCA,Wardrobe,Anteprima & Island Up,,,"Anteprima W 3850 x D 1965 x H 2897 mm, Island Up W 1437.5 x D 574 x H 950 mm
+W 1437.5 x D 574 x H 950 mm",1,-,€,"37,112","19,000",Rp,"705,128,000",,,Showroom Display,,,,,
+128,Oltre Miror 35HDD.jpeg,PIANCA,,Oltre Miror 35HDD,,"Mirror in Argento, Bronzo & Piombo",W 1200 x H 2300 x D 59mm,1,-,€,"2,894","19,000",Rp,"54,986,000",,,WH Pintu Air,,,,,
+129,Slamp Hugo Floor.jpeg,SLAMP,Floor Lamps,Hugo,HUGFM00PRS00000000EU,"Integrated LED, with integrated Dimmer, soft touch, dimming system, Lentiflex, Prisma",D. 9/32  x H. 207 cm,3,"40W - 7.000 lmn, 3000K, CRI >90
+Integrated LED with integrated Dimmer, soft touch dimming system",€,"2,700","19,000",Rp,"51,300,000",,,Showroom Display,,,,,Lamps
+130,Slamp Modula Floor Twisted Black-Crystal.jpg,SLAMP,Floor Lamps,Modula Floor Twisted,MODFM00PRB000TW000EU,"Lentiflex, ABS, Crystal-Black",D. 10/30  x H. 194 cm ,1,"Integrated LED, with integrated Dimmer",€,"1,600","19,000",Rp,"30,400,000",,,Showroom Display,,,,,Lamps
+131,Slamp Modula Floor Twisted Black-Plisse.jpg,SLAMP,Floor Lamps,Modula Floor Twisted,MODFM00PRB000TW000EU,"Lentiflex, ABS, Plisse-Black",D. 10/30  x H. 194 cm,1,"Integrated LED, with integrated Dimmer",€,"1,600","19,000",Rp,"30,400,000",,,Showroom Display,,,,,Lamps
+132,accordeon black.jpg,SLAMP,Portable Lamps,Accordeon Battery,ACRT000PRB000BT000EU,"Lentiflex, anodized aluminium, Prisma Black Base","D. 8,5/13 x H. 32,7 cm",2,"1,3 W, 150 lm, 2700K, with Integrated Dimmer",€,560,"19,000",Rp,"10,640,000",,,Showroom Display,,,,,
+133,accordeon white.jpg,SLAMP,Portable Lamps,Accordeon Battery,ACRT000PRW000BT000EU,"Lentiflex, anodized aluminium, Prisma White Base","D. 8,5/13 x H. 32,7 cm",3,"1,3 W, 150 lm, 2700K, with Integrated Dimmer",€,560,"19,000",Rp,"10,640,000",,,Showroom Display,,,,,
+134,mama non mama gold-white.jpg,SLAMP,Portable Lamps,Clizia Battery,CLIT000GNM000BDWHBEU,"Lentiflex, anodized aluminium, Mama non Mama Gold",D. 27 x H. 25 cm,2,"1,3 W, 150 lm, 2700K, with Integrated Dimmer",€,620,"19,000",Rp,"11,780,000",,,Showroom Display,,,,,
+135,mama non mama black-black.jpg,SLAMP,Portable Lamps,Clizia Battery,CLIT000BNM000BD000EU,"Lentiflex, anodized aluminium, warna Mama non Mama Black",D. 27 x H. 25 cm,3,"1,3 W, 150 lm, 2700K, with Integrated Dimmer",€,550,"19,000",Rp,"10,450,000",,,Showroom Display,,,,,
+136,mama non mama white-white.jpg,SLAMP,Portable Lamps,Clizia Battery,CLIT000MNM000BD000EU,"Lentiflex, anodized aluminium, warna Mama non Mama White",D. 27 x H. 25 cm,3,"1,3 W, 150 lm, 2700K, with Integrated Dimmer",€,550,"19,000",Rp,"10,450,000",,,Showroom Display,,,,,
+137,la fleur velvet.jpg,SLAMP,Portable Lamps,La Fleur Battery,LAFT000VLV000BT000EU,"Lentiflex, Copper Wire,Velvet, Dark Base ",D. 15 x H. 26 cm,2,"1,3 W, 150 lm, 2700K, with Integrated Dimmer",€,460,"19,000",Rp,"8,740,000",,,Showroom Display,,,,,
+138,tulip battery black.jpg,SLAMP,Portable Lamps,Tulip Battery ,TULT000PRS000BDBLBEU,"Lentiflex, Anodized Aluminium, Prisma, Brass, Matte Black Base","8,5 x 15 x H. 38 cm",3,"1,3 W, 150 lm, 3000K, with Integrated Dimmer",€,440,"19,000",Rp,"8,360,000",,,Showroom Display,,,,,
+139,tulip battery white.jpg,SLAMP,Portable Lamps,Tulip Battery ,TULT000PRS000BDWHBEU,"Lentiflex, Anodized Aluminium, Prisma, Brass, Matte White Base","8,5 x 15 x H. 38 cm
+",4,"1,3 W, 150 lm, 3000K, with Integrated Dimmer",€,440,"19,000",Rp,"8,360,000",,,Showroom Display,,,,,
+140,Slamp-Nuvem Suspension Module_Velvet.jpg,SLAMP,Suspending Lamps,Nuvem Suspension Module,NUVS000VLV06TNS000E,"Opalflex or Lentiflex, velvet",102 x 94 x H. 6 cm,,Modules without Led,€,760,"19,000",Rp,"14,440,000",,,Lenore Display,,,,,Lamps
+141,slamp-nuvem led spotlight.jpg,SLAMP,Suspending Lamps,Nuvem Suspension Spotlight,ACC00SPO0000VLNUV,"Dimmable bulbs, Velvet",D. 6 x x H. 17 cm,8,"2 x 8W GU10 LED PAR 16 with dimmable bulbs, included 6M Cable Kit and wire anchor for ceiling attachment",€,400,"19,000",Rp,"7,600,000",,,WH Barito,,,,,Lamps
+142,Slamp-Accordeon Vertical_Gold.jpg,SLAMP,Suspending Lamps,Accordeon Vertical,ACRSS00GLD01B00NMTEU,"Lentiflex, Lentiflex with cold foil, Gold",D.11 x H. 30 cm,2,"1 x 6 W E14 LED, included 6M Cable Kit",€,680,"19,000",Rp,"12,920,000",,,WH Barito,,,,,Lamps
+143,Slamp-Accordeon Vertical_Prisma.jpg,SLAMP,Suspending Lamps,Accordeon Vertical,ACRSS00PRS01B00000EU,"Lentiflex, Lentiflex with cold foil, Prisma",D.11 x H. 30 cm,2,"2 x 6 W E14 LED, included 6M Cable Kit",€,590,"19,000",Rp,"11,210,000",,,WH Barito,,,,,Lamps
+144,Slamp-Aria Suspension Small_Gold.jpg,SLAMP,Suspending Lamps,Aria Suspension Small,ARISS00GLD01T00E27EU,"Dimmable bulbs, Cristalflex, Lentiflex, Gold",D.50 x H. 75 cm ,1,"2 x 12 W E27 LED Filament Bulbs + 1 x 7 W Spot LED PAR 20 with dimmable bulbs, included 6M Cable Kit",€,"4,610","19,000",Rp,"87,590,000",,,Showroom Display,,,,,Lamps
+145,Slamp-Aria Suspension Medium_Transparent.jpg,SLAMP,Suspending Lamps,Aria Suspension Medium,ARISM00TRS01T00E27EU,"Dimmable bulbs, Cristalflex, Lentiflex, Transparent ", D.60 x H. 90 cm ,1,"3 x 12 W E27 LED Filament Bulbs + 1 x 7 W Spot LED PAR 20 with dimmable bulbs, included 6M Cable Kit",€,"2,950","19,000",Rp,"56,050,000",,,Showroom Display,,,,,Lamps
+146,Slamp-Aria Suspension Large_Transparent.jpg,SLAMP,Suspending Lamps,Aria Suspension Large,ARISL00TRS01T00E27EU,"Dimmable bulbs, Cristalflex, Lentiflex, Transparent ", D.70 x H. 115 cm ,2,"4 x 12 W E27 LED Filament Bulbs + 1 x 7 W Spot LED PAR 20 with dimmable bulbs, included 6M Cable Kit",€,"4,180","19,000",Rp,"79,420,000",,,Showroom Display,,,,,Lamps
+147,Slamp-Avia Suspension Medium_White.jpg,SLAMP,Suspending Lamps,Avia Suspension Medium,AVISM00WHF01T000000EU,"Dimmable bulbs, Cristalflex, Lentiflex, White Fade",D.52 x H. 100 cm,1,"3 x 12 W E27 LED Filament Bulbs + 1 x 7 W Spot LED PAR 20 with dimmable bulbs, included 6M Cable Kit",€,"2,850","19,000",Rp,"54,150,000",,,WH Pintu Air,,,,,Lamps
+148,Slamp-Avia Suspension XL_White.jpg,SLAMP,Suspending Lamps,Avia Suspension XL,AVISXL0WHF01T000000EU,"Dimmable bulbs, Cristalflex, Lentiflex, White Fade",D.75 x H. 140 cm ,1,"6 x 12 W E27 LED Filament Bulbs + 1 x 11 W Spot LED PAR 20 with dimmable bulbs, included 6M Cable Kit",€,"5,350","19,000",Rp,"101,650,000",,,WH Pintu Air,,,,,Lamps
+149,Slamp-Clizia Suspension Large_Fume.jpg,SLAMP,Suspending Lamps,Clizia Suspension Large,CLISL00FUM01T00000EU,"Dimmable bulbs, Lentiflex, Cristalflex, Opalflex, Fume",D.78 x H. 28 cm,2,"4 x 12 W E27 LED Filament Bulbs with dimmable bulbs, included 6M Cable Kit Transparent Wire",€,"1,460","19,000",Rp,"27,740,000",,,WH Pintu Air,,,,,Lamps
+150,Slamp-Clizia Suspension Large_Pixel.jpg,SLAMP,Suspending Lamps,Clizia Suspension Large,CLISL00PXL01T00000EU,"Dimmable bulbs, Lentiflex, Cristalflex, Opalflex, Pixel",D.78 x H. 28 cm,1,"4 x 12 W E27 LED Filament Bulbs with dimmable bulbs, included 6M Cable Kit Transparent Wire",€,"1,590","19,000",Rp,"30,210,000",,,WH Barito,,,,,Lamps
+151,Slamp-Cordoba Suspension.jpg,SLAMP,Suspending Lamps,Cordoba Suspension,CRDSM00WHT06T00000EU,"Integrated LED, Dimmable: PWM, 0-10 or Potentimeter, Cristalflex, White",104 x 76  x H. 55 cm,1,"130W - 15.000 lmn, 3000K, CRI >90, Integrated LED, Dimmable : PWM, 0-10 or Potentimeter, included 6M Cable Kit",€,"5,940","19,000",Rp,"112,860,000",,,WH Pintu Air,,,,,Lamps
+152,Slamp-La Belle Etoile Suspension Large_White.jpg,SLAMP,Suspending Lamps,La Belle Etoile Suspension Large,ETOSL00WHT01T00LEDEU,"Integrated LED, Dimmable: PWM, 0-10, Lentiflex, White",D. 90  x H. 55 cm,2,"21W - 2.830 lmn, 2700K, CRI >90, Integrated LED, Dimmable : PWM, 0-10, included 6M Cable Kit",€,"1,910","19,000",Rp,"36,290,000",,,Showroom Display,,,,,Lamps
+153,Slamp-La Belle Etoile Suspension Small_White.jpg,SLAMP,Suspending Lamps,La Belle Etoile Suspension Small,ETOSS00WHT01T00LEDEU,"Integrated LED, Dimmable: PWM, 0-10, Lentiflex, White",D. 73  x H. 43 cm,2,"25W - 3.500 lmn, 3000K, CRI >90, Integrated LED, Dimmable : PWM, 0-10, included 6M Cable Kit",€,"1,740","19,000",Rp,"33,060,000",,,WH Pintu Air,,,Lissa,27-Oct-2025,Lamps
+154,Slamp-Hugo Suspension Vertical.jpeg,SLAMP,Suspending Lamps,Hugo Vertical Suspension,HUGS000PRS01TVT000EU,"Integrated LED, Dimmable: PWM, 0-10, Lentiflex, Prisma",9 x 100  x H. 9 cm,2,"25W - 3.500 lmn, 3000K, CRI >90, Integrated LED, Dimmable : PWM, 0-10, included 6M Cable Kit",€,"1,300","19,000",Rp,"24,700,000",,,WH Pintu Air,,,,,Lamps
+155,Slamp-Hugo Suspension Architectural 3.jpg,SLAMP,Suspending Lamps,Hugo Architectural 3 Supension,HUGSSS3PRS01TAR000EU,"Integrated LED, Dimmable: PWM, 0-10, Lentiflex, Prisma",9 x 100  x H. 9 cm  (x3 lighting),1,"60W - 10.500 lmn, 3000K, CRI >90, Integrated LED, Dimmable : PWM, 0-10, included 6M Cable Kit and Magnetic Alignment Rod",€,"3,780","19,000",Rp,"71,820,000",,,Showroom Display,,,,,Lamps
+156,Slamp-Tulip Suspension 14 Freestanding.jpg,SLAMP,Suspending Lamps,Tulip Suspenion 14 ,TULSL00PRS03CLDRNCEU,"Integrated LED, Dimmable: PWM, 0-10, Lentiflex, Prisma, Matt Brushed Brass",D. 5x H. 40 cm,1,"14 x 3,2 W - 6.300 lmn, 3000K, Integrated LED, Dimmable : PWM, 0-10, included 6M Cable Kit  ",€,"4,400","19,000",Rp,"83,600,000",,,Showroom Display,,,,,Lamps
+157,Slamp-Veli Suspension Large_Aurea.jpg,SLAMP,Suspending Lamps,Veli Suspension Large,VELSL00WHG01R00000EU,"Dimmable Bulbs, Lentiflex with cold foils, Aurea
+",D. 60  x H. 50 cm,1,"4 x 12 W  E 27 LED Filament Bulbs, 3000K with Dimmable Bulbs, included 6M Cable Kit Transparent Wire ",€,"1,410","19,000",Rp,"26,790,000",,,Showroom Display,,,,,Lamps
+158,Slamp-Veli Suspension Medium_Aurea.jpg,SLAMP,Suspending Lamps,Veli Suspension Medium,VELSS00WHG01T00000EU,"Dimmable Bulbs, Lentiflex with cold foils, Aurea
+",D. 42  x H. 36 cm,1,"2 x 12 W  E 27 LED Filament Bulbs, 3000K with Dimmable Bulbs, included 6M Cable Kit Transparent Wire ",€,940,"19,000",Rp,"17,860,000",,,WH Barito,,,,,Lamps
+159,Slamp-Clizia Table_Gold-White.jpg,SLAMP,Table Lamps,Clizia Table,CLITS00GNM00000WHBEU,"Lentiflex, Cristalflex, Cristalflex with cold foil, Mama non Mama Gold, Light Base",D. 27 x H. 25 cm,3,"1 x 6 W E14 LED, Not Dimmable",€,460,"19,000",Rp,"8,740,000",,,Showroom Display,,,,,Lamps
+160,Slamp-Clizia Table_Black.jpg,SLAMP,Table Lamps,Clizia Table,CLITS00BNM00000000EU,"Lentiflex, Cristalflex, Cristalflex with cold foil, Mama non Mama Black, Dark Base ",D. 27 x H. 25 cm,3,"1 x 6 W E14 LED, Not Dimmable",€,430,"19,000",Rp,"8,170,000",,,Showroom Display,,,,,Lamps
+161,Slamp-Clizia Table_White.jpg,SLAMP,Table Lamps,Clizia Table,CLITS00MNM00000000EU,"Lentiflex, Cristalflex, Cristalflex with cold foil,warna 'Mama non Mama White, Light Base ",D. 27 x H. 25 cm,3,"1 x 6 W E14 LED, Not Dimmable",€,430,"19,000",Rp,"8,170,000",,,Showroom Display,,,,,Lamps
+162,Slamp-Diamond Table.jpg,SLAMP,Table Lamps,Diamond Table,DIATS00WHT00000000EU,"Opalflex,  Aluminium Base",17 x 17 x H. 45 cm,2,"1 x 6 W E14 LED, Not Dimmable",€,270,"19,000",Rp,"5,130,000",,,Showroom Display,,,,,Lamps
+163,Zafferano poldina floor XXL-white.jpg,ZAFFERANO,Floor Lamps,Poldina Floor,LL0360B3,White, Ø 28 x 150 cm I  Ø 11 x 59 in,2,Led Bulb E27 220-240V | 50-60Hz | 15W | IP40,€,490,"19,000",Rp,"9,310,000",,,WH Pintu Air,,,,,Lamps
+164,Zafferano poldina floor XXL-dark grey.jpg,ZAFFERANO,Floor Lamps,Poldina Floor,LL0360N3,Dark Grey, Ø 28 x 150 cm I  Ø 11 x 59 in,2,Led Bulb E27 220-240V | 50-60Hz | 15W | IP40,€,490,"19,000",Rp,"9,310,000",,,WH Pintu Air,,,,,Lamps
+165,Zafferano poldina floor XXL-corten.jpg,ZAFFERANO,Floor Lamps,Poldina Floor,LL0360R3,Corten, Ø 28 x 150 cm I  Ø 11 x 59 in,2,Led Bulb E27 220-240V | 50-60Hz | 15W | IP40,€,490,"19,000",Rp,"9,310,000",,,Showroom Display,,,,,Lamps
+166,poldina micro-white.jpg,ZAFFERANO,Portable Lamps,Poldina Micro,LD0490B3,White,"Ø 7 x 27,5 cm",6,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+1,8W | 50-60Hz, 174-177-195lm | IP65 | 5Vdc max 1A",€,196,"19,000",Rp,"3,724,000",,,WH Barito,,,,,
+167,micro-corten.jpg,ZAFFERANO,Portable Lamps,Poldina Micro,LD0490R3,Corten,"Ø 7 x 27,5 cm",2,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+1,8W | 50-60Hz, 174-177-195lm | IP65 | 5Vdc max 1A",€,196,"19,000",Rp,"3,724,000",,,WH Barito,,,,,
+168,poldina micro-dark grey.jpg,ZAFFERANO,Portable Lamps,Poldina Micro,LD0490N3,Dark Grey,"Ø 7 x 27,5 cm",6,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+1,8W | 50-60Hz, 174-177-195lm | IP65 | 5Vdc max 1A",€,196,"19,000",Rp,"3,724,000",,,WH Barito,,,,,
+169,micro-black.jpg,ZAFFERANO,Portable Lamps,Poldina Micro,LD0490D3,Black,"Ø 7 x 27,5 cm",4,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+1,8W | 50-60Hz, 174-177-195lm | IP65 | 5Vdc max 1A",€,196,"19,000",Rp,"3,724,000",,,WH Barito,,,,,
+170,micro-sand.jpg,ZAFFERANO,Portable Lamps,Poldina Micro,LD0490S3,Sand,"Ø 7 x 27,5 cm",4,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+1,8W | 50-60Hz, 174-177-195lm | IP65 | 5Vdc max 1A",€,196,"19,000",Rp,"3,724,000",,,WH Barito,,,,,
+171,micro-sage green.jpg,ZAFFERANO,Portable Lamps,Poldina Micro,LD0490G3,Sage Green,"Ø 7 x 27,5 cm",6,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+1,8W | 50-60Hz, 174-177-195lm | IP65 | 5Vdc max 1A",€,196,"19,000",Rp,"3,724,000",,,WH Barito,,,,,
+172,micro-pink.jpg,ZAFFERANO,Portable Lamps,Poldina Micro,LD0490P3,Pink,"Ø 7 x 27,5 cm",4,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+1,8W | 50-60Hz, 174-177-195lm | IP65 | 5Vdc max 1A",€,196,"19,000",Rp,"3,724,000",,,WH Barito,,,,,
+173,poldina micro-red.jpg,ZAFFERANO,Portable Lamps,Poldina Micro,LD0490F3,Red,"Ø 7 x 27,5 cm",10,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+1,8W | 50-60Hz, 174-177-195lm | IP65 | 5Vdc max 1A",€,196,"19,000",Rp,"3,724,000",,,WH Barito,,,,,
+174,poldina micro-capri blue.jpg,ZAFFERANO,Portable Lamps,Poldina Micro,LD0490K3,Capri Blue,"Ø 7 x 27,5 cm",9,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+1,8W | 50-60Hz, 174-177-195lm | IP65 | 5Vdc max 1A",€,196,"19,000",Rp,"3,724,000",,,WH Barito,,,,,
+175,micro-lilac.jpg,ZAFFERANO,Portable Lamps,Poldina Micro,LD0490L3,Lilac,"Ø 7 x 27,5 cm",4,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+1,8W | 50-60Hz, 174-177-195lm | IP65 | 5Vdc max 1A",€,196,"19,000",Rp,"3,724,000",,,WH Barito,,,,,
+176,poldina micro-apple green.jpg,ZAFFERANO,Portable Lamps,Poldina Micro,LD0490V3,Apple Green,"Ø 7 x 27,5 cm",11,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+1,8W | 50-60Hz, 174-177-195lm | IP65 | 5Vdc max 1A",€,196,"19,000",Rp,"3,724,000",,,WH Barito,,,,,
+177,micro-orange.jpg,ZAFFERANO,Portable Lamps,Poldina Micro,LD0490Z3,Orange,"Ø 7 x 27,5 cm",9,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+1,8W | 50-60Hz, 174-177-195lm | IP65 | 5Vdc max 1A",€,196,"19,000",Rp,"3,724,000",,,WH Barito,,,,,
+178,micro-silver.jpg,ZAFFERANO,Portable Lamps,Poldina Micro,LD0490C3,Glossy Chrome,"Ø 7 x 27,5 cm",3,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+1,8W | 50-60Hz, 174-177-195lm | IP65 | 5Vdc max 1A",€,268,"19,000",Rp,"5,092,000",,,WH Barito,,,,,
+179,micro-gold.jpg,ZAFFERANO,Portable Lamps,Poldina Micro,LD0490O3,Glossy Gold,"Ø 7 x 27,5 cm",4,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+1,8W | 50-60Hz, 174-177-195lm | IP65 | 5Vdc max 1A",€,268,"19,000",Rp,"5,092,000",,,WH Barito,,,,,
+180,poldina peanut-aviator.jpg,ZAFFERANO,Portable Lamps,Poldina x Peanuts Aviator ,LD0340FP1,Red,Ø 11 x 38 cm,3,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,2W | 50-60Hz, 234-251-256lm | 5Vdc max 1A",€,360,"19,000",Rp,"6,840,000",,,WH Barito,,,,,
+181,poldina peanut-heart.jpg,ZAFFERANO,Portable Lamps,Poldina x Peanuts Heart,LD0340BP2,White,Ø 11 x 38 cm,3,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,2W | 50-60Hz, 234-251-256lm | 5Vdc max 1A",€,360,"19,000",Rp,"6,840,000",,,WH Barito,,,,,
+182,poldina peanut-friends.jpg,ZAFFERANO,Portable Lamps,Poldina x Peanuts Friends ,LD0340BP3,white,Ø 11 x 38 cm,4,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,2W | 50-60Hz, 234-251-256lm | 5Vdc max 1A",€,360,"19,000",Rp,"6,840,000",,,WH Barito,,,,,
+183,poldina peanut-together.jpg,ZAFFERANO,Portable Lamps,Poldina x Peanuts Together ,LD0340RP5,Corten,Ø 11 x 38 cm,1,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,2W | 50-60Hz, 234-251-256lm | 5Vdc max 1A",€,360,"19,000",Rp,"6,840,000",,,Showroom Display,,,,,
+184,poldina Pro_white.jpg,ZAFFERANO,Portable Lamps,Poldina Pro ,LD0340B3,White,Ø 11 x 38 cm,3,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,2W | 50-60Hz, 234-251-256lm | 5Vdc max 1A",€,280,"19,000",Rp,"5,320,000",,,Showroom Display,,,,,
+185,Zafferano-poldina Pro_corten.jpg,ZAFFERANO,Portable Lamps,Poldina Pro ,LD0340R3,Corten,Ø 11 x 38 cm,4,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,2W | 50-60Hz, 234-251-256lm | 5Vdc max 1A",€,280,"19,000",Rp,"5,320,000",,,WH Barito,,,,,
+186,poldina Pro_dark grey.jpg,ZAFFERANO,Portable Lamps,Poldina Pro ,LD0340N3,Dark Grey,Ø 11 x 38 cm,3,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,2W | 50-60Hz, 234-251-256lm | 5Vdc max 1A",€,280,"19,000",Rp,"5,320,000",,,WH Barito,,,,,
+187,Zafferano-Poldina Pro Table_Sand.jpg,ZAFFERANO,Portable Lamps,Poldina Pro ,LD0340S3,Sand,Ø 11 x 38 cm,4,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,2W | 50-60Hz, 234-251-256lm | 5Vdc max 1A",€,280,"19,000",Rp,"5,320,000",,,WH Barito,,,,,
+188,Zafferano-Poldina Pro Table_Burgundy.jpg,ZAFFERANO,Portable Lamps,Poldina Pro ,LD0340X3,Burgundy,Ø 11 x 38 cm,3,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,2W | 50-60Hz, 234-251-256lm | 5Vdc max 1A",€,280,"19,000",Rp,"5,320,000",,,WH Barito,,,,,
+189,Zafferano-Poldina Pro Table_Dark Green.jpg,ZAFFERANO,Portable Lamps,Poldina Pro ,LD0340M3,Dark Green,Ø 11 x 38 cm,4,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,2W | 50-60Hz, 234-251-256lm | 5Vdc max 1A",€,280,"19,000",Rp,"5,320,000",,,WH Barito,,,,,
+190,Zafferano-Poldina Pro Table_Sage Green.jpg,ZAFFERANO,Portable Lamps,Poldina Pro ,LD0340G3,Sage Green,Ø 11 x 38 cm,3,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,2W | 50-60Hz, 234-251-256lm | 5Vdc max 1A",€,280,"19,000",Rp,"5,320,000",,,WH Barito,,,,,
+191,Zafferano-Poldina Pro Table_Glossy Gold.jpg,ZAFFERANO,Portable Lamps,Poldina Pro ,LD0340G3,Glossy Gold,Ø 11 x 38 cm,4,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,2W | 50-60Hz, 234-251-256lm | 5Vdc max 1A",€,430,"19,000",Rp,"8,170,000",,,WH Barito,,,,,
+192,Zafferano-Poldina Pro Table_Glossy Chrome.jpg,ZAFFERANO,Portable Lamps,Poldina Pro ,LD0340C3,Glossy Chrome,Ø 11 x 38 cm,4,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,2W | 50-60Hz, 234-251-256lm | 5Vdc max 1A",€,430,"19,000",Rp,"8,170,000",,,WH Barito,,,,,
+193,Zafferano-Poldina Pro Table_Gold Color Leaf.jpg,ZAFFERANO,Portable Lamps,Poldina Pro,LD0340BFO,Gold color leaf,Ø 11 x 38 cm,3,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,2W | 50-60Hz, 234-251-256lm | 5Vdc max 1A",€,430,"19,000",Rp,"8,170,000",,,Showroom Display,,,,,
+194,Zafferano-Poldina Pro Table_Silver Color Leaf.jpg,ZAFFERANO,Portable Lamps,Poldina Pro,LD0340BFA,Gold color leaf,Ø 11 x 38 cm,4,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,2W | 50-60Hz, 234-251-256lm | 5Vdc max 1A",€,430,"19,000",Rp,"8,170,000",,,WH Barito,,,,,
+195,Zafferano-Poldina Pro Table_Copper Color Leaf.jpg,ZAFFERANO,Portable Lamps,Poldina Pro,LD0340RFR,Copper color leaf,Ø 11 x 38 cm,4,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,2W | 50-60Hz, 234-251-256lm | 5Vdc max 1A",€,430,"19,000",Rp,"8,170,000",,,WH Barito,,,,,
+196,Zafferano-Poldina Ceramic Cover_Green.jpg,ZAFFERANO,Portable Lamps,Poldina Ceramic Lampshade,LD035000,Green stripes,Ø 13 x 10cm,8,Lampshade Only,€,60,"19,000",Rp,"1,140,000",,,WH Barito,,,,,
+197,Zafferano-Poldina Ceramic Cover_Yellow.jpg,ZAFFERANO,Portable Lamps,Poldina Ceramic Lampshade,LD035001,Yellow stripes,Ø 13 x 10cm,4,Lampshade Only,€,60,"19,000",Rp,"1,140,000",,,WH Barito,,,,,
+198,Zafferano-Poldina Ceramic Cover_Red.jpg,ZAFFERANO,Portable Lamps,Poldina Ceramic Lampshade,LD035003,Red stripes,Ø 13 x 10cm,2,Lampshade Only,€,60,"19,000",Rp,"1,140,000",,,Showroom Display,,,,,
+199,Zafferano-Poldina Ceramic Cover_Blue.jpg,ZAFFERANO,Portable Lamps,Poldina Ceramic Lampshade,LD035002,Blue Stripes,Ø 13 x 10cm,4,Lampshade Only,€,60,"19,000",Rp,"1,140,000",,,WH Barito,,,,,
+200,Zafferano-Poldina Reverso_White.jpg,ZAFFERANO,Portable Lamps,Poldina Reverso,LD0420B3,White,Ø 11 x 35 cm,6,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,3W | 50-60Hz, 241-250-262lm | IP54 | 5Vds max 1A ",€,298,"19,000",Rp,"5,662,000",,,WH Barito,,,,,
+201,Zafferano-Poldina Reverso_Corten.jpg,ZAFFERANO,Portable Lamps,Poldina Reverso,LD0420R3,Corten,Ø 11 x 35 cm,6,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,3W | 50-60Hz, 241-250-262lm | IP54 | 5Vds max 1A ",€,298,"19,000",Rp,"5,662,000",,,WH Barito,,,,,
+202,Zafferano-Poldina Reverso_Dark Grey.jpg,ZAFFERANO,Portable Lamps,Poldina Reverso ,LD0420N3,Dark Grey,Ø 11 x 35 cm,6,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,3W | 50-60Hz, 241-250-262lm | IP54 | 5Vds max 1A ",€,298,"19,000",Rp,"5,662,000",,,WH Barito,,,,,
+203,Zafferano-Poldina Reverso_Sand.jpg,ZAFFERANO,Portable Lamps,Poldina Reverso ,LD0420S3,Sand,Ø 11 x 35 cm,3,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,3W | 50-60Hz, 241-250-262lm | IP54 | 5Vds max 1A ",€,298,"19,000",Rp,"5,662,000",,,WH Barito,,,,,
+204,Zafferano-Poldina Reverso_Sage Green.jpg,ZAFFERANO,Portable Lamps,Poldina Reverso ,LD0420G3,Sage Green,Ø 11 x 35 cm,4,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,3W | 50-60Hz, 241-250-262lm | IP54 | 5Vds max 1A ",€,298,"19,000",Rp,"5,662,000",,,WH Barito,,,,,
+205,Zafferano-Pina_Black.jpeg,ZAFFERANO,Portable Lamps,Pina Table Pro ,LD1650D3,Black,"Ø 10,5 x 29 cm",3,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,3W | 50-60Hz, 241-250-262lm | IP54 | 5Vds max 1A ",€,220,"19,000",Rp,"4,180,000",,,WH Barito,,,,,
+206,Zafferano-Pina_Dark Grey.jpg,ZAFFERANO,Portable Lamps,Pina Table Pro ,LD1650N3,Dark Grey,"Ø 10,5 x 29 cm",3,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,3W | 50-60Hz, 241-250-262lm | IP54 | 5Vds max 1A ",€,220,"19,000",Rp,"4,180,000",,,WH Barito,,,,,
+207,Zafferano-Swap Pro_White.jpg,ZAFFERANO,Portable Lamps,Swap Table Pro ,LD1030B3,White,Ø 10 x 29 cm,9,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,3W | 50-60Hz, 241-250-262lm | IP54 | 5Vds max 1A ",€,210,"19,000",Rp,"3,990,000",,,WH Barito,,,,,
+208,Zafferano-Swap Pro_Corten.jpg,ZAFFERANO,Portable Lamps,Swap Table Pro ,LD1030R3,Corten,Ø 10 x 29 cm,6,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,3W | 50-60Hz, 241-250-262lm | IP54 | 5Vds max 1A ",€,210,"19,000",Rp,"3,990,000",,,WH Barito,,,,,
+209,Zafferano-Swap Pro_Black.jpg,ZAFFERANO,Portable Lamps,Swap Table Pro ,LD1030N3,Black,Ø 10 x 29 cm,6,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,3W | 50-60Hz, 241-250-262lm | IP54 | 5Vds max 1A ",€,210,"19,000",Rp,"3,990,000",,,WH Barito,,,,,
+210,Zafferano-Swap Glass Shade 25 dots_Amber.jpg,ZAFFERANO,Portable Lamps,Swap Table Pro  Glass lamp shade,LD102003,Amber 25 dots,Ø 13 x 9cm,3,Lampshade Only,€,80,"19,000",Rp,"1,520,000",,,WH Barito,,,,,
+211,Zafferano-Swap Glass Shade 25 dots_Blue.jpg,ZAFFERANO,Portable Lamps,Swap Table Pro  Glass lamp shade,LD102004,Blue 25 dots,Ø 13 x 9cm,2,Lampshade Only,€,80,"19,000",Rp,"1,520,000",,,WH Barito,,,,,
+212,Zafferano-Swap Glass Shade 41 dots_White.jpg,ZAFFERANO,Portable Lamps,Swap Table Pro  Glass lamp shade,LD102011,White 41 dots,Ø 13 x 9cm,4,Lampshade Only,€,80,"19,000",Rp,"1,520,000",,,WH Barito,,,,,
+213,Zafferano-Swap Glass Shade 41 dots_Black.jpg,ZAFFERANO,Portable Lamps,Swap Table Pro  Glass lamp shade,LD102012,Black 41 dots,Ø 13 x 9cm,4,Lampshade Only,€,80,"19,000",Rp,"1,520,000",,,WH Barito,,,,,
+214,Zafferano-Swap Glass Shade 41 dots_Amber.jpg,ZAFFERANO,Portable Lamps,Swap Table Pro  Glass lamp shade,LD102013,Amber 41 dots,Ø 13 x 9cm,4,Lampshade Only,€,80,"19,000",Rp,"1,520,000",,,WH Barito,,,,,
+215,Zafferano-Swap Glass Shade 41 dots_Blue.jpg,ZAFFERANO,Portable Lamps,Swap Table Pro  Glass lamp shade,LD102014,Blue 41 dots,Ø 13 x 9cm,4,Lampshade Only,€,80,"19,000",Rp,"1,520,000",,,WH Barito,,,,,
+216,Zafferano-Swap Fabric Shade_Black.jpg,ZAFFERANO,Portable Lamps,Swap Table Pro  Fabric lamp shade,LD102005,Black,Ø 15 x 14cm,4,Lampshade Only,€,80,"19,000",Rp,"1,520,000",,,WH Barito,,,,,
+217,Zafferano-Swap Fabric Shade_White.jpg,ZAFFERANO,Portable Lamps,Swap Table Pro  Fabric lamp shade,LD102000,White,Ø 15 x 14cm,4,Lampshade Only,€,80,"19,000",Rp,"1,520,000",,,WH Barito,,,,,
+218,Zafferano-Swap Mini_White.jpg,ZAFFERANO,Portable Lamps,Swap table Pro Mini,LD1011B3,White,"Ø 10 x 14,8 cm",3,"LED TOUCH DIMMER
+100-240V | CRI>90, 2700K, 
+2W | 50-60Hz, 267lm | IP65 | 5Vdc max 1A",€,156,"19,000",Rp,"2,964,000",,,WH Barito,,,,,
+219,Zafferano-Swap Mini_Black.jpg,ZAFFERANO,Portable Lamps,Swap table Pro Mini ,LD1011N3,Black,"Ø 10 x 14,8 cm",2,"LED TOUCH DIMMER
+100-240V | CRI>90, 2700K, 
+2W | 50-60Hz, 267lm | IP65 | 5Vdc max 1A",€,156,"19,000",Rp,"2,964,000",,,WH Barito,,,,,
+220,Zafferano-Push up_White.jpg,ZAFFERANO,Portable Lamps,Push Up ,LD1050B3,White,"Ø 12 x 8,3 cm",3,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K,
+2,2W | 50-60Hz, 207-235-248lm | IP54 | 5Vdc max 1A",€,240,"19,000",Rp,"4,560,000",,,Showroom Display,,,,,
+221,Zafferano-Push up_Corten.jpg,ZAFFERANO,Portable Lamps,Push Up ,LD1050R3,Corten,"Ø 12 x 8,3 cm",2,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K,
+2,2W | 50-60Hz, 207-235-248lm | IP54 | 5Vdc max 1A",€,240,"19,000",Rp,"4,560,000",,,WH Barito,,,,,
+222,Zafferano-Push up_Dark Grey.jpg,ZAFFERANO,Portable Lamps,Push Up ,LD1050N3,Dark Grey,"Ø 12 x 8,3 cm",1,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K,
+2,2W | 50-60Hz, 207-235-248lm | IP54 | 5Vdc max 1A",€,240,"19,000",Rp,"4,560,000",,,WH Barito,,,,,
+223,Zafferano-Push up_Sand.jpg,ZAFFERANO,Portable Lamps,Push Up ,LD1050S3,Sand,"Ø 12 x 8,3 cm",2,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K,
+2,2W | 50-60Hz, 207-235-248lm | IP54 | 5Vdc max 1A",€,240,"19,000",Rp,"4,560,000",,,WH Barito,,,,,
+224,Zafferano-Home_White.jpg,ZAFFERANO,Portable Lamps,Home table ,LD0258B3,White,"10 x 10 x 29,4 cm",6,"LED TOUCH DIMMER
+100-240V | CRI>80, 3000K
+2,2W | 50-60Hz, 260lm | IP54 | 5Vdc max 1A",€,260,"19,000",Rp,"4,940,000",,,WH Barito,,,,,
+225,Zafferano-Home_Corten.jpg,ZAFFERANO,Portable Lamps,Home table ,LD0258R3,Corten,"10 x 10 x 29,4 cm",6,"LED TOUCH DIMMER
+100-240V | CRI>80, 3000K
+2,2W | 50-60Hz, 260lm | IP54 | 5Vdc max 1A",€,260,"19,000",Rp,"4,940,000",,,WH Barito,,,,,
+226,Zafferano-Home_Dark Grey.jpg,ZAFFERANO,Portable Lamps,Home table ,LD0258N3,Dark Grey,"10 x 10 x 29,4 cm",5,"LED TOUCH DIMMER
+100-240V | CRI>80, 3000K
+2,2W | 50-60Hz, 260lm | IP54 | 5Vdc max 1A",€,260,"19,000",Rp,"4,940,000",,,WH Barito,,,,,
+227,Zafferano-Dama_White.jpg,ZAFFERANO,Portable Lamps,Dama Table ,LD0610B3,White,"Ø 12,5 x 29 cm",6,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,2W | 50-60Hz, 194-219-221lm | IP54 | 5Vdc max 1A",€,280,"19,000",Rp,"5,320,000",,,Showroom Display,,,,,
+228,Zafferano-Dama_Black.jpg,ZAFFERANO,Portable Lamps,Dama Table ,LD0610N3,Black,"Ø 12,5 x 29 cm",6,"LED TOUCH DIMMER
+100-240V | CRI>80, 2200-2700-3000K
+2,2W | 50-60Hz, 194-219-221lm | IP54 | 5Vdc max 1A",€,280,"19,000",Rp,"5,320,000",,,Showroom Display,,,,,
+229,Zafferano-Olimpia_Glossy Gold.jpg,ZAFFERANO,Portable Lamps,Olimpia table ,LD0900O3,Glossy Gold,Ø 15 x 26 cm,3,"LED TOUCH DIMMER
+100-240V | CRI>80, 3000K
+2,5W | 50-60Hz, 268lm | IP54 | 5Vdc max 1A",€,378,"19,000",Rp,"7,182,000",,,Showroom Display,,,,,
+230,Zafferano-Olimpia_Glossy Chrome.jpg,ZAFFERANO,Portable Lamps,Olimpia table ,LD0900C3,Glossy Silver,Ø 15 x 26 cm,3,"LED TOUCH DIMMER
+100-240V | CRI>80, 3000K
+2,5W | 50-60Hz, 268lm | IP54 | 5Vdc max 1A",€,378,"19,000",Rp,"7,182,000",,,WH Barito,,,,,
+231,Zafferano-Olimpia_Copper.jpg,ZAFFERANO,Portable Lamps,Olimpia table ,LD0900E3,Glossy Copper,Ø 15 x 26 cm,3,"LED TOUCH DIMMER
+100-240V | CRI>80, 3000K
+2,5W | 50-60Hz, 268lm | IP54 | 5Vdc max 1A",€,378,"19,000",Rp,"7,182,000",,,WH Barito,,,,,
+232,Zafferano-Sister Light_Gold.jpg,ZAFFERANO,Portable Lamps,"Sister Light Table, Wifi ",LD1080O3,Gold,"Ø 13,2 x 33 cm",4,"LED TOUCH DIMMER
+2700-3150-4000K | CRI>90
+3W | 305-326-328lm | IP65 | 5Vdc max 2A",€,530,"19,000",Rp,"10,070,000",,,WH Barito,,,,,
+233,Zafferano-Sister Light Green.jpg,ZAFFERANO,Portable Lamps,"Sister Light Table, Wifi ",LD1080V3,Green,"Ø 13,2 x 33 cm",4,"LED TOUCH DIMMER
+2700-3150-4000K | CRI>90
+3W | 305-326-328lm | IP65 | 5Vdc max 2A",€,530,"19,000",Rp,"10,070,000",,,WH Barito,,,,,
+234,Zafferano-Sister Light_Copper.jpg,ZAFFERANO,Portable Lamps,"Sister Light Table, Wifi ",LD1080R3,Copper,"Ø 13,2 x 33 cm",4,"LED TOUCH DIMMER
+2700-3150-4000K | CRI>90
+3W | 305-326-328lm | IP65 | 5Vdc max 2A",€,530,"19,000",Rp,"10,070,000",,,WH Barito,,,,,
+235,Zafferano-Sister Light Mini_Green.jpg,ZAFFERANO,Portable Lamps,"Sister Light Mini Table, Wifi ",LD1081V3,Green,"Ø 13,2 x 17 cm",2,"LED TOUCH DIMMER
+2700-3150-4000K | CRI>90
+3W | 305-326-328lm | IP65 | 5Vdc max 2A",€,480,"19,000",Rp,"9,120,000",,,WH Barito,,,,,
+236,Zafferano-Sister Light Mini_White.jpg,ZAFFERANO,Portable Lamps,"Sister Light Mini Table, Wifi ",LD1081B3,White,"Ø 13,2 x 17 cm",1,"LED TOUCH DIMMER
+2700-3150-4000K | CRI>90
+3W | 305-326-328lm | IP65 | 5Vdc max 2A",€,480,"19,000",Rp,"9,120,000",,,Showroom Display,,,,,
+237,Zafferano-Circe_White.jpg,ZAFFERANO,Portable Lamps,Circe Table Lamps pro ,LD1005B3,White,Ø 11 x 30 cm,4,"LED DIMMER
+2200-3000K | CRI>80
+2,2W | 214-224lm | IP65 | 5Vdc max 1A",€,230,"19,000",Rp,"4,370,000",,,WH Barito,,,,,
+238,Zafferano-Circe_Black.jpg,ZAFFERANO,Portable Lamps,Circe Table Lamps pro ,LD1005N3,Black,Ø 11 x 30 cm,4,"LED DIMMER
+2200-3000K | CRI>80
+2,2W | 214-224lm | IP65 | 5Vdc max 1A",€,230,"19,000",Rp,"4,370,000",,,WH Barito,,,,,
+239,Zafferano-Pencil Medium_Dark Grey.jpg,ZAFFERANO,Portable Lamps,Pencil Large ,LD0802G3,Dark Grey,"Ø 5,4 x 146 cm",1,"LED TOUCH DIMMER
+2700-3150-4000K | CRI>90
+18W | 1740-1950-2040lm | IP65 | 5Vdc max 1A",€,902,"19,000",Rp,"17,138,000",,,Showroom Display,,,,,
+240,Zafferano-Pencil Medium_Dark Grey.jpg,ZAFFERANO,Portable Lamps,Pencil Medium ,LD0801G3,Dark Grey,98 cm | 38.5,2,"LED TOUCH DIMMER
+2700-3150-4000K | CRI>90
+18W | 1740-1950-2040lm | IP65 | 5Vdc max 1A",€,678,"19,000",Rp,"12,882,000",,,WH Barito,,,,,
+241,Zafferano-Pencil Medium_Corten.jpg,ZAFFERANO,Portable Lamps,Pencil Medium,LD0801R3,Corten,98 cm | 38.5,2,"LED TOUCH DIMMER
+2700-3150-4000K | CRI>90
+18W | 1740-1950-2040lm | IP65 | 5Vdc max 1A",€,678,"19,000",Rp,"12,882,000",,,WH Barito,,,,,
+242,Zafferano-Pencil Docking and Charging_Dark Grey.jpg,ZAFFERANO,Portable Lamps,Pencil Docking and Charging station ,LD0810G3,Dark Grey,Ø 20 x 32 cm,1,Docking and Charger,€,214,"19,000",Rp,"4,066,000",,,Showroom Display,,,,,
+243,Zafferano-Pencil Docking and Charging_Corten.jpg,ZAFFERANO,Portable Lamps,Pencil Docking and Charging station ,LD0810R3,Corten,Ø 20 x 32 cm,2,Docking and Charger,€,214,"19,000",Rp,"4,066,000",,,WH Barito,,,,,
+244,Zafferano-Circe_Corten.jpg,ZAFFERANO,Portable Lamps,Circe Table Lamps Pro,LD1005R3,Corten,Ø 11 x 30 cm,3,"LED DIMMER
+2200-3000K | CRI>80
+2,2W | 214-224lm | IP65
+5Vdc max 1A",€,230,"19,000",Rp,"4,370,000",,,WH Barito,,,,,
+245,Zafferano-Circe_Glossy Gold.jpg,ZAFFERANO,Portable Lamps,Circe Table Lamps Pro,LD1005O3,Glossy Gold,Ø 11 x 30 cm,4,"LED DIMMER
+2200-3000K | CRI>80
+2,2W | 214-224lm | IP65
+5Vdc max 1A",€,336,"19,000",Rp,"6,384,000",,,WH Barito,,,,,
+246,Zafferano-Circe_Glossy Rose Gold.jpg,ZAFFERANO,Portable Lamps,Circe Table Lamps Pro,LD1005E3,Glossy Rose Gold,Ø 11 x 30 cm,2,"LED DIMMER
+2200-3000K | CRI>80
+2,2W | 214-224lm | IP65
+5Vdc max 1A",€,336,"19,000",Rp,"6,384,000",,,WH Barito,,,,,
+247,Zafferano-multi contact charging base.jpg,ZAFFERANO,Portable Lamps,"Multi-contact charging base, max 6 slots",LD0350RP,-,,2,"35 W, Input : AC 100-240V | 50-60 Hz, Output : 5Vdc max 6A",€,290,"19,000",Rp,"5,510,000",,,WH Barito,,,,,
+248,Zafferano-Pencil Charger connector.jpg,ZAFFERANO,Portable Lamps,Charger Connector for Pencil ,LD0800CS,-,3.5/1.3 connector,5,Charger Only,€,84,"19,000",Rp,"1,596,000",,,WH Barito,,,,,
+249,Zafferano-Bilia Dia. 18cm Nude Pendant_White-Clear.jpg,ZAFFERANO,Suspending Lamps,Bilia Suspension 18 cm,LBA1111,White Frame - Clear Glass,Ø 18 x 324cm,3,"LED TRIAC 230V | 3000K | CRI>90 | 50-60Hz 
+8W | 678lm | beam angle 162° | IP40",€,300,"19,000",Rp,"5,700,000",,,WH Pintu Air,,,,,Lamps
+250,Zafferano-Bilia Dia. 27cm Nude Pendant_White-Clear.jpg,ZAFFERANO,Suspending Lamps,Bilia Suspension 27 cm,LBA2111,White Frame - Clear Glass,Ø 27 x 333cm,1,"LED TRIAC 230V | 3000K | CRI>90 | 50-60Hz 
+8W | 678lm | beam angle 162° | IP40",€,450,"19,000",Rp,"8,550,000",,,WH Pintu Air,,,,,Lamps
+251,Zafferano-Bilia Dia. 27cm Nude Pendant_White-Silver.jpg,ZAFFERANO,Suspending Lamps,Bilia Suspension 27 cm,LBA2112,White Frame - Silver Glass,Ø 27 x 333cm,2,"LED TRIAC 230V | 3000K | CRI>90 | 50-60Hz 
+8W | 678lm | beam angle 162° | IP40",€,650,"19,000",Rp,"12,350,000",,,WH Pintu Air,,,,,Lamps
+252,Zafferano-Bilia Dia. 27cm Pendant_White-Silver.jpg,ZAFFERANO,Suspending Lamps,Bilia Suspension 27 cm,LBA4112,White Frame - Silver Marbles,Ø 27 x 333cm,1,"LED TRIAC 230V | 3000K | CRI>90 | 50-60Hz 
+8W | 678lm | beam angle 162° | IP40",€,530,"19,000",Rp,"10,070,000",,,WH Pintu Air,,,,,Lamps
+253,Zafferano-Bilia Dia. 27cm Pendant_White-Sandblasted.jpg,ZAFFERANO,Suspending Lamps,Bilia Suspension 27 cm,LBA4115,White Frame - Sandblasted Marbles,Ø 27 x 333cm,2,"LED TRIAC 230V | 3000K | CRI>90 | 50-60Hz 
+8W | 678lm | beam angle 162° | IP40",€,510,"19,000",Rp,"9,690,000",,,WH Pintu Air,,,,,Lamps
+254,Zafferano-Bilia Dia. 18cm Nude Pendant_Black-Clear.jpg,ZAFFERANO,Suspending Lamps,Bilia Suspension 18 cm,LBA1121,Black Frame - Clear Glass,Ø 18 x 324cm,3,"LED TRIAC 230V | 3000K | CRI>90 | 50-60Hz 
+8W | 678lm | beam angle 162° | IP40",€,300,"19,000",Rp,"5,700,000",,,WH Pintu Air,,,,,Lamps
+255,Zafferano-Bilia Dia. 27cm Nude Pendant_Black-Clear.jpg,ZAFFERANO,Suspending Lamps,Bilia Suspension 27 cm,LBA2121,Black Frame - Clear Glass,Ø 27 x 333cm,2,"LED TRIAC 230V | 3000K | CRI>90 | 50-60Hz 
+8W | 678lm | beam angle 162° | IP40",€,450,"19,000",Rp,"8,550,000",,,Showroom Display,,,,,Lamps
+256,Zafferano-Bilia Dia. 27cm Nude Pendant_Black-Antique Gold.jpg,ZAFFERANO,Suspending Lamps,Bilia Suspension 27 cm,LBA2123,Black Frame - Antique gold Glass,Ø 27 x 333cm,2,"LED TRIAC 230V | 3000K | CRI>90 | 50-60Hz 
+8W | 678lm | beam angle 162° | IP40",€,650,"19,000",Rp,"12,350,000",,,WH Barito,,,,,Lamps
+257,Zafferano-Bilia Dia. 27cm Pendant_Black-Antique Gold.jpg,ZAFFERANO,Suspending Lamps,Bilia Suspension 27 cm,LBA4123,Black Frame - Antique Gold Marbles,Ø 27 x 333cm,1,"LED TRIAC 230V | 3000K | CRI>90 | 50-60Hz 
+8W | 678lm | beam angle 162° | IP40",€,530,"19,000",Rp,"10,070,000",,,WH Pintu Air,,,,,Lamps
+258,Zafferano-Bilia Dia. 18cm Pendant_Black-Sandblasted.jpg,ZAFFERANO,Suspending Lamps,Bilia Suspension 18 cm,LBA3125,Black Frame - Sandblasted Marbles,Ø 18 x 324cm,2,"LED TRIAC 230V | 3000K | CRI>90 | 50-60Hz 
+8W | 678lm | beam angle 162° | IP40",€,360,"19,000",Rp,"6,840,000",,,WH Barito,,,,,Lamps
+259,Zafferano-Sfera Pendant_Gold-Clear.jpg,ZAFFERANO,Suspending Lamps,Sfera & Sfer’Otto Suspension,LSA0132,Gold - Clear,31.7 cm l 12.5 in,6,"LED TRIAC 220-240V | 3000K | CRI>90 | 50-60Hz 
+8W | 660lm | beam angle 93° | IP40",€,384,"19,000",Rp,"7,296,000",,,WH Pintu Air,,,,,Lamps
+260,Zafferano-Sfer'otto Pendant_Gold-Clear sandblasted.jpg,ZAFFERANO,Suspending Lamps,Sfera & Sfer’Otto Suspension,LSO0133,Gold - Clear sandblasted,56.2 cm l 22.1 in,6,"LED TRIAC 220-240V | 3000K | CRI>90 | 50-60Hz 
+8W | 660lm | beam angle 93° | IP40",€,494,"19,000",Rp,"9,386,000",,,WH Barito,,,,,Lamps
+261,Zafferano-Sfera Pendant_Aluminium-Clear sandblasted.jpg,ZAFFERANO,Suspending Lamps,Sfera & Sfer’Otto Suspension,LSA0131,Alluminum - Clear sandblasted,31.7 cm l 12.5 in,6,"LED TRIAC 220-240V | 3000K | CRI>90 | 50-60Hz 
+8W | 660lm | beam angle 93° | IP40",€,414,"19,000",Rp,"7,866,000",,,WH Pintu Air,,,,,Lamps
+262,Zafferano-Sfer'otto Pendant_Aluminium-Clear.jpg,ZAFFERANO,Suspending Lamps,Sfera & Sfer’Otto Suspension,LSO0130,Alluminium - Clear,56.2 cm l 22.1 in,6,"LED TRIAC 220-240V | 3000K | CRI>90 | 50-60Hz 
+8W | 660lm | beam angle 93° | IP40",€,464,"19,000",Rp,"8,816,000",,,WH Pintu Air,,,,,Lamps
+263,Zafferano-Bonie Pendant_Amber.jpg,ZAFFERANO,Suspending Lamps,Bonnie e Clyde Suspension,LBN3104,Amber,27.5  x 313 cm  l h.25 cm ,2,Led Bulb E27 220-240V | 50-60Hz | 1x70W | IP20,€,470,"19,000",Rp,"8,930,000",,,WH Pintu Air,,,,,Lamps
+264,Zafferano-Bonie Pendant_Clear.jpg,ZAFFERANO,Suspending Lamps,Bonnie e Clyde Suspension,LBN3101,Clear,27.5  x 313 cm  l h.25 cm ,2,Led Bulb E27 220-240V | 50-60Hz | 1x70W | IP20,€,470,"19,000",Rp,"8,930,000",,,WH Pintu Air,,,,,Lamps
+265,Zafferano-Bonie Pendant_Grey.jpg,ZAFFERANO,Suspending Lamps,Bonnie e Clyde Suspension,LBN3109,Grey,27.5  x 313 cm  l h.25 cm ,2,Led Bulb E27 220-240V | 50-60Hz | 1x70W | IP20,€,470,"19,000",Rp,"8,930,000",,,WH Pintu Air,,,,,Lamps
+266,Zafferano-Clyde Pendant_Amethyst.jpg,ZAFFERANO,Suspending Lamps,Bonnie e Clyde Suspension,LCL3105,Amethyst,23 x 315 cm l h.27.5 cm,2,Led Bulb E27 220-240V | 50-60Hz | 1x70W | IP20,€,470,"19,000",Rp,"8,930,000",,,WH Pintu Air,,,,,Lamps
+267,Zafferano-Sferis Pendant Dia. 25cm.jpg,ZAFFERANO,Suspending Lamps,Sferis Suspension,LL7125,White, Ø 25 x 315 cm,6,Led Bulb E27 230V | 50-60Hz | 1x52W ,€,226,"19,000",Rp,"4,294,000",,,WH Pintu Air,,,,,Lamps
+268,Zafferano-Sferis Pendant Dia. 30 cm.jpg,ZAFFERANO,Suspending Lamps,Sferis Suspension,LL7130,White, Ø 30 x 320 cm,4,Led Bulb E27 230V | 50-60Hz | 1x52W ,€,300,"19,000",Rp,"5,700,000",,,WH Pintu Air,,,,,Lamps
+269,Zafferano-Sferis Pendant Dia. 40 cm.jpg,ZAFFERANO,Suspending Lamps,Sferis Suspension,LL7140,White, Ø 40 x 325 cm,5,Led Bulb E27 230V | 50-60Hz | 1x105W ,€,380,"19,000",Rp,"7,220,000",,,WH Pintu Air,,,,,Lamps
+270,Zafferano-Mentos Pendant Dia. 55 cm.jpeg,ZAFFERANO,Suspending Lamps,Mentos Suspension,LD114403B,White, Ø 55 x 120 cm l h.11 cm,4,"LED 220-240V | 3000K | CRI>90 | 50-60Hz 
+30W | 3000lm | beam
+angle 116° | IP20",€,912,"19,000",Rp,"17,328,000",,,WH Pintu Air,,,,,Lamps
+271,Zafferano-Mentos Pendant Dia. 45 cm.jpeg,ZAFFERANO,Suspending Lamps,Mentos Suspension,LD113303B,White, Ø 45 x 120 cm l h.9.5 cm,4,"LED 220-240V | 3000K | CRI>90 | 50-60Hz 
+30W | 3000lm | beam
+angle 116° | IP20",€,768,"19,000",Rp,"14,592,000",,,WH Pintu Air,,,,,Lamps
+272,Zafferano-Baby Pendant_Black.jpeg,ZAFFERANO,Suspending Lamps,Baby Suspension,LBY1121,Black, Ø 9.8 x 300 cm I  Ø 3.9 x 11.1 in,6,"LED TRIAC 230V | 3000K | CRI>90 | 50-60Hz 
+8W | 678lm | beam angle 162° | IP40",€,180,"19,000",Rp,"3,420,000",,,WH Pintu Air,,,,,Lamps
+273,Zafferano-Baby Pendant_White.jpg,ZAFFERANO,Suspending Lamps,Baby Suspension,LBY1111,White, Ø 9.8 x 300 cm I  Ø 3.9 x 11.1 in,6,"LED TRIAC 230V | 3000K | CRI>90 | 50-60Hz 
+8W | 678lm | beam angle 162° | IP40",€,180,"19,000",Rp,"3,420,000",,,WH Pintu Air,,,,,Lamps
+274,Zafferano-Riga.jpg,ZAFFERANO,Suspending Lamps,Riga Suspension,LD0101B3,White,120x1x250 cm l 47.2x0.4x99.4 in,4,"LED TRIAC 220-240V | 3000K | CRI>90 | 50-60Hz 
+40W | 3551lm | beam angle 95° | IP20",€,510,"19,000",Rp,"9,690,000",,,WH Pintu Air,,,,,Lamps
+275,Zafferano-Poldina L desk Table_White.jpg,ZAFFERANO,Table Lamps,Poldina L desk Table Lamps,LL0395B3,White,Bulb G45 Ø 45 x 84 mm,2,Led Bulb E27 220-240V| 50-60Hz | 8W | IP40,€,224,"19,000",Rp,"4,256,000",,,WH Barito,,,,,Lamps
+276,Zafferano-Poldina L desk Table_Dark Grey.jpg,ZAFFERANO,Table Lamps,Poldina L desk Table Lamps,LL0395N3,Dark Grey,Bulb G45 Ø 45 x 84 mm,4,Led Bulb E27 220-240V| 50-60Hz | 8W | IP41,€,224,"19,000",Rp,"4,256,000",,,WH Pintu Air,,,,,Lamps
+277,Zafferano-Poldina L desk Table_Corten.jpg,ZAFFERANO,Table Lamps,Poldina L desk Table Lamps,LL0395R3,Corten,Bulb G45 Ø 45 x 84 mm,2,Led Bulb E27 220-240V| 50-60Hz | 8W | IP42,€,224,"19,000",Rp,"4,256,000",,,WH Pintu Air,,,,,Lamps
+278,Zafferano-Poldina Table_Dark Grey.jpg,ZAFFERANO,Table Lamps,Poldina Table,LD0345N3,Dark Grey, Ø 11 x 38 cm I  Ø 4.3 x 15 in,4,"LED TOUCH DIMMER 220-240V
+| 2200-2700-3000K | CRI>80 | 50-60Hz 
+8W | 400-440-451lm | beam angle 102° | IP40",€,190,"19,000",Rp,"3,610,000",,,WH Pintu Air,,,,,Lamps
+279,Zafferano-Poldina Table_Corten.jpg,ZAFFERANO,Table Lamps,Poldina Table,LD0345R3,Corten, Ø 11 x 38 cm I  Ø 4.3 x 15 in,4,"LED TOUCH DIMMER 220-240V
+| 2200-2700-3000K | CRI>80 | 50-60Hz 
+8W | 400-440-451lm | beam angle 102° | IP40",€,190,"19,000",Rp,"3,610,000",,,WH Pintu Air,,,,,Lamps
+280,Zafferano-patea mug_white.jpg,ZAFFERANO,Tableware,Patea Mug set of 2,PAT0300,White,"51 cl | Ø 88 mm, h 112 mm | l 124 mm
+",2,-,€,74,"19,000",Rp,"1,406,000",,,Showroom Display,,,,,
+281,Zafferano-patea mug_red.jpg,ZAFFERANO,Tableware,Patea Mug set of 2,PAT0304,Red,"51 cl | Ø 88 mm, h 112 mm | l 124 mm
+",2,-,€,74,"19,000",Rp,"1,406,000",,,Showroom Display,,,,,
+282,Zafferano-patea mug_blue.jpg,ZAFFERANO,Tableware,Patea Mug set of 2,PAT0307,Blue,"51 cl | Ø 88 mm, h 112 mm | l 124 mm
+",2,-,€,74,"19,000",Rp,"1,406,000",,,Showroom Display,,,,,
+283,Zafferano-patea mug_gray.jpg,ZAFFERANO,Tableware,Patea Mug set of 2,PAT0309,Gray,"51 cl | Ø 88 mm, h 112 mm | l 124 mm
+",2,-,€,74,"19,000",Rp,"1,406,000",,,Showroom Display,,,,,
+284,Zafferano-patea mug_green.jpg,ZAFFERANO,Tableware,Patea Mug set of 2,PAT0313,Green,"51 cl | Ø 88 mm, h 112 mm | l 124 mm
+",2,-,€,74,"19,000",Rp,"1,406,000",,,Showroom Display,,,,,
+285,Zafferano-patea mug_golden yellow.jpg,ZAFFERANO,Tableware,Patea Mug set of 2,PAT0318,Golden Yellow,"51 cl | Ø 88 mm, h 112 mm | l 124 mm
+",2,-,€,74,"19,000",Rp,"1,406,000",,,Showroom Display,,,,,
+286,Zafferano-patea tall carafe_white.jpeg,ZAFFERANO,Tableware,Patea Tall Carafe ,PAT0800,White,"175 cl | Ø 114 mm, h 240 mm | l 178 mm",1,-,€,68,"19,000",Rp,"1,292,000",,,WH Barito,,,,,
+287,Zafferano-patea tall carafe_blue.jpg,ZAFFERANO,Tableware,Patea Tall Carafe ,PAT0807,Blue,"175 cl | Ø 114 mm, h 240 mm | l 178 mm",2,-,€,68,"19,000",Rp,"1,292,000",,,WH Barito,,,,,
+288,Zafferano-patea tall carafe_gray.jpg,ZAFFERANO,Tableware,Patea Tall Carafe  ,PAT0809,Gray,"175 cl | Ø 114 mm, h 240 mm | l 178 mm",2,-,€,68,"19,000",Rp,"1,292,000",,,Showroom Display,,,,,
+289,Zafferano-patea tall carafe_golden yellow.jpg,ZAFFERANO,Tableware,Patea Tall Carafe ,PAT0818,Golden Yellow,"175 cl | Ø 114 mm, h 240 mm | l 178 mm",2,-,€,68,"19,000",Rp,"1,292,000",,,Showroom Display,,,,,
+290,Zafferano-bilia biscuit jar_white.jpg,ZAFFERANO,Tableware,Bilia Biscuit Jar,BA01801,White,"200 cl | Ø 180 mm, h 140 mm",4,-,€,75,"19,000",Rp,"1,425,000",,,WH Barito,,,,,
+291,Zafferano-bilia plate Ø 18_white.jpg,ZAFFERANO,Tableware,Bilia Plate 18cm,BA02501,White,Ø 180 mm h 30 mm,4,-,€,53,"19,000",Rp,"1,007,000",,,WH Barito,,,,,
+292,Zafferano-bilia plate Ø 14_white.jpg,ZAFFERANO,Tableware,Bilia Plate 14cm,BA02601,White,Ø 140 mm h 30 mm,1,-,€,32,"19,000",Rp,"608,000",,,WH Pintu Air,,,,,
+293,Zafferano-bilia jar with lid and handles_white.jpg,ZAFFERANO,Tableware,Bilia Jar With Lid and Handles,BA02701,White,"50 cl | Ø 100 mm, h 120 mm",3,-,€,36,"19,000",Rp,"684,000",,,Showroom Display,,,,,
+294,Zafferano-bilia jar with lid_white.jpg,ZAFFERANO,Tableware,Bilia Jar With Lid,BA01901,White,"35 cl | Ø 100 mm, h 100 mm",4,-,€,27,"19,000",Rp,"513,000",,,Showroom Display,,,,,
+295,Zafferano-bilia creamer_white.jpg,ZAFFERANO,Tableware,Bilia Creamer,BA00901,White,"12 cl | Ø 62 mm, h 56 mm",4,-,€,17,"19,000",Rp,"323,000",,,Showroom Display,,,,,
+296,Zafferano-bilia tumbler_6 assorted color.jpg,ZAFFERANO,Tableware,Bilia Tumbler - set of 6,BA00199,6 assorted colour,"44 cl | Ø 88 mm, h 90 mm",9,-,€,116,"19,000",Rp,"2,204,000",,,Showroom Display,,,,,
+297,Zafferano-party tumbler_6 assorted color.jpg,ZAFFERANO,Tableware,Party Tumbler - set of 6,PY00199,6 assorted colour,Ø.90x103mm. CL.45,13,-,€,167,"19,000",Rp,"3,173,000",,,Showroom Display,,,,,
+298,Zafferano-gamba de vero tumbler_6 assorted color.jpg,ZAFFERANO,Tableware,Gamba De Vero - set of 6,GV00199,6 assorted colour, Ø 90 mm l 120 mm,6,-,€,144,"19,000",Rp,"2,736,000",,,Showroom Display,,,,,
+299,Zafferano-twiddle tumbler_6 assorted color.jpg,ZAFFERANO,Tableware,Twiddle Tumbler - set of 6,TW00199,6 assorted colour,Ø 75 mm l  105 mm,18,-,€,174,"19,000",Rp,"3,306,000",,,Showroom Display,,,,,
+300,Zafferano-twiddle tumbler_amber.jpg,ZAFFERANO,Tableware,Twiddle Tumbler - set of 6,TW00104,Amber,Ø 75 mm l  105 mm,1,-,€,174,"19,000",Rp,"3,306,000",,,Showroom Display,,,,,
+301,Zafferano-twiddle tumbler_blue.jpeg,ZAFFERANO,Tableware,Twiddle Tumbler - set of 6,TW00107,Blue,Ø 75 mm l  105 mm,1,-,€,174,"19,000",Rp,"3,306,000",,,Showroom Display,,,,,
+302,Zafferano-tirache tumbler bicolor_6 assorted color.jpg,ZAFFERANO,Tableware,Tirache Tumbler - set of 6,TR00199,"Bicolor, 6 assorted colour",Ø 73 mm l  107 mm,72,-,€,180,"19,000",Rp,"3,420,000",,,WH Pintu Air,,,,,
+303,Zafferano-tirache tumbler single color_6 assorted color.jpg,ZAFFERANO,Tableware,Tirache Tumbler - set of 6,TR00198,"Single Color, 6 assorted colour",Ø 73 mm l  107 mm,18,-,€,162,"19,000",Rp,"3,078,000",,,WH Pintu Air,,,,,
+304,Zafferano-gessato tumbler_6 assorted color.jpg,ZAFFERANO,Tableware,Gessato Tumbler - set of 6,GS00199,"Single Color, 6 assorted colour",Ø 71 mm l  109 mm,18,-,€,185,"19,000",Rp,"3,515,000",,,WH Pintu Air,,,,,
+305,Zafferano-veneziano tumbler_6 assorted color.jpg,ZAFFERANO,Tableware,Veneziano Tumbler - set of 6,VN00199,"Single Color, 6 assorted colour",Ø 82 mm l  96 mm,1,-,€,114,"19,000",Rp,"2,166,000",,,WH Barito,,,,,
+306,Zafferano-veneziano carafe_clear.jpeg,ZAFFERANO,Tableware,Veneziano Carafe,VN00700,Clear,Ø 95 mm l  h 220 mm,2,-,€,130,"19,000",Rp,"2,470,000",,,Showroom Display,,,,,
+307,Zafferano-veneziano carafe_light blue.jpeg,ZAFFERANO,Tableware,Veneziano Carafe,VN00720,Light Blue,Ø 95 mm l  h 220 mm,2,-,€,130,"19,000",Rp,"2,470,000",,,Showroom Display,,,,,
+308,Zafferano-vem 43 cl_clear.jpg,ZAFFERANO,Tableware,Vem Sparkling wines - set of 6,VEM4300,Clear,Ø.84x256mm. CL.43,2,-,€,97,"19,000",Rp,"1,843,000",,,Showroom Display,,,,,
+309,Zafferano-vem 70 cl_clear.jpg,ZAFFERANO,Tableware,Vem White wines - set of 6,VEM7000,Clear,Ø.101x278mm. CL.70,1,-,€,116,"19,000",Rp,"2,204,000",,,Showroom Display,,,,,
+310,Zafferano-vem 86 cl_clear.jpg,ZAFFERANO,Tableware,Aged red wines,VEM8600,Clear,86 clØ 122 mm | h 256 mm,2,,€,118,"19,000",Rp,"2,242,000",,,WH Barito,,,,,
+311,Zafferano-esperienze 38 cl_clear.jpg,ZAFFERANO,Tableware,Esperienze Sparkling wines - set of 2,NE03800,Clear,Ø.76x245mm. CL.38,6,-,€,30,"19,000",Rp,"570,000",,,Showroom Display,,,,,
+312,Zafferano-esperienze 45 cl_clear.jpg,ZAFFERANO,Tableware,Esperienze White wines - set of 2,NE04500,Clear,45 cl Ø 89 mm | h 210 mm,6,-,€,30,"19,000",Rp,"570,000",,,Showroom Display,,,,,
+313,Zafferano-esperienze 60 cl_clear.jpg,ZAFFERANO,Tableware,Esperienze Aged red wines - set of 2,NE06000,Clear,60 cl Ø 100 mm | h 220 mm,6,-,€,34,"19,000",Rp,"646,000",,,Showroom Display,,,,,
+314,Zafferano-esperienze tumbler_clear.jpg,ZAFFERANO,Tableware,Esperienze Tumbler - set of 2,EST4500,Clear,Ø 89 mm | h 110 mm,6,-,€,24,"19,000",Rp,"456,000",,,Showroom Display,,,,,
+315,Zafferano-esperienze decanter_clear.jpg,ZAFFERANO,Tableware,Esperienze Decanter,ESD15000,Clear,Ø 236 mm | h 250 mm,2,-,€,150,"19,000",Rp,"2,850,000",,,Showroom Display,,,,,
+316,Zafferano-righe small cups_6 assorted color.jpg,ZAFFERANO,Tableware,Lido Righe Small Cups - set of 6,RIG0099,"Rig, 6 assorted colour",Ø 64 mm | h 61 mm,24,-,€,65,"19,000",Rp,"1,235,000",,,WH Pintu Air,,,,,
+317,Zafferano-righe small plate_6 assorted color.jpg,ZAFFERANO,Tableware,Lido Righe Small Plate - set of 6,RIG0399,"Rig, 6 assorted colour",Ø 130 mm,12,-,€,90,"19,000",Rp,"1,710,000",,,WH Pintu Air,,,,,
+318,Zafferano-rim small plate_6 assorted color.jpg,ZAFFERANO,Tableware,Lido Rim Small Plate - set of 6 ,RIM0399,"Rim, 6 assorted colour",Ø 130 mm,11,-,€,90,"19,000",Rp,"1,710,000",,,WH Barito,,,,,
+319,Zafferano-rim rectangular plate_gray.jpg,ZAFFERANO,Tableware,Lido Righe Rectangular Plate - set of 2,RIG0409,Gray stripes,265 x 115 mm,3,-,€,40,"19,000",Rp,"760,000",,,WH Barito,,,,,
+320,Zafferano-righe rectangular plate_gray.jpg,ZAFFERANO,Tableware,Lido Rim Rectangular Plate - set of 2,RIM0409,Gray rim,265 x 115 mm,3,-,€,40,"19,000",Rp,"760,000",,,WH Barito,,,,,
+321,Zafferano-righe small cups_gray.jpg,ZAFFERANO,Tableware,Lido Righe Small Cups - set of 6,RIG0009,Gray stripes,Ø 64 mm | h 61 mm,1,-,€,65,"19,000",Rp,"1,242,600",,,WH Barito,,,,,
+322,Zafferano-rim small cups_gray.jpg,ZAFFERANO,Tableware,Lido Rim Small Cups - set of 6,B&W0003,Gray Rim,Ø 64 mm | h 61 mm,2,-,€,65,"19,000",Rp,"1,242,600",,,WH Barito,,,,,
+323,Zafferano-perle large bowl_clear.jpg,ZAFFERANO,Tableware,Perle Large Bowl ,PR00901,Clear,Ø 230 mm | h 120 mm,2,-,€,140,"19,000",Rp,"2,660,000",,,Showroom Display,,,,,
+324,Zafferano-perle bowl_amber.jpg,ZAFFERANO,Tableware,Perle Bowl - set of 2,PR00804,Amber,Ø 115 mm | h 60 mm,1,-,€,62,"19,000",Rp,"1,178,000",,,Showroom Display,,,,,
+325,Zafferano-perle bowl_clear.jpg,ZAFFERANO,Tableware,Perle Bowl - set of 2,PR00801,Clear,Ø 115 mm | h 60 mm,1,-,€,62,"19,000",Rp,"1,178,000",,,Showroom Display,,,,,
+326,Zafferano-tue medium bowl_antique rose.jpg,ZAFFERANO,Tableware,Tue Medium Bowl - set of 6,TU00708,Antique Rose,Ø 153 mm | h 80 mm,2,-,€,119,"19,000",Rp,"2,261,000",,,Showroom Display,,,,,
+327,Zafferano-tue medium bowl_fantasy gray.jpg,ZAFFERANO,Tableware,Tue Medium Bowl - set of 6,TU00714,Fantasy Gray,Ø 153 mm | h 80 mm,2,-,€,119,"19,000",Rp,"2,261,000",,,WH Barito,,,,,
+328,Zafferano-tue medium bowl_blue lines.jpg,ZAFFERANO,Tableware,Tue Medium Bowl - set of 6,TU00715,Blue,Ø 153 mm | h 80 mm,2,-,€,119,"19,000",Rp,"2,261,000",,,Showroom Display,,,,,
+329,Zafferano-tue medium bowl_amethyst.jpg,ZAFFERANO,Tableware,Tex Medium Bowl - set of 6,TU00611,Amethyst,Ø 153 mm | h 80 mm,2,-,€,132,"19,000",Rp,"2,508,000",,,WH Barito,,,,,
+330,Zafferano-tue dessert plate_fantasy antique rose.jpg,ZAFFERANO,Tableware,Tue Dessert Plate - set of 2,TU01408,Antique Rose,Ø 215 mm | h 40 mm,6,-,€,35,"19,000",Rp,"665,000",,,Showroom Display,,,,,
+331,Zafferano-tue deep plate_fantasy antique rose.jpg,ZAFFERANO,Tableware,Tue Deep Plate - set of 2,TU00508,Antique Rose,Ø 205 mm | h 40 mm,6,-,€,48,"19,000",Rp,"912,000",,,Showroom Display,,,,,
+332,Zafferano-tue deep plate_fantasy grey.jpg,ZAFFERANO,Tableware,Tue Deep Plate - set of 2,TU00514,Gray,Ø 205 mm | h 40 mm,6,-,€,48,"19,000",Rp,"912,000",,,Showroom Display,,,,,
+333,Zafferano-tue deep plate_fantasy blue.jpg,ZAFFERANO,Tableware,Tue Deep Plate - set of 2,TU00507,Blue,Ø 205 mm | h 40 mm,6,-,€,48,"19,000",Rp,"912,000",,,Showroom Display,,,,,
+334,Zafferano-tue plate_antique rose.jpg,ZAFFERANO,Tableware,Tue Plate Antique Rose - set of 2,TU00408,Antique Rose,Ø 265 mm | h 30 mm,6,-,€,54,"19,000",Rp,"1,026,000",,,Showroom Display,,,,,
+335,Zafferano-tue plate_fantasy gray.jpg,ZAFFERANO,Tableware,Tue Plate - set of 2,TU00424,Fantasy Gray,Ø 265 mm | h 30 mm,6,-,€,54,"19,000",Rp,"1,026,000",,,Showroom Display,,,,,
+336,Zafferano-tue plate_blue lines.jpg,ZAFFERANO,Tableware,Tue Plate - set of 2,TU00407,Blue,Ø 265 mm | h 30 mm,6,-,€,54,"19,000",Rp,"1,026,000",,,Showroom Display,,,,,
+337,Zafferano-tue dessert plate_fantasy gray.jpg,ZAFFERANO,Tableware,Tue Dessert Plate - set of 2,TU00414,Fantasy Gray,Ø 215 mm | h 40 mm,6,-,€,35,"19,000",Rp,"665,000",,,Showroom Display,,,,,
+338,Zafferano-tue dessert plate_blue.jpg,ZAFFERANO,Tableware,Tue Dessert Plate - set of 2,TU00417,Blue,Ø 215 mm | h 40 mm,6,-,€,35,"19,000",Rp,"665,000",,,Showroom Display,,,,,
+339,Zafferano-veneziano mixology high ball_clear.jpg,ZAFFERANO,Tableware,Veneziano Mixology High Ball - set of 4,VN01200,Clear,Ø 96 mm | h 105 mm,6,-,€,60,"19,000",Rp,"1,140,000",,,WH Pintu Air,,,,,
+340,Zafferano-veneziano mixology tumbler XL_clear.jpg,ZAFFERANO,Tableware,Veneziano Mixology Tumbler XL - set of 4,VN01100,Clear,Ø 96 mm | h 88 mm,6,-,€,60,"19,000",Rp,"1,140,000",,,WH Pintu Air,,,,,
+341,Zafferano-veneziano mixology goblet_clear.jpg,ZAFFERANO,Tableware,Veneziano Mixology Goblet Champagne - set of 4,VN01700,Clear,Ø 106 mm | h 128 mm,6,-,€,68,"19,000",Rp,"1,292,000",,,WH Pintu Air,,,,,
+342,Zafferano-veneziano mixology martini_clear.jpg,ZAFFERANO,Tableware,Veneziano Mixology Martini - set of 4,VN01800,Clear,Ø 102 mm | h 155 mm,6,-,€,68,"19,000",Rp,"1,292,000",,,WH Pintu Air,,,,,
+343,Zafferano-altopiano white wine 51 cl_clear.jpg,ZAFFERANO,Tableware,Altopiano Sparkling Wines - set of 6,AP04200,Clear,42 cl Ø 79 mm | h 220 mm,1,-,€,102,"19,000",Rp,"1,938,000",,,WH Barito,,,,,
+344,Zafferano-altopiano white wine 51 cl_clear.jpg,ZAFFERANO,Tableware,Altopiano White Wines - set of 6,AP05100,Clear,51 cl Ø 85 mm | h 230 mm,2,-,€,108,"19,000",Rp,"2,052,000",,,WH Barito,,,,,
+345,Zafferano-altopiano red wine 67 cl_clear.jpg,ZAFFERANO,Tableware,Altopiano Aged Red Wines,AP06700,Clear,67 clØ 94 mm | h 240 mm,1,,€,19,"19,000",Rp,"361,000",,,WH Barito,,,,,
+346,Zafferano-ultralight calice 15 cl_clear.jpg,ZAFFERANO,Tableware,Ultralight Distillates - set of 2,UL01300C,Clear,15 cl Ø 69 mm | h 164 mm,24,-,€,64,"19,000",Rp,"1,216,000",,,WH Barito,,,,,
+347,Zafferano-uniche carafe_clear.jpg,ZAFFERANO,Tableware,Uniche Carafe,UN00700,White,Ø 110 mm | h 220 mm,11,-,€,58,"19,000",Rp,"1,102,000",,,WH Pintu Air,,,,,
+348,Zafferano-bilia tumbler_white.jpg,ZAFFERANO,Tableware,Bilia Tumbler - set of 6,BA00100,White,Ø 88 mm | h 90 mm,8,-,€,120,"19,000",Rp,"2,280,000",,,WH Barito,,,,,
+349,Zafferano-bilia goblet_white.jpg,ZAFFERANO,Tableware,Bilia Goblet - set of 6,BA01700,White,Ø 75 mm | h 160 mm,8,-,€,228,"19,000",Rp,"4,332,000",,,WH Pintu Air,,,,,
+350,Zafferano-bilia double glazed mug_white.jpg,ZAFFERANO,Tableware,Bilia Double Glazed Mug - set of 2,BA70701,White,Ø 82 mm | h 110 mm,24,-,€,62,"19,000",Rp,"1,178,000",,,WH Pintu Air,,,,,
+351,Zafferano-bilia double glazed cup_white.jpg,ZAFFERANO,Tableware,Bilia Double Glazed Coffee - set of 2,BA80801,White,Ø 70 mm | h 60 mm,36,-,€,54,"19,000",Rp,"1,026,000",,,Showroom Display,,,,,
+352,Zafferano-bilia teapot_white.jpg,ZAFFERANO,Tableware,Bilia Teapot,BA01701,White,Ø 150 mm | h 160 mm,12,-,€,85,"19,000",Rp,"1,615,000",,,Showroom Display,,,,,
+353,Zafferano-bilia serving stand Ø 14_white.jpg,ZAFFERANO,Tableware,Bilia Serving stand 14 cm,BA02101,White,Ø 140 mm | h 45 mm,6,-,€,43,"19,000",Rp,"817,000",,,Showroom Display,,,,,
+354,Zafferano-bilia serving stand Ø 18_white.jpg,ZAFFERANO,Tableware,Bilia Serving stand 18 cm,BA02201,White,Ø 180 mm l h15mm,6,-,€,63,"19,000",Rp,"1,197,000",,,WH Pintu Air,,,,,
+355,Zafferano-patea tall vase_white.jpg,ZAFFERANO,Accessories - Living,Patea Cylinder Vase,PAT1100,White,"275 cl | Ø 132 mm, h 300 mm",2,-,€,90,"19,000",Rp,"1,710,000",,,Showroom Display,,,,,Accessories
+356,Zafferano-patea tall vase_blue.jpg,ZAFFERANO,Accessories - Living,Patea Cylinder Vase,PAT1107,Blue,"275 cl | Ø 132 mm, h 300 mm",2,-,€,90,"19,000",Rp,"1,710,000",,,WH Pintu Air,,,,,Accessories
+357,Zafferano-patea tall vase_white.jpg,ZAFFERANO,Accessories - Living,Patea Cylinder Vase,PAT1000,White,175 cl | Ø 114 mm | h 240 mm,2,-,€,60,"19,000",Rp,"1,140,000",,,Showroom Display,,,,,Accessories
+358,Zafferano-patea tall vase_blue.jpg,ZAFFERANO,Accessories - Living,Patea Cylinder Vase,PAT1007,Blue,175 cl | Ø 114 mm | h 240 mm,2,-,€,60,"19,000",Rp,"1,140,000",,,WH Barito,,,,,Accessories
+359,Zafferano-patea convex vase_gray.jpg,ZAFFERANO,Accessories - Living,Patea Convex Vase,PAT1209,Gray,"145 cl | Ø 102 mm, h 240 mm",2,-,€,56,"19,000",Rp,"1,064,000",,,Showroom Display,,,,,Accessories
+360,Zafferano-patea convex vase_golden yellow.jpg,ZAFFERANO,Accessories - Living,Patea Convex Vase,PAT1218,Golden Yellow,"145 cl | Ø 102 mm, h 240 mm",2,-,€,56,"19,000",Rp,"1,064,000",,,WH Barito,,,,,Accessories
+361,Zafferano-patea tall convex vase_blue.jpg,ZAFFERANO,Accessories - Living,Patea Tall Convex Vase,PAT1307,White,265 cl | Ø 125 x 300 mm,2,-,€,80,"19,000",Rp,"1,520,000",,,Showroom Display,,,,,Accessories
+362,Zafferano-patea tall convex vase_white.jpg,ZAFFERANO,Accessories - Living,Patea Tall Convex vase,PAT1300,White,265 cl | Ø 125 x 300 mm,2,-,€,80,"19,000",Rp,"1,520,000",,,Showroom Display,,,,,Accessories
+363,Zafferano-Home Wall Lamp Kit_White.jpg,ZAFFERANO,Wall Lamps,Home Wall Lamps kit ,LD0259B3,White,"9,8 x 3 x 2,3 cm",2,-,€,40,"19,000",Rp,"760,000",,,WH Barito,,,,,Lamps
+364,Zafferano-home wall lamp kit_corten.jpg,ZAFFERANO,Wall Lamps,Home Wall Lamps kit ,LD0259R3,Corten,"9,8 x 3 x 2,3 cm",2,-,€,40,"19,000",Rp,"760,000",,,WH Barito,,,,,Lamps
+365,Zafferano-Home Wall Lamp Kit_Dark Grey.jpg,ZAFFERANO,Wall Lamps,Home Wall Lamps kit ,LD0259N3,Dark Grey,"9,8 x 3 x 2,3 cm",2,-,€,40,"19,000",Rp,"760,000",,,WH Barito,,,,,Lamps
+366,Zafferano-Swap Wall Lamp_Corten.jpg,ZAFFERANO,Wall Lamps,Swap Wall Lamps,LD1013R3,Corten,8x13.5x10.6 cm,70,-,€,110,"19,000",Rp,"2,090,000",,,WH Pintu Air,,,,,Lamps
+367,Zafferano-Swap Wall Lamp_Black.jpg,ZAFFERANO,Wall Lamps,Swap Wall Lamps,LD1013N3,Grey,8x13.5x10.6 cm,5,-,€,110,"19,000",Rp,"2,090,000",,,WH Barito,,,,,Lamps
+368,Zafferano-Royal Family_Black.jpg,ZAFFERANO,Portable Lamps,Royal Family Wifi,LD1160T3,Black,Ø 132 mm l h 280 mm,1,-,€,498,"19,000",Rp,"9,462,000",,,Showroom Display,,,,,
+369,Zafferano-Royal Family_Gold.jpg,ZAFFERANO,Portable Lamps,Royal Family Wifi,LD1160BFO,Oro,Ø 132 mm l h 280 mm,1,-,€,498,"19,000",Rp,"9,462,000",,,Showroom Display,,,,,
+370,Zafferano-Angelina_Red.jpg,ZAFFERANO,Portable Lamps,Angelina,LD1210F3,Red,Ø 86 mm l h260 mm,1,-,€,196,"19,000",Rp,"3,724,000",,,Showroom Display,,,,,
+371,Zafferano-Oyster Carafe_White.jpg,ZAFFERANO,Accessories - Living,Oyster Caraffa,OY00701,Clear,Ø 80 mm | h 218 mm,2,-,€,56,"19,000",Rp,"1,066,280",,,WH Barito,,,,,Accessories
+372,PIANCA Levante Sofa Indoor.jpg,PIANCA,Sofa,Levante,3pcs D9LV099 + 1pc D9LV098 S + 1pc D9LV980 ,"Seat upholstery in Elisir 02 - Fabric Cat. C, 
+Back Seat in Damasco 07 - Fabric Cat. C, 
+Piping in Gross Grain 168
+Metal in Matt Bronzo",W 3920 x L1960 x H 65/40,1,-,€,"24,736","19,000",Rp,"469,984,000",,,Showroom Display,,,,,Loose Furnitures
+373,PIANCA Levante Armchair.jpg,PIANCA,Armchair ,Levante,D9LV080,"Seat upholstery in Damasco 07 - Fabric Cat. C, 
+Back Seat in Velours 32 - Fabric Cat. B, 
+Piping in Gross Grain 168
+Metal in Matt Bronzo",W 70 x L 80 x H 72/43,2,-,€,"4,034","19,000",Rp,"76,646,000",,,Showroom Display,,,,,
+374,PIANCA Nice Sofa.jpeg,PIANCA,Sofa,Nice,NI46L S,Fabric Sole 18 - Cat. A Piping in Gross Grain Col. 53,460 x 154 x 85,1,L Shape sofa right,€,"17,654","19,000",Rp,"335,426,000",,,WH Semarang,,,,,Loose Furnitures
+375,PIANCA Naan Armchair 1.jpg,PIANCA,Armchair ,Naan ,D9NA000,Fabric Velours 22 - Cat. B Base in Matt Nero Metal,83 x 76 x H 69/42,2,with Swivel Base,€,"4,156","19,000",Rp,"78,964,000",,,WH Semarang,,,,,Loose Furnitures
+376,PIANCA Peonia left.jpg,PIANCA,Sofa,Peonia ,D9PE291 S,Fabric Acacia 01 - Cat. B,290 x 146 x H 81/44,1,Left Side,€,"11,156","19,000",Rp,"211,964,000",,,WH Semarang,,,,,Loose Furnitures
+377,PIANCA Ella Armchair.jpeg,PIANCA,Armchair ,Ella,D9EL082,Fabric Aria 16 - Cat. B Base in Nero Matt,80 x 80 x H 85/49,1,with Swivel Base,€,"4,124","19,000",Rp,"78,356,000",,,WH Semarang,,,,,Loose Furnitures
+378,PIANCA Fushimi Armchair.jpg,PIANCA,Armchair ,Fushimi,D9FL070,Hard leather - hermes Base in Wood Canaletto,69 x 63 x H 76/41,2,-,€,"4,498","19,000",Rp,"85,462,000",,,Showroom Display,,,,,Loose Furnitures
+379,PIANCA Eden Sofa 1.jpg,PIANCA,Sofa,Eden,D9EN230,Cover in Sole 18 - Cat. A,230 x 90 x H 73/40,1,-,€,"4,620","19,000",Rp,"87,780,000",,,Showroom Display,,,,,Loose Furnitures
+380,PIANCA Eden Tufted Ottoman 90.jpg,PIANCA,Ottoman,Eden,D9ET901,Cover in Malva 04 - Cat. C,Dia 90 x H 40,1,-,€,"2,713","19,000",Rp,"51,547,000",,,Showroom Display,,,,,Loose Furnitures
+381,PIANCA Peonia Armchair.jpg,PIANCA,Armchair ,Peonia,D9PE001,Fabric Acacia 03 - Cat. B Base in Metal Matt Black Detail with Nero Matt Plinth,,2,with Swivel Base,€,"6,216","19,000",Rp,"118,104,000",,,Showroom Display,,,,,Loose Furnitures
+382,PIANCA Baio carrara-titanio.jpg,PIANCA,Coffee Table,Baio,T0B40,Top in Marble - Gioia di Carrara Lucido Base in Metal - Titanio Lucido,Ø 40 H 47 cm,1,-,€,"1,658","19,000",Rp,"31,502,000",,,Showroom Display,,,,,Loose Furnitures
+383,Pianca_Baio Coffee Table_Graffite Ottone Anticato.png,PIANCA,Coffee Table,Baio,T0B40 + LSOA07,Top in Marble - Grafite Lucido Base in Metal - Ottone Anticato,Ø 40 H 47 cm,1,-,€,"1,748","19,000",Rp,"33,212,000",,,Showroom Display,,,,,Loose Furnitures
+384,PIANCA Tall Contralto.jpg,PIANCA,Coffee Table,Contralto,35LTA,Tray in Frassino Antracite Structure in Chromo Lucido Base in Terrazo Arlecchino,Ø 38 H 65 cm,1,Tall Coffee Table,€,"1,900","19,000",Rp,"36,100,000",,,Showroom Display,,,,,Loose Furnitures
+385,PIANCA Esse Chair.jpeg,PIANCA,Dining Chair,Esse,01187,Seat in Leather Lord 83 - Cat. P Metal Legs in Titano Lucido,48 x 53 x 78/47,8,-,€,"2,056","19,000",Rp,"39,064,000",,,Showroom Display,,,,,Loose Furnitures
+386,PIANCA Emi Chair.jpg,PIANCA,Dining Chair,Emi ,01191,Cover in Polo 13 - Cat. H,49 x 60 x H 87/51,8,-,€,"1,053","19,000",Rp,"20,007,000",,,Showroom Display,,,,,Loose Furnitures
+387,PIANCA Orchestra Chair 2.jpg,PIANCA,Dining Chair,Orchestra ,01148,Fabric Jazz Col. 11 Cat H Structure in Borgogna,57 x 55 x H 81/46,8,with armrest,€,"2,352","19,000",Rp,"44,688,000",,,WH Semarang,,,,,Loose Furnitures
+388,PIANCA Haik Argento 1.jpg,PIANCA,Coffee Table,Haik,249969,Argento,43 x 42 x 45,1,-,€,"3,126","19,000",Rp,"59,394,000",,,Showroom Display,,,,,Loose Furnitures
+389,PIANCA Palu Canaletto.jpg,PIANCA,Bench,Palu,2V7PJ/SD,Cover in Supersuede 86 - Cat. B Structure in Ash Wood - Canaletto,156 x 44 x H 46,1,-,€,"5,099","19,000",Rp,"96,881,000",,,Showroom Display,,,,,Loose Furnitures
+390,PIANCA Palu Borgogna 1.jpg,PIANCA,Bench,Palu,2V7PJ/RI,Cover in Riccio 03 - Cat. C Structure in Wood - Borgogna,156 x 44 x H 46,1,-,€,"5,294","19,000",Rp,"100,586,000",,,WH Semarang,,,,,Loose Furnitures
+391,PIANCA Fushimi Console.jpg,PIANCA,Console Table,Fushimi,T0K3G,Top in Marble Gioia di Carrara Lucido Structure in Wood Frassino Antracite,120 x 35 x H 76,1,-,€,"3,809","19,000",Rp,"72,371,000",,,Showroom Display,,,,,Loose Furnitures
+392,PIANCA Domenica Bed 1.jpeg,PIANCA,Bed,Domenica,WDAL37S/POTH,"External in Leather Polo 15 - Cat. H Internal in Fabric Rella 02 - Cat. H,  Metal Titanio Opaco",192/230 x 237,1,for mattress 180 x 200,€,"9,326","19,000",Rp,"177,194,000",,,WH Semarang,,,,,Loose Furnitures
+393,ED Aviv.jpg,ELEMENTI DOMUS,Wardrobe,Aviv,,"Right and Left Doors in Aluminum Frame WFR04 Bronze Anodic + Transparent Glass in GFW02 Transparent Fume,
+Middle Door in Aluminum Frame in WFR04 Bronze Anodic + Transparent Fluted Glass in GFW07 Ribbed Fume",W. 3400 x D. 650 x H. 2520 mm,1,-,,,,Rp,"600,000,000",,,Showroom Display,,,,,
+394,ED Inizio Glass Effect.jpg,ELEMENTI DOMUS,Wardrobe,Inizio,,"Door in GE04 Moss Green, 
+Internal Carcass & Drawer in MCW07 Black Textured, 
+Handle in Dento Matt Black",W. 3383 x D. 634 x H. 2485 mm,1,-,,,,Rp,"400,000,000",,,Showroom Display,,,,,
+395,ED Inizio Ribbed Glass Effect.jpg,ELEMENTI DOMUS,Wardrobe,Inizio,,"Door in GEF04 Fluted Moss Green, 
+Internal Carcass & Drawer in MCW01 Cream Linen, 
+Handle in Dento Matt Black","W. 1740 x D. 634
+x H. 2485 mm",1,-,,,,Rp,"228,024,000",,,Showroom Display,,,,,
+396,ED Cala.jpg,ELEMENTI DOMUS,Wardrobe,Cala,,"Doors in Aluminum Frame WFR04 Bronze Anodic + GFW03 Transparent Bronze Glass,
+Shelves in Aluminum Frame WFR04 Bronze Anodic + GFW03 Transparent Bronze Glass,
+Internal in MCW06 Beige Textured,
+Inside Leather in LT01 Sand,
+LED 3000 K",W. 4250 x  L. 3620 x H. 2800 mm,1,-,,,,Rp,"1,100,000,000",,,Showroom Display,,,,,
+397,ED Isola Aluminum Frame.jpg,ELEMENTI DOMUS,Wardrobe,Isola - Aluminum Frame,,"Aluminum Frame in WFR04 Bronze Anodic + GFW03 Transparent Bronze Glass,
+Front Drawer in GFW03 Transparent Bronze Glass,
+Inside Leather LT01 Sand,
+LED 3000 K",W. 1975 x D. 1110 x H. 870 mm,1,-,,,,Rp,"245,000,000",,,Showroom Display,,,,,
+398,ED Libero.jpg,ELEMENTI DOMUS,Wardrobe,Libero,,"Back Panel in VWV04 Smoked Eucalyptus,
+GFW12 Natural Mirror,
+Shelves in Aluminum Frame WFR03 Bronze + GFW03 Transparent Bronze Glass,
+Glass Drawer Front in GFW03 Transparent Bronze Glass,
+Inside Leather ELV03 Terracotta,
+Leather Drawer Front in ELV03 Terracotta,
+Inside GFW03 Transparent Bronze Glass,
+LED 3000 K",W. 5400 x D. 600 x H. 2500 mm ,1,-,,,,Rp,"510,000,000",,,Showroom Display,,,,,
+399,ED Mezzo.jpg,ELEMENTI DOMUS,Wardrobe,Mezzo,,"Back Panel in Aluminum Frame WFR04 Bronze Anodic + Natural Acid Glass,
+Shelves in Aluminum Frame WFR04 Bronze Anodic + GFW03 Transparent Bronze Glass,
+Glass Drawer Front in GFW03 Transparent Bronze Glass,
+Inside Leather LT01 Sand,
+Leather Drawer Front in ELT02 Mink + GFW03 Transparent Bronze Glass,
+Wooden Shelves in VWV05 Wood Veneer,
+LED 3000 K",W. 3400 x D. 612 x H. 2800 mm,1,-,,,,Rp,"400,000,000",,,Showroom Display,,,,,
+400,ED Mula.jpg,ELEMENTI DOMUS,Kitchen,Mula,,"Tall Unit Doors in VWV02 Silver Rustic Oak,
+Base Unit Doors in ME01 Champagne,
+Island Base Unit Doors GE02 Pale Grey,
+Plint & Gola in AFR02 Anodized Brush Black,
+Snack Bar Foglia in Nero Rustic Oak","Tall + Base Unit 
+W 6630 x D680 x H2440 mm,
+Island
+W3044 x D 1200 x H890 mm,
+Foglia Snack Bar
+W. 2800 x D. 1300 x H. 940
+",1,"Appliances, Sink, Tap and Marble Stone are not included ",,,,Rp,"920,000,000",,,Showroom Display,,,,,
+401,ED Eila Pocket Door.jpg,ELEMENTI DOMUS,Kitchen,Eila - Pocket Door System,,"Doors in VWV06 Smoked Mahogany,
+Carcass in VWV06 Smoked Mahogany",W. 6600 x D. 900 x H. 2440 mm,1,"Appliances, Sink, Tap and Marble Stone are not included ",,,,Rp,"2,038,815,000",,,Showroom Display,,,,,
+402,ED Bora Pocket Door.jpg,ELEMENTI DOMUS,Kitchen,Bora - Pocket Door System,,"Doors in VWV05 American Walnut,
+Carcass in VWV05 American Walnut","Tall unit 
+W. 3950 x D. 760 x H. 2040 mm,
+Island 
+W. 4180 x D. 1000 x H. 872 mm",1,"Appliances, Sink, Tap and Marble Stone are not included ",,,,Rp,"1,373,465,100",,,Showroom Display,,,,,
+403,ED Special Cabinet Water.jpg,ELEMENTI DOMUS,Special Cabinet,Water,,VWV02 Silver Rustic Oak,W. 900 x D. 850 x H. 1980 mm,1,ZIP Tap Water and Filter are not included,,,,Rp,"870,000,000",,,Showroom Display,,,,,
+404,ED Special Cabinet Earth.jpg,ELEMENTI DOMUS,Special Cabinet,Earth,,VWV01 Smoked Oak,W. 900 x D. 850 x H. 1980 mm,1,-,,,,Rp,"985,000,000",,,Showroom Display,,,,,
+405,Coffe Table.jpeg,ELEMENTI DOMUS,Coffee Table,Coffee Table ,,"Top Finishing Veneer
+ Leg in Paint",D. 1500 x H. 550 mm,1,,,,,Rp,"40,800,000",,,Showroom Display,,,,,
+406,,,,,,,,,,,,,,,,,,,,,,
