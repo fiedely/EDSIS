@@ -180,20 +180,18 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit 
 
             {/* Action Footer */}
             <div className="p-4 bg-white border-t border-gray-200">
-                {activeTab === 'INFO' ? (
-                    <button 
-                        onClick={() => { onClose(); onEdit(); }} 
-                        className="w-full bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 py-4 text-sm font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 shadow-sm"
-                    >
-                        <Settings size={18} />
-                        Edit Item Details
-                    </button>
-                ) : (
-                    <button className="w-full bg-primary hover:bg-primary-dark text-white py-4 text-sm font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 shadow-lg">
-                        <Package size={18} />
-                        Manage Stock
-                    </button>
-                )}
+                <button 
+                    onClick={() => { 
+                        if(activeTab === 'INFO') { 
+                            // FIX: Removed onClose(), so detail modal stays open in background
+                            onEdit(); 
+                        }
+                    }} 
+                    className="w-full bg-primary hover:bg-primary-dark text-white py-4 text-sm font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 shadow-lg"
+                >
+                    {activeTab === 'INFO' ? <Settings size={18} /> : <Package size={18} />}
+                    {activeTab === 'INFO' ? 'Edit Item Details' : 'Manage Stock'}
+                </button>
             </div>
         </div>
 

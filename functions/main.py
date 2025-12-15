@@ -85,6 +85,15 @@ def manage_product(req: https_fn.Request) -> https_fn.Response:
         # Ensure numbers are stored as numbers
         product_data['retail_price_idr'] = int(product_data.get('retail_price_idr', 0))
         product_data['total_stock'] = int(product_data.get('total_stock', 0))
+
+        # --- NEW: Enforce Casing Consistency ---
+        if product_data.get('brand'):
+            product_data['brand'] = product_data['brand'].strip().upper() # Force UPPERCASE
+        
+        if product_data.get('category'):
+            cat = product_data['category'].strip()
+            # Force Title Case (e.g. "kitchen" -> "Kitchen")
+            product_data['category'] = cat.title()
         
         # Write to 'products' collection
         db.collection('products').document(product_id).set(product_data, merge=True)

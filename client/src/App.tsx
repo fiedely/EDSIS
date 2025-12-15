@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import axios from 'axios';
 import Layout from './components/Layout';
 import type { Product } from './types';
@@ -19,25 +19,28 @@ function App() {
   const [expandedKeys, setExpandedKeys] = useState<Set<string>>(new Set());
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  // --- NEW STATE ---
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [formMode, setFormMode] = useState<'ADD' | 'EDIT'>('ADD');
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [productToEdit, setProductToEdit] = useState<Product | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get('http://127.0.0.1:5001/edievo-project/asia-southeast2/get_all_products');
-        setProducts(res.data.data);
-      } catch (err) {
-        console.error("API Error:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
+  // Moved fetch logic out to be reusable
+  const fetchProducts = useCallback(async (silent = false) => {
+    if (!silent) setLoading(true);
+    try {
+      const res = await axios.get('http://127.0.0.1:5001/edievo-project/asia-southeast2/get_all_products');
+      setProducts(res.data.data);
+      return res.data.data; // Return for chaining
+    } catch (err) {
+      console.error("API Error:", err);
+    } finally {
+      if (!silent) setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   const toggleExpand = (uniqueKey: string) => {
     const newSet = new Set(expandedKeys);
@@ -84,7 +87,6 @@ function App() {
     setExpandedKeys(new Set());
   };
 
-  // --- FORM HANDLERS ---
   const handleAddClick = () => {
     setFormMode('ADD');
     setProductToEdit(null);
@@ -97,8 +99,21 @@ function App() {
     setIsFormOpen(true);
   };
 
-  const handleRefresh = () => {
-    window.location.reload(); 
+  // --- REFINED REFRESH LOGIC ---
+  const handleRefresh = async () => {
+    // 1. Fetch new data in background
+    const newProducts: Product[] = await fetchProducts(true); 
+    
+    // 2. If we are editing an item, update the 'selectedProduct' so the modal updates live
+    if (selectedProduct) {
+        const updatedItem = newProducts.find(p => p.id === selectedProduct.id);
+        if (updatedItem) {
+            setSelectedProduct(updatedItem);
+        } else {
+            // Item might have been deleted
+            setSelectedProduct(null);
+        }
+    }
   };
 
   const renderNode = (node: GroupNode, parentKey: string = '') => {
@@ -266,6 +281,7 @@ function App() {
             isOpen={isFormOpen}
             mode={formMode}
             initialData={productToEdit}
+            existingProducts={products} // <--- Pass existing products for autocomplete
             onClose={() => setIsFormOpen(false)}
             onSuccess={handleRefresh}
         />
