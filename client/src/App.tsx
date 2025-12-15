@@ -7,6 +7,8 @@ import { ChevronDown, ChevronRight, Layers, ChevronsDown, ChevronsUp } from 'luc
 import clsx from 'clsx';
 import ProductDetailModal from './components/ProductDetailModal';
 import StorageImage from './components/StorageImage';
+import Sidebar from './components/Sidebar';
+import ProductFormModal from './components/ProductFormModal';
 
 function App() {
   const [activeTab, setActiveTab] = useState('BRAND');
@@ -16,6 +18,12 @@ function App() {
   
   const [expandedKeys, setExpandedKeys] = useState<Set<string>>(new Set());
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  // --- NEW STATE ---
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [formMode, setFormMode] = useState<'ADD' | 'EDIT'>('ADD');
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [productToEdit, setProductToEdit] = useState<Product | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,20 +49,12 @@ function App() {
     setExpandedKeys(newSet);
   };
 
-  // --- Refinement #2: Multi-Keyword Smart Search ---
   const treeData = useMemo(() => {
     const filtered = products.filter(p => {
       if (!searchQuery) return true;
-      
-      // Split by comma, trim whitespace, and ignore empty strings
       const terms = searchQuery.toLowerCase().split(',').map(t => t.trim()).filter(t => t.length > 0);
-      
       if (terms.length === 0) return true;
-
-      // Create a giant string of all searchable text for this product
       const searchableText = `${p.brand} ${p.category} ${p.collection} ${p.code}`.toLowerCase();
-      
-      // AND Logic: The product must contain EVERY term entered
       return terms.every(term => searchableText.includes(term));
     });
 
@@ -67,20 +67,12 @@ function App() {
     return buildProductTree(filtered, levels);
   }, [products, activeTab, searchQuery]);
 
-  // --- Refinement #1: Expand/Collapse All Logic ---
   const handleExpandAll = () => {
     const allKeys = new Set<string>();
-    
-    // Recursive helper to find all keys in the current tree
     const traverse = (nodes: GroupNode[], parentKey = '') => {
         nodes.forEach(node => {
             const uniqueKey = parentKey ? `${parentKey}-${node.key}` : node.key;
             allKeys.add(uniqueKey);
-            
-            // If it has subgroups, we might want to auto-expand the "ALL" section too? 
-            // Let's stick to expanding the groups for cleanliness.
-            // if (node.subgroups.length > 0) allKeys.add(`${uniqueKey}-ALL`);
-
             traverse(node.subgroups, uniqueKey);
         });
     };
@@ -90,6 +82,23 @@ function App() {
 
   const handleCollapseAll = () => {
     setExpandedKeys(new Set());
+  };
+
+  // --- FORM HANDLERS ---
+  const handleAddClick = () => {
+    setFormMode('ADD');
+    setProductToEdit(null);
+    setIsFormOpen(true);
+  };
+
+  const handleEditClick = (product: Product) => {
+    setFormMode('EDIT');
+    setProductToEdit(product);
+    setIsFormOpen(true);
+  };
+
+  const handleRefresh = () => {
+    window.location.reload(); 
   };
 
   const renderNode = (node: GroupNode, parentKey: string = '') => {
@@ -165,7 +174,6 @@ function App() {
         onClick={() => setSelectedProduct(item)} 
         className="p-3 flex gap-3 border-b border-gray-200/50 last:border-0 hover:bg-white transition-colors cursor-pointer group bg-white"
     >
-      {/* Thumbnail Image */}
       <div className="w-12 h-12 flex-shrink-0 bg-gray-100 border border-gray-200 overflow-hidden">
         <StorageImage 
             filename={item.image_url} 
@@ -198,6 +206,7 @@ function App() {
             }}
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
+            onMenuClick={() => setSidebarOpen(true)}
         >
         {loading ? (
             <div className="p-10 text-center text-gray-400 text-sm animate-pulse flex flex-col items-center gap-2">
@@ -206,7 +215,6 @@ function App() {
             </div>
         ) : (
             <div className="pb-10">
-                {/* Control Bar: Expand/Collapse & Counts */}
                 <div className="sticky top-0 z-10 bg-gray-50/95 backdrop-blur-sm border-b border-gray-200 px-4 py-2 flex justify-between items-center shadow-sm">
                     <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">
                         {searchQuery ? (
@@ -241,10 +249,25 @@ function App() {
         )}
         </Layout>
 
+        <Sidebar 
+            isOpen={isSidebarOpen} 
+            onClose={() => setSidebarOpen(false)} 
+            onAddItem={handleAddClick}
+        />
+
         <ProductDetailModal 
             product={selectedProduct} 
             isOpen={!!selectedProduct} 
             onClose={() => setSelectedProduct(null)} 
+            onEdit={() => selectedProduct && handleEditClick(selectedProduct)}
+        />
+
+        <ProductFormModal 
+            isOpen={isFormOpen}
+            mode={formMode}
+            initialData={productToEdit}
+            onClose={() => setIsFormOpen(false)}
+            onSuccess={handleRefresh}
         />
     </>
   );

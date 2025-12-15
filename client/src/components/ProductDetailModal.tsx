@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { X, MapPin, QrCode, History, Package, ZoomIn } from 'lucide-react';
+import { X, MapPin, QrCode, History, Package, ZoomIn, Settings } from 'lucide-react';
 import axios from 'axios';
 import type { Product, InventoryItem } from '../types';
 import StorageImage from './StorageImage';
@@ -8,9 +8,10 @@ interface Props {
   product: Product | null;
   isOpen: boolean;
   onClose: () => void;
+  onEdit: () => void;
 }
 
-const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose }) => {
+const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit }) => {
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<'INFO' | 'STOCK'>('INFO');
@@ -50,7 +51,7 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose }) => {
             
             {/* Header Image Area */}
             <div className="h-64 bg-gray-100 relative shrink-0 shadow-sm group">
-            {/* Close Button (Standard) */}
+            {/* Close Button */}
             <button 
                 onClick={onClose}
                 className="absolute top-4 right-4 bg-white shadow-md hover:bg-gray-50 p-2 rounded-full text-primary transition-all z-20"
@@ -179,17 +180,26 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose }) => {
 
             {/* Action Footer */}
             <div className="p-4 bg-white border-t border-gray-200">
-                <button className="w-full bg-primary hover:bg-primary-dark text-white py-4 text-sm font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 shadow-lg">
-                    <Package size={18} />
-                    Manage Stock
-                </button>
+                {activeTab === 'INFO' ? (
+                    <button 
+                        onClick={() => { onClose(); onEdit(); }} 
+                        className="w-full bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 py-4 text-sm font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 shadow-sm"
+                    >
+                        <Settings size={18} />
+                        Edit Item Details
+                    </button>
+                ) : (
+                    <button className="w-full bg-primary hover:bg-primary-dark text-white py-4 text-sm font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 shadow-lg">
+                        <Package size={18} />
+                        Manage Stock
+                    </button>
+                )}
             </div>
         </div>
 
         {/* --- ZOOM LIGHTBOX OVERLAY --- */}
         {isZoomed && (
             <div className="fixed inset-0 z-[60] bg-black flex items-center justify-center animate-in fade-in duration-200">
-                {/* Close Zoom Button - UPDATED STYLE */}
                 <button 
                     onClick={() => setIsZoomed(false)}
                     className="absolute top-4 right-4 bg-white shadow-md hover:bg-gray-50 p-2 rounded-full text-primary transition-all z-20"
@@ -197,7 +207,6 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose }) => {
                     <X size={32} />
                 </button>
                 
-                {/* Full Screen Image */}
                 <div className="w-full h-full p-2 sm:p-10 flex items-center justify-center">
                     <StorageImage 
                         filename={product.image_url} 

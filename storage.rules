@@ -2,10 +2,9 @@ rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
     match /{allPaths=**} {
-      // Allow read access to everyone (for now)
-      allow read: if true;
-      // Only allow write if logged in (standard)
-      allow write: if request.auth != null;
+      // ⚠️ DEV MODE: Allow read AND write to everyone
+      // We will lock 'write' back down once we build the Login Screen
+      allow read, write: if true;
     }
   }
 }

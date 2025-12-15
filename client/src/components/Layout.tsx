@@ -7,6 +7,7 @@ interface LayoutProps {
   onTabChange: (tab: string) => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  onMenuClick: () => void;
 }
 
 interface NavButtonProps {
@@ -21,14 +22,18 @@ const Layout: React.FC<LayoutProps> = ({
   activeTab, 
   onTabChange,
   searchQuery,
-  onSearchChange 
+  onSearchChange,
+  onMenuClick
 }) => {
   return (
     <div className="flex flex-col h-screen bg-gray-100 max-w-md mx-auto shadow-2xl overflow-hidden relative">
       
       {/* 1. Header (Interactive Search) */}
       <header className="bg-primary text-white p-4 flex gap-2 items-center shadow-md z-10">
-        <button className="p-2 hover:bg-primary-dark transition-colors rounded-none">
+        <button 
+            onClick={onMenuClick}
+            className="p-2 hover:bg-primary-dark transition-colors rounded-none"
+        >
             <Menu size={24} />
         </button>
         
