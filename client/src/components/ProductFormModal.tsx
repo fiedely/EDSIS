@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { X, Save, Trash2, Upload, CheckCircle, Loader2, Plus, Minus, AlertTriangle, Calendar, Info } from 'lucide-react';
-import type { Product, Discount, DiscountRule } from '../types';
+import { X, Save, Trash2, Upload, CheckCircle, Loader2, Plus, Minus, AlertTriangle, Calendar, Info, DollarSign, Euro } from 'lucide-react';
+import type { Product, Discount, DiscountRule, ExchangeRates } from '../types';
 import { logActivity } from '../audit';
 import axios from 'axios';
 import { ref, uploadBytes } from 'firebase/storage';
@@ -12,11 +12,12 @@ interface Props {
   mode: 'ADD' | 'EDIT';
   initialData?: Product | null;
   existingProducts?: Product[];
+  currentRates: ExchangeRates | null;
   onClose: () => void;
   onSuccess: () => void;
 }
 
-const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existingProducts = [], onClose, onSuccess }) => {
+const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existingProducts = [], currentRates, onClose, onSuccess }) => {
   const [formData, setFormData] = useState<Partial<Product>>({});
   const [loading, setLoading] = useState(false);
   
@@ -60,7 +61,10 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
         } else {
             setFormData({ 
                 brand: '', category: '', collection: '', 
-                code: '', manufacturer_code: '', total_stock: 0, retail_price_idr: 0, detail: '',
+                code: '', manufacturer_code: '', total_stock: 0, 
+                retail_price_idr: 0, retail_price_eur: 0, retail_price_usd: 0, 
+                currency: 'EUR', // Default to EUR
+                detail: '',
                 is_not_for_sale: false, is_upcoming: false, upcoming_eta: ''
             });
             setLocalDiscounts([]);
@@ -69,6 +73,21 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
         }
     }
   }, [isOpen, mode, initialData]);
+
+  // Auto Calculate IDR when Foreign Currency changes
+  useEffect(() => {
+      if (!currentRates) return;
+      
+      if (formData.currency === 'EUR') {
+          const val = formData.retail_price_eur || 0;
+          const calculatedIdr = val * currentRates.eur_rate;
+          setFormData(prev => ({ ...prev, retail_price_idr: calculatedIdr }));
+      } else if (formData.currency === 'USD') {
+          const val = formData.retail_price_usd || 0;
+          const calculatedIdr = val * currentRates.usd_rate;
+          setFormData(prev => ({ ...prev, retail_price_idr: calculatedIdr }));
+      }
+  }, [formData.currency, formData.retail_price_eur, formData.retail_price_usd, currentRates]);
 
   const calculatedNettPrice = useMemo(() => {
     const retail = formData.retail_price_idr || 0;
@@ -267,7 +286,6 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
 
                     <div className="space-y-1">
                         <label className="text-xs font-bold text-gray-500 uppercase">Collection Name</label>
-                        {/* [MODIFIED] Removed placeholder help text */}
                         <input 
                             className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none font-bold"
                             placeholder="" 
@@ -280,7 +298,6 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
                         <label className="text-xs font-bold text-gray-500 uppercase flex items-center gap-2">
                              Manufacturer Product ID
                         </label>
-                        {/* [MODIFIED] Removed placeholder help text */}
                         <input 
                             className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none font-mono text-gray-600"
                             placeholder=""
@@ -301,36 +318,87 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
 
                 {/* 3. PRICING ENGINE */}
                 <div className="bg-red-50 p-4 border border-red-100 space-y-4 rounded-sm">
-                    <div className="text-xs font-bold text-red-800 uppercase tracking-widest flex items-center gap-2">
-                        Pricing & Discounts
+                    <div className="flex justify-between items-center">
+                        <div className="text-xs font-bold text-red-800 uppercase tracking-widest flex items-center gap-2">Pricing & Discounts</div>
+                        
+                        {/* Currency Selector - FIXED TYPESCRIPT ERROR */}
+                        <div className="flex bg-white rounded border border-gray-300 overflow-hidden">
+                            {(['EUR', 'USD', 'IDR'] as const).map(curr => (
+                                <button 
+                                    key={curr}
+                                    type="button"
+                                    onClick={() => setFormData({...formData, currency: curr})}
+                                    className={`px-3 py-1 text-[10px] font-bold transition-colors ${formData.currency === curr ? 'bg-red-600 text-white' : 'text-gray-500 hover:bg-gray-100'}`}
+                                >
+                                    {curr}
+                                </button>
+                            ))}
+                        </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-1">
-                            {/* [MODIFIED] Enforce height (h-5) to match sibling for perfect alignment */}
-                            <label className="text-xs font-bold text-gray-500 uppercase flex items-center gap-1 h-5">
-                                System SKU 
-                                {/* [MODIFIED] Tooltip logic updated */}
-                                <div title="SKU is handled by the system. (BRAND-CATEGORY-NAME-SEQUENCE)" className="cursor-help">
-                                    <Info size={12} className="text-gray-400"/> 
-                                </div>
-                            </label>
-                            <input 
-                                className="w-full border border-gray-200 bg-gray-100 p-2 text-sm text-gray-500 focus:outline-none cursor-not-allowed font-mono"
-                                value={formData.code || 'Auto-generated'} 
-                                readOnly
-                            />
+                             {/* Conditional Input based on Currency */}
+                             {formData.currency === 'EUR' ? (
+                                <>
+                                    <label className="text-xs font-bold text-gray-500 uppercase flex items-center h-5 gap-1">
+                                        <Euro size={12}/> Retail (EUR)
+                                    </label>
+                                    <input 
+                                        type="number" 
+                                        className="w-full border border-red-300 bg-white p-2 text-sm font-bold text-red-700 outline-none" 
+                                        value={formData.retail_price_eur || 0} 
+                                        onChange={e => setFormData({...formData, retail_price_eur: Number(e.target.value)})} 
+                                    />
+                                </>
+                             ) : formData.currency === 'USD' ? (
+                                <>
+                                    <label className="text-xs font-bold text-gray-500 uppercase flex items-center h-5 gap-1">
+                                        <DollarSign size={12}/> Retail (USD)
+                                    </label>
+                                    <input 
+                                        type="number" 
+                                        className="w-full border border-red-300 bg-white p-2 text-sm font-bold text-red-700 outline-none" 
+                                        value={formData.retail_price_usd || 0} 
+                                        onChange={e => setFormData({...formData, retail_price_usd: Number(e.target.value)})} 
+                                    />
+                                </>
+                             ) : (
+                                <>
+                                    <label className="text-xs font-bold text-gray-500 uppercase flex items-center h-5 gap-1">Retail (EUR/USD)</label>
+                                    <input 
+                                        className="w-full border border-gray-200 bg-gray-100 p-2 text-sm text-gray-400 outline-none cursor-not-allowed" 
+                                        value="-" 
+                                        readOnly 
+                                    />
+                                </>
+                             )}
                         </div>
+
                         <div className="space-y-1">
-                            {/* [MODIFIED] Added flex items-center h-5 to ensure alignment with SKU label */}
                             <label className="text-xs font-bold text-gray-500 uppercase flex items-center h-5">Retail Price (IDR)</label>
                             <input 
                                 type="number"
-                                className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none bg-white font-bold"
-                                value={formData.retail_price_idr || 0}
+                                className={`w-full border p-2 text-sm font-bold outline-none ${formData.currency === 'IDR' ? 'bg-white border-gray-300' : 'bg-gray-100 border-gray-200 text-gray-600 cursor-not-allowed'}`}
+                                value={Math.round(formData.retail_price_idr || 0)}
+                                readOnly={formData.currency !== 'IDR'}
                                 onChange={e => setFormData({...formData, retail_price_idr: Number(e.target.value)})}
                             />
                         </div>
+                    </div>
+
+                    <div className="space-y-1 pt-2 border-t border-red-100">
+                         <label className="text-xs font-bold text-gray-500 uppercase flex items-center gap-1 h-5">
+                             System SKU 
+                             <div title="SKU is handled by the system. (BRAND-CATEGORY-NAME-SEQUENCE)" className="cursor-help">
+                                 <Info size={12} className="text-gray-400"/> 
+                             </div>
+                         </label>
+                         <input 
+                            className="w-full border border-gray-200 bg-gray-100 p-2 text-sm text-gray-500 focus:outline-none cursor-not-allowed font-mono" 
+                            value={formData.code || 'Auto-generated'} 
+                            readOnly 
+                        />
                     </div>
 
                     {/* Discount List */}

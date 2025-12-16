@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { X, MapPin, QrCode, History, Package, ZoomIn, Settings, AlertTriangle, Clock, Percent, Book, User, Edit2, Loader2 } from 'lucide-react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
+import { X, MapPin, QrCode, History, Package, ZoomIn, Settings, AlertTriangle, Clock, Percent, Book, User, Edit2, Loader2, Info } from 'lucide-react';
 import axios from 'axios';
-import type { Product, InventoryItem } from '../types';
+import type { Product, InventoryItem, ExchangeRates } from '../types';
 import StorageImage from './StorageImage';
 import clsx from 'clsx';
 
@@ -11,9 +11,10 @@ interface Props {
   onClose: () => void;
   onEdit: () => void;
   onRefresh: () => void;
+  currentRates: ExchangeRates | null;
 }
 
-const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit, onRefresh }) => {
+const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit, onRefresh, currentRates }) => {
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<'INFO' | 'STOCK'>('INFO');
@@ -65,6 +66,44 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
           onRefresh(); 
       } catch(err) { console.error(err); }
   };
+
+  // Reactive Price Calculation
+  const displayPrice = useMemo(() => {
+      if (!product) return 0;
+      // If currency is EUR/USD, calculate live. Otherwise use stored IDR.
+      if (product.currency === 'EUR' && currentRates) {
+          return (product.retail_price_eur || 0) * currentRates.eur_rate;
+      }
+      if (product.currency === 'USD' && currentRates) {
+          return (product.retail_price_usd || 0) * currentRates.usd_rate;
+      }
+      return product.retail_price_idr; 
+  }, [product, currentRates]);
+
+  // Tooltip Logic
+  const priceTooltip = useMemo(() => {
+      if (!product || !currentRates) return "Loading rates...";
+      
+      if (product.currency === 'EUR') {
+          return `€${product.retail_price_eur}, IDR price calculated using the exchange rate of ${currentRates.eur_rate}`;
+      }
+      if (product.currency === 'USD') {
+          return `$${product.retail_price_usd}, IDR price calculated using the exchange rate of ${currentRates.usd_rate}`;
+      }
+      return "Foreign currency price not defined";
+  }, [product, currentRates]);
+
+  // Calculate Nett Price based on the *Display Price* (which might be live calculated)
+  const displayNettPrice = useMemo(() => {
+      if (!product) return 0;
+      if (!product.discounts || product.discounts.length === 0) return displayPrice;
+
+      let current = displayPrice;
+      product.discounts.forEach(d => {
+          current = current * ((100 - d.value) / 100);
+      });
+      return current;
+  }, [displayPrice, product]);
 
   if (!isOpen || !product) return null;
 
@@ -198,7 +237,6 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                                 <div className="text-base font-medium text-gray-800">{product.category}</div>
                             </div>
                             
-                            {/* [MODIFIED] No Icon */}
                             {product.manufacturer_code && (
                                 <div className="col-span-2">
                                     <div className="text-[10px] text-gray-400 uppercase tracking-widest mb-1 flex items-center gap-1">
@@ -227,14 +265,21 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                             )}
 
                             <div className="col-span-2 pt-4 border-t border-gray-100">
-                                <div className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Retail Price (IDR)</div>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="text-[10px] text-gray-400 uppercase tracking-widest">Retail Price (IDR)</div>
+                                    {/* Info Icon with Tooltip */}
+                                    <div title={priceTooltip} className="cursor-help text-gray-400 hover:text-primary transition-colors">
+                                        <Info size={14} />
+                                    </div>
+                                </div>
+
                                 {hasDiscount ? (
                                     <div className="flex flex-col">
                                         <div className="text-sm text-gray-400 line-through decoration-red-400 decoration-1">
-                                            {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(product.retail_price_idr)}
+                                            {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(displayPrice)}
                                         </div>
                                         <div className="text-2xl font-bold text-red-600 flex items-center gap-2">
-                                            {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(product.nett_price_idr || product.retail_price_idr)}
+                                            {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(displayNettPrice)}
                                             <span className="bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wide">Promo</span>
                                         </div>
                                         <div className="flex gap-2 mt-2">
@@ -247,7 +292,7 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                                     </div>
                                 ) : (
                                     <div className="text-xl font-bold text-primary">
-                                        {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(product.retail_price_idr)}
+                                        {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(displayPrice)}
                                     </div>
                                 )}
                             </div>

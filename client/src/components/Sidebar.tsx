@@ -7,7 +7,9 @@ interface SidebarProps {
   onAddItem: () => void;
   onImport: () => void;
   onManageDiscounts: () => void;
-  onOpenActiveBookings: () => void; // <--- NEW PROP
+  onOpenActiveBookings: () => void;
+  // [NEW] Prop for Exchange Rates
+  onManageRates: () => void; 
   userRole?: string;
 }
 
@@ -25,6 +27,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onImport, 
   onManageDiscounts, 
   onOpenActiveBookings,
+  onManageRates,
   userRole = 'admin' 
 }) => {
   const canAdd = userRole === 'admin' || userRole === 'manager';
@@ -83,7 +86,13 @@ const Sidebar: React.FC<SidebarProps> = ({
             />
             
             <MenuButton icon={<FileText size={18} />} label="Export Inventory" onClick={() => {}} />
-            <MenuButton icon={<RefreshCw size={18} />} label="Manage Exchange" onClick={() => {}} />
+            
+            {/* [MODIFIED] Wired up the Manage Exchange button */}
+            <MenuButton 
+                icon={<RefreshCw size={18} />} 
+                label="Manage Exchange" 
+                onClick={() => { onClose(); onManageRates(); }} 
+            />
             
             <MenuButton 
                 icon={<Percent size={18} />} 

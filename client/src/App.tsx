@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import axios from 'axios';
 import Layout from './components/Layout';
-import type { Product } from './types';
+import type { Product, ExchangeRates } from './types';
 import { buildProductTree, type GroupNode } from './utils';
 import { ChevronDown, ChevronRight, Layers, ChevronsDown, ChevronsUp, RefreshCw, AlertCircle, Clock, Percent, XCircle, Book } from 'lucide-react';
 import clsx from 'clsx';
@@ -12,6 +12,7 @@ import ProductFormModal from './components/ProductFormModal';
 import ImportModal from './components/ImportModal';
 import DiscountManagerModal from './components/DiscountManagerModal';
 import ActiveBookingsModal from './components/ActiveBookingsModal';
+import ExchangeRateModal from './components/ExchangeRateModal'; // [NEW]
 
 function App() {
   const [activeTab, setActiveTab] = useState('BRAND');
@@ -19,6 +20,10 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   
+  // [NEW] State for Exchange Rates
+  const [rates, setRates] = useState<ExchangeRates | null>(null);
+  const [isRateModalOpen, setIsRateModalOpen] = useState(false);
+
   const [expandedState, setExpandedState] = useState<Record<string, Set<string>>>({
     BRAND: new Set(),
     CATEGORY: new Set(),
@@ -46,6 +51,10 @@ function App() {
         await axios.post('http://127.0.0.1:5001/edievo-project/asia-southeast2/check_expired_bookings');
       }
       
+      // [NEW] Fetch Exchange Rates
+      const rateRes = await axios.get('http://127.0.0.1:5001/edievo-project/asia-southeast2/get_exchange_rates');
+      setRates(rateRes.data.data);
+
       const res = await axios.get('http://127.0.0.1:5001/edievo-project/asia-southeast2/get_all_products');
       setProducts(res.data.data);
       return res.data.data;
@@ -97,7 +106,7 @@ function App() {
       if (searchQuery) {
         const terms = searchQuery.toLowerCase().split(',').map(t => t.trim()).filter(t => t.length > 0);
         if (terms.length > 0) {
-            // [MODIFIED] Added manufacturer_code to searchable text
+            // [UPDATED] Search includes Manufacturer Code
             const searchableText = `${p.brand} ${p.category} ${p.collection} ${p.code} ${p.manufacturer_code || ''}`.toLowerCase();
             const matches = terms.every(term => searchableText.includes(term));
             if (!matches) return false;
@@ -401,6 +410,7 @@ function App() {
             onImport={handleImportClick}
             onManageDiscounts={handleManageDiscountsClick}
             onOpenActiveBookings={() => setIsActiveBookingsOpen(true)} 
+            onManageRates={() => setIsRateModalOpen(true)} // [NEW] Pass Handler
         />
 
         <ProductDetailModal 
@@ -409,6 +419,7 @@ function App() {
             onClose={() => setSelectedProduct(null)} 
             onEdit={() => selectedProduct && handleEditClick(selectedProduct)}
             onRefresh={handleRefresh} 
+            currentRates={rates} // [NEW] Pass Rates
         />
 
         <ProductFormModal 
@@ -416,6 +427,7 @@ function App() {
             mode={formMode}
             initialData={productToEdit}
             existingProducts={products} 
+            currentRates={rates} // [NEW] Pass Rates
             onClose={() => setIsFormOpen(false)}
             onSuccess={handleRefresh}
         />
@@ -437,6 +449,14 @@ function App() {
             isOpen={isActiveBookingsOpen}
             onClose={() => setIsActiveBookingsOpen(false)}
             onSuccess={handleRefresh}
+        />
+
+        {/* [NEW] Exchange Rate Modal */}
+        <ExchangeRateModal 
+            isOpen={isRateModalOpen}
+            onClose={() => setIsRateModalOpen(false)}
+            currentRates={rates}
+            onSuccess={() => fetchProducts(true)} 
         />
     </>
   );

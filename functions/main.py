@@ -97,6 +97,42 @@ def update_product_counters(product_id):
         'sold_stock': sold
     })
 
+# --- EXCHANGE RATES ---
+
+@https_fn.on_request(region="asia-southeast2")
+def get_exchange_rates(req: https_fn.Request) -> https_fn.Response:
+    headers = {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET', 'Access-Control-Allow-Headers': 'Content-Type'}
+    if req.method == 'OPTIONS': return https_fn.Response('', status=204, headers=headers)
+    
+    try:
+        doc = db.collection('settings').document('global').get()
+        # Default Fallback if not set yet
+        data = doc.to_dict() if doc.exists else {'eur_rate': 17000, 'usd_rate': 15500} 
+        
+        # [FIX] Serialize data to handle datetime objects
+        serialized_data = serialize_doc(data)
+        
+        return https_fn.Response(json.dumps({'data': serialized_data}), status=200, headers=headers, mimetype='application/json')
+    except Exception as e:
+        return https_fn.Response(str(e), status=500, headers=headers)
+
+@https_fn.on_request(region="asia-southeast2")
+def update_exchange_rates(req: https_fn.Request) -> https_fn.Response:
+    headers = {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST', 'Access-Control-Allow-Headers': 'Content-Type'}
+    if req.method == 'OPTIONS': return https_fn.Response('', status=204, headers=headers)
+
+    try:
+        data = req.get_json()
+        rates = {
+            'eur_rate': int(data.get('eur_rate', 0)),
+            'usd_rate': int(data.get('usd_rate', 0)),
+            'last_updated': datetime.datetime.now()
+        }
+        db.collection('settings').document('global').set(rates, merge=True)
+        return https_fn.Response(json.dumps({'success': True}), status=200, headers=headers, mimetype='application/json')
+    except Exception as e:
+        return https_fn.Response(str(e), status=500, headers=headers)
+
 # --- READ FUNCTIONS ---
 
 @https_fn.on_request(region="asia-southeast2")
@@ -122,10 +158,12 @@ def get_product_inventory(req: https_fn.Request) -> https_fn.Response:
     try:
         query = db.collection('inventory_items').where('product_id', '==', product_id).stream()
         inventory = []
+        
         for doc in query:
             d = doc.to_dict()
             d['id'] = doc.id
             inventory.append(serialize_doc(d))
+
         return https_fn.Response(json.dumps({'data': inventory}), status=200, headers=headers, mimetype='application/json')
     except Exception as e:
         return https_fn.Response(str(e), status=500, headers=headers)
@@ -146,6 +184,8 @@ def get_discounts(req: https_fn.Request) -> https_fn.Response:
     except Exception as e:
         return https_fn.Response(str(e), status=500, headers=headers)
 
+# --- SYSTEM JOB FUNCTIONS ---
+
 @https_fn.on_request(region="asia-southeast2")
 def check_expired_bookings(req: https_fn.Request) -> https_fn.Response:
     headers = {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST', 'Access-Control-Allow-Headers': 'Content-Type'}
@@ -153,6 +193,7 @@ def check_expired_bookings(req: https_fn.Request) -> https_fn.Response:
 
     try:
         booked_items = db.collection('inventory_items').where('status', '==', 'BOOKED').stream()
+        
         now = datetime.datetime.now()
         updated_products = set()
         count = 0
@@ -162,6 +203,7 @@ def check_expired_bookings(req: https_fn.Request) -> https_fn.Response:
             data = doc.to_dict()
             booking = data.get('booking', {})
             expired_str = booking.get('expired_at')
+            
             if expired_str:
                 try:
                     exp_date = datetime.datetime.fromisoformat(expired_str)
@@ -179,14 +221,17 @@ def check_expired_bookings(req: https_fn.Request) -> https_fn.Response:
                         batch.update(doc.reference, update_data)
                         updated_products.add(data.get('product_id'))
                         count += 1
-                except: continue
+                except:
+                    continue
 
             if count >= 400:
                 batch.commit()
                 batch = db.batch()
                 count = 0
         
-        if count > 0: batch.commit()
+        if count > 0:
+            batch.commit()
+
         for pid in updated_products:
             if pid: update_product_counters(pid)
 
@@ -224,8 +269,9 @@ def book_item(req: https_fn.Request) -> https_fn.Response:
             exp_date = datetime.datetime.fromisoformat(expired_at_str).replace(hour=23, minute=59, second=59)
         except ValueError:
              return https_fn.Response("Invalid date format", status=400, headers=headers)
-        
+             
         now = datetime.datetime.now()
+
         update_data = {
             'status': 'BOOKED',
             'booking': {
@@ -245,6 +291,7 @@ def book_item(req: https_fn.Request) -> https_fn.Response:
         
         doc_ref.update(update_data)
         update_product_counters(item_data['product_id'])
+        
         return https_fn.Response(json.dumps({'success': True}), status=200, headers=headers, mimetype='application/json')
     except Exception as e:
         return https_fn.Response(str(e), status=500, headers=headers)
@@ -275,6 +322,7 @@ def release_item(req: https_fn.Request) -> https_fn.Response:
         
         doc_ref.update(update_data)
         update_product_counters(item_data['product_id'])
+        
         return https_fn.Response(json.dumps({'success': True}), status=200, headers=headers, mimetype='application/json')
     except Exception as e:
         return https_fn.Response(str(e), status=500, headers=headers)
@@ -290,6 +338,7 @@ def manage_discount(req: https_fn.Request) -> https_fn.Response:
         data = req.get_json()
         mode = data.get('mode')
         discount_data = data.get('discount')
+        
         if not discount_data: return https_fn.Response("Missing data", status=400, headers=headers)
         discount_id = discount_data.get('id')
 
@@ -333,6 +382,7 @@ def manage_discount(req: https_fn.Request) -> https_fn.Response:
                     for d in discounts:
                         val = float(d.get('value', 0))
                         current_price = current_price * ((100 - val) / 100)
+                    
                     batch.update(doc.reference, {'discounts': discounts, 'nett_price_idr': int(current_price)})
                     batch_count += 1
                 
@@ -353,6 +403,7 @@ def manage_product(req: https_fn.Request) -> https_fn.Response:
         data = req.get_json()
         mode = data.get('mode')
         product_data = data.get('product')
+        
         if not product_data: return https_fn.Response("Missing data", status=400, headers=headers)
 
         product_id = product_data.get('id')
@@ -372,29 +423,29 @@ def manage_product(req: https_fn.Request) -> https_fn.Response:
         base_sku = f"{c1}-{c2}-{c3}"
 
         # 2. Check for Collisions
-        # Get all existing codes that start with the prefix (BRAND-CAT) to reduce read cost slightly, 
-        # or just query precise match if we assume linear insert. 
-        # For strictness, let's fetch any product that shares the base SKU
-        # Optimization: We only check if this product has a DIFFERENT code (rename) or is new.
-        
         current_code = product_data.get('code')
-        # If the generated base matches the current one (no rename), keep using current.
-        # But if rename happened, we must re-verify.
         
-        # Fetch all existing SKUs to verify collision (simplified for MVP: fetch codes map?)
-        # Better: Query products with same code.
         existing_with_sku = db.collection('products').where('code', '>=', base_sku).where('code', '<=', base_sku + '\uf8ff').stream()
         existing_skus = {doc.to_dict().get('code') for doc in existing_with_sku}
         
-        # If updating self, don't count self as collision
         if mode == 'EDIT' and current_code in existing_skus:
-            # If the calculated base is prefix of current code, assume we keep current code unless user drastically changed name
             pass 
         
         final_sku = resolve_sku_collision(base_sku, existing_skus)
         product_data['code'] = final_sku
 
+        # [MODIFIED] Pricing Logic
         product_data['retail_price_idr'] = int(product_data.get('retail_price_idr', 0))
+        
+        # Ensure eur/usd are numbers if present
+        if 'retail_price_eur' in product_data:
+            product_data['retail_price_eur'] = int(product_data.get('retail_price_eur', 0))
+        if 'retail_price_usd' in product_data:
+            product_data['retail_price_usd'] = int(product_data.get('retail_price_usd', 0))
+        
+        # We trust the frontend sent the correct calculated IDR, but we store the currency flag
+        product_data['currency'] = product_data.get('currency', 'IDR')
+
         product_data['total_stock'] = int(product_data.get('total_stock', 0))
 
         discount_ids = []
@@ -483,10 +534,13 @@ def bulk_import_products(req: https_fn.Request) -> https_fn.Response:
         new_products = data.get('products', [])
         if not new_products: return https_fn.Response("No products", status=400, headers=headers)
 
+        # 1. Fetch Rates for Auto-Calc during Import
+        settings_doc = db.collection('settings').document('global').get()
+        settings = settings_doc.to_dict() if settings_doc.exists else {'eur_rate': 17000, 'usd_rate': 15500}
+        eur_rate = settings.get('eur_rate', 17000)
+        usd_rate = settings.get('usd_rate', 15500)
+
         # Pre-fetch existing SKUs for collision detection
-        # Since we might generate many, let's grab all codes. 
-        # (Warning: At scale this needs optimization, e.g. check per item or cache)
-        # For now, fetching just the 'code' field of all products is efficient enough for <10k items
         all_products_ref = db.collection('products').select(['code']).stream()
         existing_skus = {doc.to_dict().get('code') for doc in all_products_ref}
 
@@ -529,7 +583,7 @@ def bulk_import_products(req: https_fn.Request) -> https_fn.Response:
             category_clean = p_data.get('category', '').strip().title()
             collection_clean = p_data.get('collection', '').strip()
             
-            # Use Manufacturer Code if provided in CSV 'code' column, else try to find it
+            # Use Manufacturer Code if provided in CSV 'code' column
             manufacturer_code = p_data.get('code', '').strip()
 
             c1 = get_4char_segment(brand_clean)
@@ -543,6 +597,32 @@ def bulk_import_products(req: https_fn.Request) -> https_fn.Response:
             product_id = str(uuid.uuid4())
             total_stock = int(p_data.get('total_stock', 0))
 
+            # [MODIFIED] Price Logic for Import
+            # Prioritize EUR > USD > IDR
+            raw_eur = p_data.get('retail_price_eur')
+            raw_usd = p_data.get('retail_price_usd')
+            raw_idr = int(p_data.get('retail_price_idr', 0))
+
+            final_idr = raw_idr
+            currency = 'IDR'
+            retail_eur = 0
+            retail_usd = 0
+
+            if raw_eur:
+                try:
+                    retail_eur = int(raw_eur)
+                    if retail_eur > 0:
+                        currency = 'EUR'
+                        final_idr = retail_eur * eur_rate
+                except: pass
+            elif raw_usd: # Else check USD
+                try:
+                    retail_usd = int(raw_usd)
+                    if retail_usd > 0:
+                        currency = 'USD'
+                        final_idr = retail_usd * usd_rate
+                except: pass
+
             product_doc = {
                 'id': product_id,
                 'brand': brand_clean,
@@ -552,12 +632,17 @@ def bulk_import_products(req: https_fn.Request) -> https_fn.Response:
                 'manufacturer_code': manufacturer_code, # Factory ID
                 'image_url': p_data.get('image_url', ''), 
                 'detail': p_data.get('detail', ''),
-                'retail_price_idr': int(p_data.get('retail_price_idr', 0)),
+                
+                'currency': currency,
+                'retail_price_idr': final_idr,
+                'retail_price_eur': retail_eur,
+                'retail_price_usd': retail_usd,
+
                 'total_stock': total_stock,
                 'booked_stock': 0,
                 'sold_stock': 0,
                 'created_at': now,
-                'nett_price_idr': int(p_data.get('nett_price_idr', 0)),
+                'nett_price_idr': int(p_data.get('nett_price_idr', final_idr)),
                 'discounts': processed_discounts,
                 'discount_ids': discount_ids,
                 'is_not_for_sale': p_data.get('is_not_for_sale', False),

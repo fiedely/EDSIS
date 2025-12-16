@@ -21,6 +21,13 @@ export interface ItemBooking {
   notes?: string;
 }
 
+// [NEW] Interface for Global Rates
+export interface ExchangeRates {
+    eur_rate: number;
+    usd_rate: number;
+    last_updated: string;
+}
+
 export interface Product {
   id: string;
   brand: string;
@@ -37,8 +44,12 @@ export interface Product {
   booked_stock: number;
   sold_stock: number;
   
-  retail_price_idr: number;
+  // [MODIFIED] Pricing Fields
+  currency: 'EUR' | 'USD' | 'IDR'; // Tracks the Base Currency Source
+  retail_price_idr: number;        // Always stored for easy sorting/filtering
   retail_price_eur?: number;
+  retail_price_usd?: number;
+  
   nett_price_idr?: number; 
   discounts?: Discount[];   
   discount_ids?: string[]; 

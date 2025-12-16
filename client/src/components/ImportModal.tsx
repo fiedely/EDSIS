@@ -21,10 +21,18 @@ interface CSVRow {
   eta?: string;
   arriving_eta?: string;
   discount?: string;
+  
+  // Pricing Columns
   'retail price'?: string;
   retail_price_idr?: string;
+  'retail price in euro'?: string; // [NEW] From client CSV
+  retail_price_eur?: string;
+  'retail price in usd'?: string;
+  retail_price_usd?: string;
+  
   'nett price'?: string;
   nett_price_idr?: string;
+  
   quantity?: string;
   qty?: string;
   detail?: string;
@@ -43,7 +51,6 @@ const ImportModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, existingProd
   const [logs, setLogs] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // FIX: Wrap reset in useCallback to stabilize it
   const reset = useCallback(() => {
     setStep('UPLOAD');
     setParsedData([]);
@@ -58,7 +65,7 @@ const ImportModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, existingProd
     if (isOpen) {
         reset();
     }
-  }, [isOpen, reset]); // Dependency array is now correct and linter-compliant
+  }, [isOpen, reset]);
 
   if (!isOpen) return null;
 
@@ -95,6 +102,7 @@ const ImportModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, existingProd
         const collection = row.collection || '';
         if (!brand && !collection) return;
 
+        // Strict duplicate check based on Name + Collection
         const key = `${brand.trim().toUpperCase()}-${collection.trim().toUpperCase()}`;
         if (existingSet.has(key)) {
             duplicateCount++;
@@ -147,12 +155,20 @@ const ImportModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, existingProd
         const etaDate = row.eta || row.arriving_eta || '';
 
         const discounts = parseDiscounts(row.discount);
-        const retailPrice = cleanPrice(row['retail price'] || row.retail_price_idr);
+        
+        // [MODIFIED] Extract Foreign Currencies
+        const retailPriceIDR = cleanPrice(row['retail price'] || row.retail_price_idr);
+        const retailPriceEUR = cleanPrice(row['retail price in euro'] || row.retail_price_eur);
+        const retailPriceUSD = cleanPrice(row['retail price in usd'] || row.retail_price_usd);
         
         let nettPrice = cleanPrice(row['nett price'] || row.nett_price_idr);
         
-        if (nettPrice === 0 && discounts.length > 0) {
-             let currentPrice = retailPrice;
+        // Fallback Nett Price Calculation
+        // Note: For EUR items, we calculate Nett based on the IDR equivalent for now, 
+        // OR we just save 0 and let the system handle it dynamically later.
+        // For import, usually the "Nett Price" column in CSV is the IDR nett.
+        if (nettPrice === 0 && discounts.length > 0 && retailPriceIDR > 0) {
+             let currentPrice = retailPriceIDR;
              discounts.forEach(d => {
                  currentPrice = currentPrice * ((100 - d.value) / 100);
              });
@@ -163,10 +179,15 @@ const ImportModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, existingProd
           brand: row.brand,
           category: row.category,
           collection: row.collection,
-          code: row.code,
+          code: row.code, // Manufacturer ID
           image_url: row.image ? `products/${row.image}` : '',
           total_stock: parseInt(row.quantity || row.qty || '0', 10),
-          retail_price_idr: retailPrice,
+          
+          // [MODIFIED] Send all currencies to backend
+          retail_price_idr: retailPriceIDR,
+          retail_price_eur: retailPriceEUR,
+          retail_price_usd: retailPriceUSD,
+          
           nett_price_idr: nettPrice,
           discounts: discounts,
           detail: row.detail || row.description || '',
