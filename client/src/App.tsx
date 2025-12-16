@@ -97,7 +97,8 @@ function App() {
       if (searchQuery) {
         const terms = searchQuery.toLowerCase().split(',').map(t => t.trim()).filter(t => t.length > 0);
         if (terms.length > 0) {
-            const searchableText = `${p.brand} ${p.category} ${p.collection} ${p.code}`.toLowerCase();
+            // [MODIFIED] Added manufacturer_code to searchable text
+            const searchableText = `${p.brand} ${p.category} ${p.collection} ${p.code} ${p.manufacturer_code || ''}`.toLowerCase();
             const matches = terms.every(term => searchableText.includes(term));
             if (!matches) return false;
         }
