@@ -91,7 +91,7 @@ const ActiveBookingsModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =>
                  bookings.map(item => {
                      const isExpired = item.booking?.expired_at && new Date(item.booking.expired_at) < new Date();
                      return (
-                        <div key={item.id} className="bg-white border p-4 shadow-sm border-l-4 border-l-blue-500">
+                        <div key={item.id} className="bg-white border p-4 shadow-sm border-l-4 border-l-primary">
                             <div className="flex justify-between items-start mb-2">
                                 <div>
                                     <div className="font-bold text-gray-800 text-lg">{item.product_name}</div>
@@ -101,7 +101,7 @@ const ActiveBookingsModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =>
                                 </div>
                                 <div className="text-right">
                                      {isExpired && (
-                                         <div className="text-xs font-bold px-2 py-1 rounded bg-red-100 text-red-600">
+                                         <div className="text-xs font-bold px-2 py-1 rounded bg-primary/10 text-primary">
                                             EXPIRED
                                          </div>
                                      )}

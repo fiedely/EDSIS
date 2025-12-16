@@ -63,7 +63,7 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
                 brand: '', category: '', collection: '', 
                 code: '', manufacturer_code: '', total_stock: 0, 
                 retail_price_idr: 0, retail_price_eur: 0, retail_price_usd: 0, 
-                currency: 'EUR', // Default to EUR
+                currency: 'EUR', 
                 detail: '',
                 is_not_for_sale: false, is_upcoming: false, upcoming_eta: ''
             });
@@ -74,7 +74,6 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
     }
   }, [isOpen, mode, initialData]);
 
-  // Auto Calculate IDR when Foreign Currency changes
   useEffect(() => {
       if (!currentRates) return;
       
@@ -217,7 +216,7 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
                     <div className="text-xs font-bold text-gray-400 uppercase tracking-widest">Status & Visibility</div>
                     
                     <div className="flex gap-4">
-                        <label className={`flex-1 flex items-center justify-center gap-2 p-3 border cursor-pointer transition-all ${formData.is_not_for_sale ? 'bg-gray-800 text-white border-gray-800' : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-100'}`}>
+                        <label className={`flex-1 flex items-center justify-center gap-2 p-3 border cursor-pointer transition-all ${formData.is_not_for_sale ? 'bg-primary text-white border-primary' : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-100'}`}>
                             <input 
                                 type="checkbox" 
                                 className="hidden"
@@ -228,7 +227,7 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
                             <span className="text-xs font-bold uppercase">Not For Sale</span>
                         </label>
 
-                        <label className={`flex-1 flex items-center justify-center gap-2 p-3 border cursor-pointer transition-all ${formData.is_upcoming ? 'bg-blue-600 text-white border-blue-600' : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-100'}`}>
+                        <label className={`flex-1 flex items-center justify-center gap-2 p-3 border cursor-pointer transition-all ${formData.is_upcoming ? 'bg-primary text-white border-primary' : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-100'}`}>
                             <input 
                                 type="checkbox" 
                                 className="hidden"
@@ -242,10 +241,11 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
 
                     {formData.is_upcoming && (
                         <div className="animate-in slide-in-from-top-2 duration-200">
-                            <label className="text-xs font-bold text-blue-600 uppercase mb-1 block">Expected Arrival Date</label>
+                            {/* [MODIFIED] Replaced Blue with Primary */}
+                            <label className="text-xs font-bold text-primary uppercase mb-1 block">Expected Arrival Date</label>
                             <input 
                                 type="date"
-                                className="w-full border border-blue-200 bg-blue-50 p-2 text-sm focus:border-blue-500 outline-none"
+                                className="w-full border border-primary/20 bg-primary/5 p-2 text-sm focus:border-primary outline-none"
                                 value={formData.upcoming_eta || ''}
                                 onChange={e => setFormData({...formData, upcoming_eta: e.target.value})}
                             />
@@ -317,18 +317,17 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
                 </div>
 
                 {/* 3. PRICING ENGINE */}
-                <div className="bg-red-50 p-4 border border-red-100 space-y-4 rounded-sm">
+                <div className="bg-primary/5 p-4 border border-primary/20 space-y-4 rounded-sm">
                     <div className="flex justify-between items-center">
-                        <div className="text-xs font-bold text-red-800 uppercase tracking-widest flex items-center gap-2">Pricing & Discounts</div>
+                        <div className="text-xs font-bold text-primary uppercase tracking-widest flex items-center gap-2">Pricing & Discounts</div>
                         
-                        {/* Currency Selector - FIXED TYPESCRIPT ERROR */}
                         <div className="flex bg-white rounded border border-gray-300 overflow-hidden">
                             {(['EUR', 'USD', 'IDR'] as const).map(curr => (
                                 <button 
                                     key={curr}
                                     type="button"
                                     onClick={() => setFormData({...formData, currency: curr})}
-                                    className={`px-3 py-1 text-[10px] font-bold transition-colors ${formData.currency === curr ? 'bg-red-600 text-white' : 'text-gray-500 hover:bg-gray-100'}`}
+                                    className={`px-3 py-1 text-[10px] font-bold transition-colors ${formData.currency === curr ? 'bg-primary text-white' : 'text-gray-500 hover:bg-gray-100'}`}
                                 >
                                     {curr}
                                 </button>
@@ -338,7 +337,6 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-1">
-                             {/* Conditional Input based on Currency */}
                              {formData.currency === 'EUR' ? (
                                 <>
                                     <label className="text-xs font-bold text-gray-500 uppercase flex items-center h-5 gap-1">
@@ -346,7 +344,7 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
                                     </label>
                                     <input 
                                         type="number" 
-                                        className="w-full border border-red-300 bg-white p-2 text-sm font-bold text-red-700 outline-none" 
+                                        className="w-full border border-primary/30 bg-white p-2 text-sm font-bold text-primary outline-none focus:border-primary" 
                                         value={formData.retail_price_eur || 0} 
                                         onChange={e => setFormData({...formData, retail_price_eur: Number(e.target.value)})} 
                                     />
@@ -358,7 +356,7 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
                                     </label>
                                     <input 
                                         type="number" 
-                                        className="w-full border border-red-300 bg-white p-2 text-sm font-bold text-red-700 outline-none" 
+                                        className="w-full border border-primary/30 bg-white p-2 text-sm font-bold text-primary outline-none focus:border-primary" 
                                         value={formData.retail_price_usd || 0} 
                                         onChange={e => setFormData({...formData, retail_price_usd: Number(e.target.value)})} 
                                     />
@@ -379,7 +377,7 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
                             <label className="text-xs font-bold text-gray-500 uppercase flex items-center h-5">Retail Price (IDR)</label>
                             <input 
                                 type="number"
-                                className={`w-full border p-2 text-sm font-bold outline-none ${formData.currency === 'IDR' ? 'bg-white border-gray-300' : 'bg-gray-100 border-gray-200 text-gray-600 cursor-not-allowed'}`}
+                                className={`w-full border p-2 text-sm font-bold outline-none ${formData.currency === 'IDR' ? 'bg-white border-primary/30 text-primary focus:border-primary' : 'bg-gray-100 border-gray-200 text-gray-600 cursor-not-allowed'}`}
                                 value={Math.round(formData.retail_price_idr || 0)}
                                 readOnly={formData.currency !== 'IDR'}
                                 onChange={e => setFormData({...formData, retail_price_idr: Number(e.target.value)})}
@@ -387,11 +385,11 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
                         </div>
                     </div>
 
-                    <div className="space-y-1 pt-2 border-t border-red-100">
+                    <div className="space-y-1 pt-2 border-t border-primary/10">
                          <label className="text-xs font-bold text-gray-500 uppercase flex items-center gap-1 h-5">
                              System SKU 
-                             <div title="SKU is handled by the system. (BRAND-CATEGORY-NAME-SEQUENCE)" className="cursor-help">
-                                 <Info size={12} className="text-gray-400"/> 
+                             <div title="SKU is handled by the system. (BRAND-CATEGORY-NAME-SEQUENCE)" className="cursor-help text-gray-400 hover:text-primary transition-colors">
+                                 <Info size={12}/> 
                              </div>
                          </label>
                          <input 
@@ -438,11 +436,11 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
                          </div>
                          
                          {localDiscounts.length > 0 && (
-                            <div className="bg-white border border-red-100 p-2 space-y-2 mt-2">
+                            <div className="bg-white border border-primary/20 p-2 space-y-2 mt-2">
                                 {localDiscounts.map((d, index) => (
                                     <div key={index} className="flex justify-between items-center text-xs text-gray-700">
                                         <span>{d.name} <span className="font-bold">({d.value}%)</span></span>
-                                        <button type="button" onClick={() => removeDiscount(index)} className="text-gray-400 hover:text-red-500">
+                                        <button type="button" onClick={() => removeDiscount(index)} className="text-gray-400 hover:text-primary">
                                             <Minus size={14} />
                                         </button>
                                     </div>
@@ -452,9 +450,9 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
                     </div>
 
                     {/* Nett Price Calculation Display */}
-                    <div className="pt-2 border-t border-red-200 flex justify-between items-center">
-                        <span className="text-xs font-bold text-red-800 uppercase">Nett Price (After Discount)</span>
-                        <span className="text-lg font-bold text-red-600">
+                    <div className="pt-2 border-t border-primary/20 flex justify-between items-center">
+                        <span className="text-xs font-bold text-primary uppercase">Nett Price (After Discount)</span>
+                        <span className="text-lg font-bold text-primary">
                              {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(calculatedNettPrice)}
                         </span>
                     </div>

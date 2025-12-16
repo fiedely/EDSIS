@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { X, Plus, Trash2, Edit2, Percent, Calendar, Loader2 } from 'lucide-react';
-import axios, { AxiosError } from 'axios'; // Import AxiosError
+import axios, { AxiosError } from 'axios'; 
 import type { DiscountRule } from '../types';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  onSuccess: () => void; // <--- NEW PROP
+  onSuccess: () => void; 
 }
 
 const DiscountManagerModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) => {
@@ -57,14 +57,13 @@ const DiscountManagerModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =
             discount: formData
         });
         await fetchDiscounts();
-        onSuccess(); // <--- Trigger App Refresh
+        onSuccess(); 
         setEditingId(null);
     } catch (err) {
-        // Correct Error Handling
         console.error(err);
         let msg = "Failed to save discount";
         if (err instanceof AxiosError && err.response?.data) {
-             msg = err.response.data; // Show backend error (e.g., "Discount name already exists")
+             msg = err.response.data; 
         }
         alert(msg);
     } finally {
@@ -81,7 +80,7 @@ const DiscountManagerModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =
             discount: { id }
         });
         await fetchDiscounts();
-        onSuccess(); // <--- Trigger App Refresh
+        onSuccess(); 
     } catch (err) {
         console.error(err);
         alert("Failed to delete");
@@ -92,9 +91,10 @@ const DiscountManagerModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =
 
   const getRuleStatus = (rule: DiscountRule) => {
       const now = new Date().toISOString().split('T')[0];
-      if (rule.start_date && rule.start_date > now) return { label: 'NOT STARTED', color: 'bg-yellow-100 text-yellow-700' };
-      if (rule.end_date && rule.end_date < now) return { label: 'EXPIRED', color: 'bg-red-100 text-red-700' };
-      return { label: 'ACTIVE', color: 'bg-green-100 text-green-700' };
+      // [MODIFIED] Neutral Gray for Future, Maroon for Expired, Primary/10 for Active
+      if (rule.start_date && rule.start_date > now) return { label: 'NOT STARTED', color: 'bg-gray-100 text-gray-500' };
+      if (rule.end_date && rule.end_date < now) return { label: 'EXPIRED', color: 'bg-primary/10 text-primary' };
+      return { label: 'ACTIVE', color: 'bg-primary text-white' };
   };
 
   if (!isOpen) return null;
@@ -202,7 +202,7 @@ const DiscountManagerModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =
                         </div>
                         <div className="flex gap-2">
                             <button onClick={() => handleEdit(d)} disabled={actionLoading} className="p-1.5 hover:bg-gray-100 text-gray-600 rounded disabled:opacity-50"><Edit2 size={16} /></button>
-                            <button onClick={() => handleDelete(d.id)} disabled={actionLoading} className="p-1.5 hover:bg-red-50 text-red-500 rounded disabled:opacity-50"><Trash2 size={16} /></button>
+                            <button onClick={() => handleDelete(d.id)} disabled={actionLoading} className="p-1.5 hover:bg-primary/10 text-primary rounded disabled:opacity-50"><Trash2 size={16} /></button>
                         </div>
                     </div>
                  );

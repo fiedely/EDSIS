@@ -70,7 +70,6 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
   // Reactive Price Calculation
   const displayPrice = useMemo(() => {
       if (!product) return 0;
-      // If currency is EUR/USD, calculate live. Otherwise use stored IDR.
       if (product.currency === 'EUR' && currentRates) {
           return (product.retail_price_eur || 0) * currentRates.eur_rate;
       }
@@ -93,7 +92,6 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
       return "Foreign currency price not defined";
   }, [product, currentRates]);
 
-  // Calculate Nett Price based on the *Display Price* (which might be live calculated)
   const displayNettPrice = useMemo(() => {
       if (!product) return 0;
       if (!product.discounts || product.discounts.length === 0) return displayPrice;
@@ -177,7 +175,7 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                     <div className="flex items-center gap-2 mb-1">
                         <div className="text-xs font-bold text-primary-light uppercase tracking-wider">{product.brand}</div>
                         {isNFS && <span className="bg-gray-800 text-white text-[9px] px-2 py-0.5 rounded font-bold uppercase">Not For Sale</span>}
-                        {isUpcoming && <span className="bg-blue-600 text-white text-[9px] px-2 py-0.5 rounded font-bold uppercase">Upcoming</span>}
+                        {isUpcoming && <span className="bg-gray-800 text-white text-[9px] px-2 py-0.5 rounded font-bold uppercase">Upcoming</span>}
                     </div>
                     <h2 className="text-2xl font-bold leading-tight">{product.collection}</h2>
                     <div className="text-xs text-white/70 mt-1">{product.code}</div>
@@ -201,7 +199,7 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                 >
                     Stock List ({visibleInventory.length})
                     {bookedCount > 0 && (
-                        <span className="bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded text-[9px] flex items-center gap-1">
+                        <span className="bg-primary text-white px-1.5 py-0.5 rounded text-[9px] flex items-center gap-1">
                             <Book size={10}/> {bookedCount}
                         </span>
                     )}
@@ -222,11 +220,11 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                             </div>
                         )}
                         {isUpcoming && (
-                            <div className="bg-blue-50 border-l-4 border-blue-500 p-3 flex items-start gap-3">
-                                <Clock size={18} className="text-blue-500 mt-0.5"/>
+                            <div className="bg-gray-50 border-l-4 border-gray-500 p-3 flex items-start gap-3">
+                                <Clock size={18} className="text-gray-500 mt-0.5"/>
                                 <div>
-                                    <div className="text-sm font-bold text-blue-800">Coming Soon</div>
-                                    <div className="text-xs text-blue-600">Expected Arrival: {product.upcoming_eta || 'TBA'}</div>
+                                    <div className="text-sm font-bold text-gray-800">Coming Soon</div>
+                                    <div className="text-xs text-gray-600">Expected Arrival: {product.upcoming_eta || 'TBA'}</div>
                                 </div>
                             </div>
                         )}
@@ -267,7 +265,6 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                             <div className="col-span-2 pt-4 border-t border-gray-100">
                                 <div className="flex items-center gap-2 mb-1">
                                     <div className="text-[10px] text-gray-400 uppercase tracking-widest">Retail Price (IDR)</div>
-                                    {/* Info Icon with Tooltip */}
                                     <div title={priceTooltip} className="cursor-help text-gray-400 hover:text-primary transition-colors">
                                         <Info size={14} />
                                     </div>
@@ -275,16 +272,16 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
 
                                 {hasDiscount ? (
                                     <div className="flex flex-col">
-                                        <div className="text-sm text-gray-400 line-through decoration-red-400 decoration-1">
+                                        <div className="text-sm text-gray-400 line-through decoration-primary decoration-1">
                                             {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(displayPrice)}
                                         </div>
-                                        <div className="text-2xl font-bold text-red-600 flex items-center gap-2">
+                                        <div className="text-2xl font-bold text-primary flex items-center gap-2">
                                             {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(displayNettPrice)}
-                                            <span className="bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wide">Promo</span>
+                                            <span className="bg-primary/10 text-primary text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wide">Promo</span>
                                         </div>
                                         <div className="flex gap-2 mt-2">
                                             {product.discounts?.map((d, i) => (
-                                                <div key={i} className="flex items-center gap-1 text-[10px] font-bold text-white bg-red-500 px-2 py-1 rounded">
+                                                <div key={i} className="flex items-center gap-1 text-[10px] font-bold text-white bg-primary px-2 py-1 rounded">
                                                     <Percent size={10} /> {d.name} OFF
                                                 </div>
                                             ))}
@@ -316,9 +313,9 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                                 const displayCode = item.qr_code;
 
                                 return (
-                                <div key={item.id} className={clsx("bg-white border shadow-sm transition-all", isBooked ? "border-blue-300 ring-1 ring-blue-100" : "border-gray-200 hover:shadow-md")}>
+                                <div key={item.id} className={clsx("bg-white border shadow-sm transition-all", isBooked ? "border-primary/30 ring-1 ring-primary/10" : "border-gray-200 hover:shadow-md")}>
                                     
-                                    <div className={clsx("p-3 border-b flex justify-between items-center", isBooked ? "bg-blue-50/50 border-blue-100" : "bg-gray-50/50 border-gray-100")}>
+                                    <div className={clsx("p-3 border-b flex justify-between items-center", isBooked ? "bg-primary/5 border-primary/20" : "bg-gray-50/50 border-gray-100")}>
                                         <div className="flex items-center gap-2">
                                             <div className="bg-gray-800 text-white text-[10px] font-bold px-1.5 py-0.5">#{index + 1}</div>
                                             <span className="text-xs font-mono font-bold text-gray-600">{displayCode}</span>
@@ -328,11 +325,13 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                                                 <QrCode size={16} />
                                             </button>
                                             {isBooked ? (
-                                                <span className="text-[10px] font-bold px-2 py-0.5 border text-blue-600 bg-blue-100 border-blue-200 flex items-center gap-1">
+                                                // [MODIFIED] Booked Tag = Maroon
+                                                <span className="text-[10px] font-bold px-2 py-0.5 border text-primary bg-primary/10 border-primary/20 flex items-center gap-1">
                                                     <Book size={10}/> BOOK
                                                 </span>
                                             ) : (
-                                                <span className="text-[10px] font-bold px-2 py-0.5 border text-green-600 bg-green-50 border-green-100">
+                                                // [MODIFIED] Available Tag = Neutral Gray
+                                                <span className="text-[10px] font-bold px-2 py-0.5 border text-gray-600 bg-gray-50 border-gray-200">
                                                     AVAILABLE
                                                 </span>
                                             )}
@@ -360,7 +359,7 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                                                         <button 
                                                             onClick={() => setBookingItem(item.id)} 
                                                             disabled={item.status === 'NOT_FOR_SALE'} 
-                                                            className="px-3 py-1 text-[10px] font-bold border border-blue-600 text-blue-600 hover:bg-blue-50 rounded transition-colors disabled:opacity-50"
+                                                            className="px-3 py-1 text-[10px] font-bold border border-primary text-primary hover:bg-primary/5 rounded transition-colors disabled:opacity-50"
                                                         >
                                                             BOOK
                                                         </button>
@@ -370,19 +369,19 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                                         </div>
 
                                         {isBooked && item.booking && !isBookingThis && (
-                                            <div className="mb-3 p-3 bg-blue-50 border border-blue-100 rounded text-xs text-blue-800 animate-in fade-in space-y-1.5">
+                                            <div className="mb-3 p-3 bg-primary/5 border border-primary/20 rounded text-xs text-gray-800 animate-in fade-in space-y-1.5">
                                                 <div className="flex justify-between items-start">
                                                     <div className="flex items-center gap-1.5">
-                                                        <User size={12} className="text-blue-500"/>
+                                                        <User size={12} className="text-primary"/>
                                                         <span>Booked by <span className="font-bold">{item.booking.system_user || 'Unknown'}</span> for <span className="font-bold">{item.booking.booked_by}</span></span>
                                                     </div>
                                                 </div>
-                                                <div className="flex items-center gap-1.5 text-blue-600">
+                                                <div className="flex items-center gap-1.5 text-gray-600">
                                                     <Clock size={12} />
                                                     <span>Expires: <strong>{item.booking.expired_at.split('T')[0]}</strong></span>
                                                 </div>
                                                 {item.booking.notes && (
-                                                    <div className="italic text-blue-500/80 border-l-2 border-blue-200 pl-2 mt-1">
+                                                    <div className="italic text-gray-500 border-l-2 border-primary/20 pl-2 mt-1">
                                                         "{item.booking.notes}"
                                                     </div>
                                                 )}
@@ -390,12 +389,12 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                                         )}
 
                                         {isBookingThis && (
-                                            <div className="bg-blue-50 p-3 rounded border border-blue-200 animate-in slide-in-from-right-2 mt-2">
-                                                <div className="text-xs font-bold text-blue-800 mb-2 flex items-center gap-2"><Edit2 size={12}/> New Booking</div>
+                                            <div className="bg-gray-50 p-3 rounded border border-gray-200 animate-in slide-in-from-right-2 mt-2">
+                                                <div className="text-xs font-bold text-gray-800 mb-2 flex items-center gap-2"><Edit2 size={12}/> New Booking</div>
                                                 <form onSubmit={handleBookSubmit} className="space-y-2">
                                                     <div className="grid grid-cols-2 gap-2">
                                                         <input 
-                                                            className="w-full p-1.5 text-xs border rounded focus:border-blue-500 outline-none" 
+                                                            className="w-full p-1.5 text-xs border rounded focus:border-primary outline-none" 
                                                             placeholder="Client Name"
                                                             required 
                                                             autoFocus
@@ -403,17 +402,17 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                                                             onChange={e => setBookForm({...bookForm, client_name: e.target.value})}
                                                         />
                                                         <input 
-                                                            className="w-full p-1.5 text-xs border rounded focus:border-blue-500 outline-none" 
+                                                            className="w-full p-1.5 text-xs border rounded focus:border-primary outline-none" 
                                                             type="date" 
                                                             required 
                                                             value={bookForm.expired_at} 
                                                             onChange={e => setBookForm({...bookForm, expired_at: e.target.value})} 
                                                         />
                                                     </div>
-                                                    <input className="w-full p-1.5 text-xs border rounded focus:border-blue-500 outline-none" placeholder="Notes (Optional)" value={bookForm.notes} onChange={e => setBookForm({...bookForm, notes: e.target.value})} />
+                                                    <input className="w-full p-1.5 text-xs border rounded focus:border-primary outline-none" placeholder="Notes (Optional)" value={bookForm.notes} onChange={e => setBookForm({...bookForm, notes: e.target.value})} />
                                                     <div className="flex justify-end gap-2 mt-2">
                                                         <button type="button" onClick={() => setBookingItem(null)} className="text-xs font-bold text-gray-500 hover:text-gray-700">CANCEL</button>
-                                                        <button type="submit" disabled={isProcessing} className="text-xs font-bold bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 flex items-center gap-1">
+                                                        <button type="submit" disabled={isProcessing} className="text-xs font-bold bg-primary text-white px-3 py-1 rounded hover:bg-primary-dark flex items-center gap-1">
                                                             {isProcessing && <Loader2 size={12} className="animate-spin"/>} CONFIRM
                                                         </button>
                                                     </div>

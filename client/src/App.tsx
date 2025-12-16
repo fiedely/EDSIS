@@ -12,7 +12,7 @@ import ProductFormModal from './components/ProductFormModal';
 import ImportModal from './components/ImportModal';
 import DiscountManagerModal from './components/DiscountManagerModal';
 import ActiveBookingsModal from './components/ActiveBookingsModal';
-import ExchangeRateModal from './components/ExchangeRateModal'; // [NEW]
+import ExchangeRateModal from './components/ExchangeRateModal'; 
 
 function App() {
   const [activeTab, setActiveTab] = useState('BRAND');
@@ -20,7 +20,6 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   
-  // [NEW] State for Exchange Rates
   const [rates, setRates] = useState<ExchangeRates | null>(null);
   const [isRateModalOpen, setIsRateModalOpen] = useState(false);
 
@@ -47,11 +46,9 @@ function App() {
     if (!silent) setLoading(true);
     try {
       if (!silent) {
-        // Run global expiration check on load to keep data fresh
         await axios.post('http://127.0.0.1:5001/edievo-project/asia-southeast2/check_expired_bookings');
       }
       
-      // [NEW] Fetch Exchange Rates
       const rateRes = await axios.get('http://127.0.0.1:5001/edievo-project/asia-southeast2/get_exchange_rates');
       setRates(rateRes.data.data);
 
@@ -102,18 +99,15 @@ function App() {
 
   const treeData = useMemo(() => {
     const filtered = products.filter(p => {
-      // 1. Search Logic
       if (searchQuery) {
         const terms = searchQuery.toLowerCase().split(',').map(t => t.trim()).filter(t => t.length > 0);
         if (terms.length > 0) {
-            // [UPDATED] Search includes Manufacturer Code
             const searchableText = `${p.brand} ${p.category} ${p.collection} ${p.code} ${p.manufacturer_code || ''}`.toLowerCase();
             const matches = terms.every(term => searchableText.includes(term));
             if (!matches) return false;
         }
       }
 
-      // 2. Tab Visibility Logic
       if (activeTab === 'BRAND' || activeTab === 'CATEGORY') {
           if (p.is_not_for_sale || p.is_upcoming) return false;
       }
@@ -125,7 +119,6 @@ function App() {
     if (activeTab === 'BRAND') levels = ['brand', 'category'];
     if (activeTab === 'CATEGORY') levels = ['category', 'brand'];
     
-    // Custom Grouping for STATUS Tab
     if (activeTab === 'STATUS') {
         return buildStatusTree(filtered);
     }
@@ -299,27 +292,28 @@ function App() {
                 className="w-full h-full object-cover" 
             />
             {isNFS && <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-[8px] text-white font-bold text-center leading-tight">NOT FOR<br/>SALE</div>}
-            {isUpcoming && <div className="absolute inset-0 bg-blue-900/60 flex items-center justify-center text-[8px] text-white font-bold text-center leading-tight">SOON</div>}
+            {isUpcoming && <div className="absolute inset-0 bg-gray-900/60 flex items-center justify-center text-[8px] text-white font-bold text-center leading-tight">SOON</div>}
         </div>
 
         <div className="flex-grow min-w-0">
             <div className="flex items-center gap-2">
                 <div className="text-sm font-bold text-gray-800 line-clamp-1">{item.collection}</div>
                 
-                {isDiscount && <span className="text-[9px] bg-red-100 text-red-600 px-1 rounded font-bold flex items-center"><Percent size={8} className="mr-0.5"/> SALE</span>}
+                {/* [MODIFIED] Standardized Tags */}
+                {isDiscount && <span className="text-[9px] bg-primary/10 text-primary px-1 rounded font-bold flex items-center"><Percent size={8} className="mr-0.5"/> SALE</span>}
                 {isNFS && <span className="text-[9px] bg-gray-200 text-gray-600 px-1 rounded font-bold flex items-center"><AlertCircle size={8} className="mr-0.5"/> NFS</span>}
-                {isUpcoming && <span className="text-[9px] bg-blue-100 text-blue-600 px-1 rounded font-bold flex items-center"><Clock size={8} className="mr-0.5"/> ETA</span>}
+                {isUpcoming && <span className="text-[9px] bg-gray-100 text-gray-600 px-1 rounded font-bold flex items-center"><Clock size={8} className="mr-0.5"/> ETA</span>}
                 
                 {isBooked && (
-                    <span className="text-[9px] bg-indigo-100 text-indigo-600 px-1 rounded font-bold flex items-center">
+                    <span className="text-[9px] bg-primary/10 text-primary px-1 rounded font-bold flex items-center">
                         <Book size={8} className="mr-0.5"/> BOOK
                     </span>
                 )}
 
                 {isNoStock && (
-                    <span className="text-[9px] bg-orange-100 text-orange-600 px-1 rounded font-bold flex items-center">
+                    <span className="text-[9px] bg-gray-100 text-gray-400 px-1 rounded font-bold flex items-center">
                         <XCircle size={8} className="mr-0.5"/> 
-                        <span className="decoration-orange-600 line-through">STK</span>
+                        <span className="decoration-gray-400 line-through">STK</span>
                     </span>
                 )}
             </div>
@@ -371,7 +365,7 @@ function App() {
                         <button 
                             onClick={() => handleRefresh()}
                             disabled={loading}
-                            className="flex items-center gap-1 text-[10px] font-bold text-primary hover:text-primary-dark transition-colors disabled:opacity-50"
+                            className="flex items-center gap-1 text-[10px] font-bold text-gray-600 hover:text-primary transition-colors disabled:opacity-50"
                         >
                             <RefreshCw size={14} className={loading ? "animate-spin" : ""} /> 
                             SYNC
@@ -410,7 +404,7 @@ function App() {
             onImport={handleImportClick}
             onManageDiscounts={handleManageDiscountsClick}
             onOpenActiveBookings={() => setIsActiveBookingsOpen(true)} 
-            onManageRates={() => setIsRateModalOpen(true)} // [NEW] Pass Handler
+            onManageRates={() => setIsRateModalOpen(true)} 
         />
 
         <ProductDetailModal 
@@ -419,7 +413,7 @@ function App() {
             onClose={() => setSelectedProduct(null)} 
             onEdit={() => selectedProduct && handleEditClick(selectedProduct)}
             onRefresh={handleRefresh} 
-            currentRates={rates} // [NEW] Pass Rates
+            currentRates={rates} 
         />
 
         <ProductFormModal 
@@ -427,7 +421,7 @@ function App() {
             mode={formMode}
             initialData={productToEdit}
             existingProducts={products} 
-            currentRates={rates} // [NEW] Pass Rates
+            currentRates={rates} 
             onClose={() => setIsFormOpen(false)}
             onSuccess={handleRefresh}
         />
@@ -451,7 +445,6 @@ function App() {
             onSuccess={handleRefresh}
         />
 
-        {/* [NEW] Exchange Rate Modal */}
         <ExchangeRateModal 
             isOpen={isRateModalOpen}
             onClose={() => setIsRateModalOpen(false)}

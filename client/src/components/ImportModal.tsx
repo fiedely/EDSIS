@@ -21,18 +21,14 @@ interface CSVRow {
   eta?: string;
   arriving_eta?: string;
   discount?: string;
-  
-  // Pricing Columns
   'retail price'?: string;
   retail_price_idr?: string;
-  'retail price in euro'?: string; // [NEW] From client CSV
+  'retail price in euro'?: string; 
   retail_price_eur?: string;
   'retail price in usd'?: string;
   retail_price_usd?: string;
-  
   'nett price'?: string;
   nett_price_idr?: string;
-  
   quantity?: string;
   qty?: string;
   detail?: string;
@@ -102,7 +98,6 @@ const ImportModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, existingProd
         const collection = row.collection || '';
         if (!brand && !collection) return;
 
-        // Strict duplicate check based on Name + Collection
         const key = `${brand.trim().toUpperCase()}-${collection.trim().toUpperCase()}`;
         if (existingSet.has(key)) {
             duplicateCount++;
@@ -156,17 +151,12 @@ const ImportModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, existingProd
 
         const discounts = parseDiscounts(row.discount);
         
-        // [MODIFIED] Extract Foreign Currencies
         const retailPriceIDR = cleanPrice(row['retail price'] || row.retail_price_idr);
         const retailPriceEUR = cleanPrice(row['retail price in euro'] || row.retail_price_eur);
         const retailPriceUSD = cleanPrice(row['retail price in usd'] || row.retail_price_usd);
         
         let nettPrice = cleanPrice(row['nett price'] || row.nett_price_idr);
         
-        // Fallback Nett Price Calculation
-        // Note: For EUR items, we calculate Nett based on the IDR equivalent for now, 
-        // OR we just save 0 and let the system handle it dynamically later.
-        // For import, usually the "Nett Price" column in CSV is the IDR nett.
         if (nettPrice === 0 && discounts.length > 0 && retailPriceIDR > 0) {
              let currentPrice = retailPriceIDR;
              discounts.forEach(d => {
@@ -183,7 +173,6 @@ const ImportModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, existingProd
           image_url: row.image ? `products/${row.image}` : '',
           total_stock: parseInt(row.quantity || row.qty || '0', 10),
           
-          // [MODIFIED] Send all currencies to backend
           retail_price_idr: retailPriceIDR,
           retail_price_eur: retailPriceEUR,
           retail_price_usd: retailPriceUSD,
@@ -254,20 +243,21 @@ const ImportModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, existingProd
 
             {step === 'CONFIRM' && (
                 <div className="space-y-6">
-                    <div className="bg-blue-50 border border-blue-100 p-4 rounded flex items-start gap-3">
-                        <CheckCircle size={20} className="text-blue-600 mt-0.5" />
+                    {/* [MODIFIED] Neutral Gray Success Style */}
+                    <div className="bg-gray-50 border border-gray-200 p-4 rounded flex items-start gap-3">
+                        <CheckCircle size={20} className="text-gray-600 mt-0.5" />
                         <div>
-                            <div className="text-sm font-bold text-blue-800">File Analysis Complete</div>
-                            <div className="text-xs text-blue-600 mt-1">
+                            <div className="text-sm font-bold text-gray-800">File Analysis Complete</div>
+                            <div className="text-xs text-gray-600 mt-1">
                                 Found <span className="font-bold">{stats.totalRows} new items</span>.
                             </div>
                         </div>
                     </div>
 
                     {stats.duplicates > 0 && (
-                         <div className="bg-orange-50 border border-orange-100 p-3 flex items-start gap-2">
-                            <AlertTriangle size={16} className="text-orange-500 mt-0.5" />
-                            <div className="text-xs text-orange-700">
+                         <div className="bg-primary/5 border border-primary/20 p-3 flex items-start gap-2">
+                            <AlertTriangle size={16} className="text-primary mt-0.5" />
+                            <div className="text-xs text-primary">
                                 <strong>{stats.duplicates} Duplicate Items Ignored.</strong><br/>
                                 Items with matching "Brand + Collection Name" will be skipped.
                             </div>
@@ -313,7 +303,7 @@ const ImportModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, existingProd
 
             {step === 'SUCCESS' && (
                 <div className="flex flex-col items-center justify-center py-10 space-y-6">
-                    <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                    <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center text-gray-600">
                         <CheckCircle size={40} />
                     </div>
                     <div className="text-center">
