@@ -11,7 +11,7 @@ interface Props {
   isOpen: boolean;
   mode: 'ADD' | 'EDIT';
   initialData?: Product | null;
-  existingProducts?: Product[]; // <--- New Prop for suggestions
+  existingProducts?: Product[];
   onClose: () => void;
   onSuccess: () => void;
 }
@@ -47,7 +47,7 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
         } else {
             setFormData({ 
                 brand: '', category: '', collection: '', 
-                code: '', total_stock: 0, retail_price_idr: 0 
+                code: '', total_stock: 0, retail_price_idr: 0, detail: ''
             });
             setImagePreview(null);
             setImageFile(null);
@@ -187,6 +187,17 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
                         placeholder="e.g. Glenda Candle Holder"
                         value={formData.collection || ''}
                         onChange={e => setFormData({...formData, collection: e.target.value})}
+                    />
+                </div>
+
+                {/* NEW: Detail / Description Input */}
+                <div className="space-y-1">
+                    <label className="text-xs font-bold text-gray-500 uppercase">Product Detail / Description</label>
+                    <textarea 
+                        className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none min-h-[80px]"
+                        placeholder="e.g. Hand-blown glass, includes mounting hardware..."
+                        value={formData.detail || ''}
+                        onChange={e => setFormData({...formData, detail: e.target.value})}
                     />
                 </div>
 

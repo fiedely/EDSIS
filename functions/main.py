@@ -1,5 +1,5 @@
 from firebase_functions import https_fn
-from firebase_admin import initialize_app, firestore
+from firebase_admin import initialize_app, firestore, storage # <--- Added storage
 import firebase_admin
 import json
 import datetime
@@ -11,7 +11,6 @@ if not firebase_admin._apps:
 db = firestore.client()
 
 def serialize_doc(doc_dict):
-    """Helper to convert Firestore timestamps to strings for JSON"""
     if not doc_dict: return {}
     for key, value in doc_dict.items():
         if isinstance(value, datetime.datetime):
@@ -22,13 +21,10 @@ def serialize_doc(doc_dict):
                     serialize_doc(item)
     return doc_dict
 
-# --- EXISTING READ FUNCTIONS ---
+# --- READ FUNCTIONS ---
 
 @https_fn.on_request(region="asia-southeast2")
 def get_all_products(req: https_fn.Request) -> https_fn.Response:
-    # ... (Keep existing code for get_all_products) ...
-    # For brevity, I'm assuming you keep the existing read logic here.
-    # If you copy-paste, ensure the headers/CORS logic is preserved.
     headers = {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET', 'Access-Control-Allow-Headers': 'Content-Type'}
     if req.method == 'OPTIONS': return https_fn.Response('', status=204, headers=headers)
     
@@ -41,7 +37,6 @@ def get_all_products(req: https_fn.Request) -> https_fn.Response:
 
 @https_fn.on_request(region="asia-southeast2")
 def get_product_inventory(req: https_fn.Request) -> https_fn.Response:
-    # ... (Keep existing code for get_product_inventory) ...
     headers = {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET', 'Access-Control-Allow-Headers': 'Content-Type'}
     if req.method == 'OPTIONS': return https_fn.Response('', status=204, headers=headers)
     
@@ -59,7 +54,7 @@ def get_product_inventory(req: https_fn.Request) -> https_fn.Response:
     except Exception as e:
         return https_fn.Response(str(e), status=500, headers=headers)
 
-# --- NEW WRITE FUNCTIONS ---
+# --- WRITE FUNCTIONS ---
 
 @https_fn.on_request(region="asia-southeast2")
 def manage_product(req: https_fn.Request) -> https_fn.Response:
@@ -68,37 +63,30 @@ def manage_product(req: https_fn.Request) -> https_fn.Response:
 
     try:
         data = req.get_json()
-        mode = data.get('mode') # 'ADD' or 'EDIT'
+        mode = data.get('mode')
         product_data = data.get('product')
         
         if not product_data:
             return https_fn.Response("Missing product data", status=400, headers=headers)
 
-        # 1. Prepare Product Document
-        # If ADD, generate ID. If EDIT, use existing ID.
         product_id = product_data.get('id')
         if not product_id:
-             # Fallback: Generate ID from code or random if missing
              product_id = str(uuid.uuid4())
              product_data['id'] = product_id
         
-        # Ensure numbers are stored as numbers
         product_data['retail_price_idr'] = int(product_data.get('retail_price_idr', 0))
         product_data['total_stock'] = int(product_data.get('total_stock', 0))
-
-        # --- NEW: Enforce Casing Consistency ---
+        
+        # Enforce Casing
         if product_data.get('brand'):
-            product_data['brand'] = product_data['brand'].strip().upper() # Force UPPERCASE
+            product_data['brand'] = product_data['brand'].strip().upper()
         
         if product_data.get('category'):
             cat = product_data['category'].strip()
-            # Force Title Case (e.g. "kitchen" -> "Kitchen")
-            product_data['category'] = cat.title()
-        
-        # Write to 'products' collection
+            product_data['category'] = cat.title() 
+
         db.collection('products').document(product_id).set(product_data, merge=True)
 
-        # 2. If ADD mode, generate initial inventory stock
         if mode == 'ADD':
             initial_qty = product_data.get('total_stock', 0)
             batch = db.batch()
@@ -112,7 +100,7 @@ def manage_product(req: https_fn.Request) -> https_fn.Response:
                     'product_name': f"{product_data.get('brand')} - {product_data.get('collection')}",
                     'qr_code': qr_content,
                     'status': 'AVAILABLE',
-                    'current_location': 'Warehouse (New)', # Default for new items
+                    'current_location': 'Warehouse (New)',
                     'created_at': datetime.datetime.now(),
                     'history_log': [{
                         'action': 'ITEM_CREATED',
@@ -142,11 +130,29 @@ def delete_product(req: https_fn.Request) -> https_fn.Response:
         if not product_id:
             return https_fn.Response("Missing product_id", status=400, headers=headers)
 
-        # 1. Delete Master Product
-        db.collection('products').document(product_id).delete()
+        # 1. Fetch Product first to find Image URL
+        doc_ref = db.collection('products').document(product_id)
+        doc = doc_ref.get()
+        
+        if doc.exists:
+            product_data = doc.to_dict()
+            image_url = product_data.get('image_url')
 
-        # 2. Delete ALL associated inventory items
-        # Note: In a huge DB, you'd use a batched delete loop. For now, this is fine.
+            # --- NEW: Delete Image from Storage ---
+            if image_url:
+                try:
+                    bucket = storage.bucket() # Uses default bucket
+                    blob = bucket.blob(image_url)
+                    blob.delete()
+                    print(f"Deleted image: {image_url}")
+                except Exception as img_err:
+                    print(f"Warning: Could not delete image {image_url}: {img_err}")
+                    # We continue deleting the product even if image delete fails
+            
+            # 2. Delete Master Product Document
+            doc_ref.delete()
+
+        # 3. Delete ALL associated inventory items
         items = db.collection('inventory_items').where('product_id', '==', product_id).stream()
         batch = db.batch()
         count = 0

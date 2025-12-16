@@ -3,7 +3,7 @@ import axios from 'axios';
 import Layout from './components/Layout';
 import type { Product } from './types';
 import { buildProductTree, type GroupNode } from './utils';
-import { ChevronDown, ChevronRight, Layers, ChevronsDown, ChevronsUp } from 'lucide-react';
+import { ChevronDown, ChevronRight, Layers, ChevronsDown, ChevronsUp, RefreshCw } from 'lucide-react';
 import clsx from 'clsx';
 import ProductDetailModal from './components/ProductDetailModal';
 import StorageImage from './components/StorageImage';
@@ -33,6 +33,7 @@ function App() {
       return res.data.data; // Return for chaining
     } catch (err) {
       console.error("API Error:", err);
+      return [];
     } finally {
       if (!silent) setLoading(false);
     }
@@ -99,7 +100,7 @@ function App() {
     setIsFormOpen(true);
   };
 
-  // --- REFINED REFRESH LOGIC ---
+  // --- REFRESH LOGIC ---
   const handleRefresh = async () => {
     // 1. Fetch new data in background
     const newProducts: Product[] = await fetchProducts(true); 
@@ -230,7 +231,10 @@ function App() {
             </div>
         ) : (
             <div className="pb-10">
+                {/* Control Bar: Expand/Collapse & Refresh */}
                 <div className="sticky top-0 z-10 bg-gray-50/95 backdrop-blur-sm border-b border-gray-200 px-4 py-2 flex justify-between items-center shadow-sm">
+                    
+                    {/* Left: Count */}
                     <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">
                         {searchQuery ? (
                             <>Found {treeData.reduce((acc, node) => acc + node.items.length, 0)} items</>
@@ -239,18 +243,31 @@ function App() {
                         )}
                     </span>
                     
-                    <div className="flex gap-4">
+                    {/* Right: Actions */}
+                    <div className="flex items-center gap-4">
+                        {/* REFRESH BUTTON */}
+                        <button 
+                            onClick={() => handleRefresh()}
+                            disabled={loading}
+                            className="flex items-center gap-1 text-[10px] font-bold text-primary hover:text-primary-dark transition-colors disabled:opacity-50"
+                        >
+                            <RefreshCw size={14} className={loading ? "animate-spin" : ""} /> 
+                            SYNC
+                        </button>
+
+                        <div className="h-4 w-px bg-gray-300 mx-1"></div>
+
                         <button 
                             onClick={handleExpandAll}
                             className="flex items-center gap-1 text-[10px] font-bold text-gray-600 hover:text-primary transition-colors"
                         >
-                            <ChevronsDown size={14} /> EXPAND ALL
+                            <ChevronsDown size={14} /> EXPAND
                         </button>
                         <button 
                             onClick={handleCollapseAll}
                             className="flex items-center gap-1 text-[10px] font-bold text-gray-600 hover:text-primary transition-colors"
                         >
-                            <ChevronsUp size={14} /> COLLAPSE ALL
+                            <ChevronsUp size={14} /> COLLAPSE
                         </button>
                     </div>
                 </div>
@@ -281,7 +298,7 @@ function App() {
             isOpen={isFormOpen}
             mode={formMode}
             initialData={productToEdit}
-            existingProducts={products} // <--- Pass existing products for autocomplete
+            existingProducts={products} 
             onClose={() => setIsFormOpen(false)}
             onSuccess={handleRefresh}
         />

@@ -5,28 +5,27 @@ export interface Product {
   collection: string;
   code: string;
   image_url: string;
-  dimensions: string;
-  retail_price_idr: number;
   total_stock: number;
-  finishing?: string; // Added this
-}
-
-export interface HistoryLog {
-  action: string;
-  date: string;
-  location: string;
-  note: string;
+  retail_price_idr: number;
+  retail_price_eur?: number;
+  dimensions?: string;
+  finishing?: string;
+  detail?: string; // <--- NEW FIELD
+  search_keywords?: string[];
+  created_at?: string;
 }
 
 export interface InventoryItem {
   id: string;
   product_id: string;
+  product_name: string;
   qr_code: string;
-  status: 'AVAILABLE' | 'SOLD' | 'BOOKED';
+  status: 'AVAILABLE' | 'SOLD' | 'RESERVED' | 'DAMAGED';
   current_location: string;
-  history_log: HistoryLog[];
+  history_log: {
+    action: string;
+    location: string;
+    date: string;
+    note?: string;
+  }[];
 }
-
-export type GroupedProducts = {
-  [key: string]: Product[];
-};

@@ -111,10 +111,13 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit 
                 {activeTab === 'INFO' && (
                     <div className="bg-white border border-gray-200 p-6 space-y-6 shadow-sm">
                         <div className="grid grid-cols-2 gap-6">
+                            {/* 1. Category */}
                             <div className="col-span-2">
                                 <div className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Category</div>
                                 <div className="text-base font-medium text-gray-800">{product.category}</div>
                             </div>
+
+                            {/* 2. Dimensions & Finishing */}
                             <div>
                                 <div className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Dimensions</div>
                                 <div className="text-base font-medium text-gray-800">{product.dimensions}</div>
@@ -123,6 +126,18 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit 
                                 <div className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Finishing</div>
                                 <div className="text-base font-medium text-gray-800">{product.finishing || '-'}</div>
                             </div>
+
+                            {/* 3. NEW POSITION: Detail / Description */}
+                            {product.detail && (
+                                <div className="col-span-2 pt-2">
+                                    <div className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Detail</div>
+                                    <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
+                                        {product.detail}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* 4. Price (Always at bottom) */}
                             <div className="col-span-2 pt-4 border-t border-gray-100">
                                 <div className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Retail Price (IDR)</div>
                                 <div className="text-xl font-bold text-primary">
@@ -183,7 +198,6 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit 
                 <button 
                     onClick={() => { 
                         if(activeTab === 'INFO') { 
-                            // FIX: Removed onClose(), so detail modal stays open in background
                             onEdit(); 
                         }
                     }} 
