@@ -26,7 +26,10 @@ export interface Product {
   brand: string;
   category: string;
   collection: string;
-  code: string;
+  
+  code: string;             // System Generated SKU (e.g. SLAM-POLA-TUBA)
+  manufacturer_code?: string; // Original ID from Factory (e.g. A123-F)
+
   image_url: string;
   
   // Stock Counters
@@ -48,7 +51,7 @@ export interface Product {
   is_upcoming?: boolean;
   upcoming_eta?: string; 
 
-  search_keywords?: string[];
+  last_sequence?: number; // Internal counter for stock serialization
   created_at?: string;
 }
 

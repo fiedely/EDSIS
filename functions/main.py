@@ -1,9 +1,12 @@
 from firebase_functions import https_fn
 from firebase_admin import initialize_app, firestore, storage
+from google.cloud.firestore_v1.base_query import FieldFilter
 import firebase_admin
 import json
 import datetime
 import uuid
+import re
+import random
 
 if not firebase_admin._apps:
     initialize_app()
@@ -21,7 +24,55 @@ def serialize_doc(doc_dict):
                     serialize_doc(item)
     return doc_dict
 
-# --- HELPER: SYNC PRODUCT COUNTERS ---
+# --- SKU GENERATOR LOGIC ---
+
+def get_4char_segment(text):
+    if not text: return "XXXX"
+    # Clean non-alphanumeric but keep spaces for word splitting
+    clean = re.sub(r'[^a-zA-Z0-9\s]', '', text)
+    words = clean.split()
+    
+    code = ""
+    if len(words) >= 2:
+        # First 2 chars of first 2 words
+        code = (words[0][:2] + words[1][:2]).upper()
+    elif len(words) == 1:
+        # First 4 chars of single word
+        code = words[0][:4].upper()
+    
+    # Pad with '1' if too short (e.g. "ACE" -> "ACE1")
+    if len(code) < 4:
+        code = code.ljust(4, '1')
+        
+    return code
+
+def resolve_sku_collision(base_sku, existing_skus):
+    """
+    If SLAM-POLA-TUBA exists, try SLAM-POLA-TUB1, TUB2... TUB9.
+    If those fill up, fall back to random suffix.
+    """
+    if base_sku not in existing_skus:
+        return base_sku
+    
+    parts = base_sku.split('-')
+    if len(parts) < 3: return f"{base_sku}-01" # Fallback
+    
+    name_part = parts[2] # The 3rd block is the name identifier
+    prefix = f"{parts[0]}-{parts[1]}"
+    
+    # Strategy: Replace last char with 1-9
+    base_name = name_part[:3] # First 3 chars
+    
+    for i in range(1, 10):
+        candidate_name = f"{base_name}{i}"
+        candidate_sku = f"{prefix}-{candidate_name}"
+        if candidate_sku not in existing_skus:
+            return candidate_sku
+            
+    # If all 1-9 are taken, add random integer suffix (Survival Mode)
+    return f"{base_sku}{random.randint(10,99)}"
+
+# --- HELPER: SYNC COUNTERS ---
 def update_product_counters(product_id):
     items = db.collection('inventory_items').where('product_id', '==', product_id).stream()
     total = 0
@@ -35,7 +86,6 @@ def update_product_counters(product_id):
         if status == 'SOLD':
             sold += 1
         else:
-            # Total stock available in warehouse (Available + Booked + NFS)
             total += 1 
         
         if status == 'BOOKED':
@@ -72,12 +122,10 @@ def get_product_inventory(req: https_fn.Request) -> https_fn.Response:
     try:
         query = db.collection('inventory_items').where('product_id', '==', product_id).stream()
         inventory = []
-        
         for doc in query:
             d = doc.to_dict()
             d['id'] = doc.id
             inventory.append(serialize_doc(d))
-
         return https_fn.Response(json.dumps({'data': inventory}), status=200, headers=headers, mimetype='application/json')
     except Exception as e:
         return https_fn.Response(str(e), status=500, headers=headers)
@@ -98,8 +146,6 @@ def get_discounts(req: https_fn.Request) -> https_fn.Response:
     except Exception as e:
         return https_fn.Response(str(e), status=500, headers=headers)
 
-# --- SYSTEM JOB FUNCTIONS ---
-
 @https_fn.on_request(region="asia-southeast2")
 def check_expired_bookings(req: https_fn.Request) -> https_fn.Response:
     headers = {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST', 'Access-Control-Allow-Headers': 'Content-Type'}
@@ -107,7 +153,6 @@ def check_expired_bookings(req: https_fn.Request) -> https_fn.Response:
 
     try:
         booked_items = db.collection('inventory_items').where('status', '==', 'BOOKED').stream()
-        
         now = datetime.datetime.now()
         updated_products = set()
         count = 0
@@ -117,7 +162,6 @@ def check_expired_bookings(req: https_fn.Request) -> https_fn.Response:
             data = doc.to_dict()
             booking = data.get('booking', {})
             expired_str = booking.get('expired_at')
-            
             if expired_str:
                 try:
                     exp_date = datetime.datetime.fromisoformat(expired_str)
@@ -135,17 +179,14 @@ def check_expired_bookings(req: https_fn.Request) -> https_fn.Response:
                         batch.update(doc.reference, update_data)
                         updated_products.add(data.get('product_id'))
                         count += 1
-                except:
-                    continue
+                except: continue
 
             if count >= 400:
                 batch.commit()
                 batch = db.batch()
                 count = 0
         
-        if count > 0:
-            batch.commit()
-
+        if count > 0: batch.commit()
         for pid in updated_products:
             if pid: update_product_counters(pid)
 
@@ -180,13 +221,11 @@ def book_item(req: https_fn.Request) -> https_fn.Response:
             return https_fn.Response("Item cannot be booked", status=400, headers=headers)
 
         try:
-            # Set expiry to end of selected day
             exp_date = datetime.datetime.fromisoformat(expired_at_str).replace(hour=23, minute=59, second=59)
         except ValueError:
              return https_fn.Response("Invalid date format", status=400, headers=headers)
-             
+        
         now = datetime.datetime.now()
-
         update_data = {
             'status': 'BOOKED',
             'booking': {
@@ -206,7 +245,6 @@ def book_item(req: https_fn.Request) -> https_fn.Response:
         
         doc_ref.update(update_data)
         update_product_counters(item_data['product_id'])
-        
         return https_fn.Response(json.dumps({'success': True}), status=200, headers=headers, mimetype='application/json')
     except Exception as e:
         return https_fn.Response(str(e), status=500, headers=headers)
@@ -237,7 +275,6 @@ def release_item(req: https_fn.Request) -> https_fn.Response:
         
         doc_ref.update(update_data)
         update_product_counters(item_data['product_id'])
-        
         return https_fn.Response(json.dumps({'success': True}), status=200, headers=headers, mimetype='application/json')
     except Exception as e:
         return https_fn.Response(str(e), status=500, headers=headers)
@@ -253,7 +290,6 @@ def manage_discount(req: https_fn.Request) -> https_fn.Response:
         data = req.get_json()
         mode = data.get('mode')
         discount_data = data.get('discount')
-        
         if not discount_data: return https_fn.Response("Missing data", status=400, headers=headers)
         discount_id = discount_data.get('id')
 
@@ -297,7 +333,6 @@ def manage_discount(req: https_fn.Request) -> https_fn.Response:
                     for d in discounts:
                         val = float(d.get('value', 0))
                         current_price = current_price * ((100 - val) / 100)
-                    
                     batch.update(doc.reference, {'discounts': discounts, 'nett_price_idr': int(current_price)})
                     batch_count += 1
                 
@@ -318,7 +353,6 @@ def manage_product(req: https_fn.Request) -> https_fn.Response:
         data = req.get_json()
         mode = data.get('mode')
         product_data = data.get('product')
-        
         if not product_data: return https_fn.Response("Missing data", status=400, headers=headers)
 
         product_id = product_data.get('id')
@@ -326,24 +360,67 @@ def manage_product(req: https_fn.Request) -> https_fn.Response:
              product_id = str(uuid.uuid4())
              product_data['id'] = product_id
         
-        product_data['retail_price_idr'] = int(product_data.get('retail_price_idr', 0))
-        product_data['total_stock'] = int(product_data.get('total_stock', 0))
+        # Clean Inputs
         if product_data.get('brand'): product_data['brand'] = product_data['brand'].strip().upper()
         if product_data.get('category'): product_data['category'] = product_data['category'].strip().title()
+        
+        # --- SMART SKU GENERATION ---
+        # 1. Generate Proposal: BRAND-CAT-NAME
+        c1 = get_4char_segment(product_data.get('brand', ''))
+        c2 = get_4char_segment(product_data.get('category', ''))
+        c3 = get_4char_segment(product_data.get('collection', ''))
+        base_sku = f"{c1}-{c2}-{c3}"
+
+        # 2. Check for Collisions
+        # Get all existing codes that start with the prefix (BRAND-CAT) to reduce read cost slightly, 
+        # or just query precise match if we assume linear insert. 
+        # For strictness, let's fetch any product that shares the base SKU
+        # Optimization: We only check if this product has a DIFFERENT code (rename) or is new.
+        
+        current_code = product_data.get('code')
+        # If the generated base matches the current one (no rename), keep using current.
+        # But if rename happened, we must re-verify.
+        
+        # Fetch all existing SKUs to verify collision (simplified for MVP: fetch codes map?)
+        # Better: Query products with same code.
+        existing_with_sku = db.collection('products').where('code', '>=', base_sku).where('code', '<=', base_sku + '\uf8ff').stream()
+        existing_skus = {doc.to_dict().get('code') for doc in existing_with_sku}
+        
+        # If updating self, don't count self as collision
+        if mode == 'EDIT' and current_code in existing_skus:
+            # If the calculated base is prefix of current code, assume we keep current code unless user drastically changed name
+            pass 
+        
+        final_sku = resolve_sku_collision(base_sku, existing_skus)
+        product_data['code'] = final_sku
+
+        product_data['retail_price_idr'] = int(product_data.get('retail_price_idr', 0))
+        product_data['total_stock'] = int(product_data.get('total_stock', 0))
 
         discount_ids = []
         for d in product_data.get('discounts', []):
             if d.get('id'): discount_ids.append(d.get('id'))
         product_data['discount_ids'] = discount_ids
 
-        db.collection('products').document(product_id).set(product_data, merge=True)
+        doc_ref = db.collection('products').document(product_id)
+        doc_snap = doc_ref.get()
+        current_data = doc_snap.to_dict() if doc_snap.exists else {}
+        
+        last_seq = current_data.get('last_sequence', 0)
+        product_data['last_sequence'] = last_seq
+        
+        doc_ref.set(product_data, merge=True)
 
         if mode == 'ADD':
             initial_qty = product_data.get('total_stock', 0)
             batch = db.batch()
+            
             for i in range(initial_qty):
+                last_seq += 1
+                seq_str = str(last_seq).zfill(4)
+                qr_content = f"{final_sku}-{seq_str}"
+                
                 new_item_ref = db.collection('inventory_items').document()
-                qr_content = f"ED-{product_id}-{uuid.uuid4().hex[:6].upper()}"
                 status = 'AVAILABLE'
                 if product_data.get('is_not_for_sale'): status = 'NOT_FOR_SALE'
 
@@ -362,9 +439,11 @@ def manage_product(req: https_fn.Request) -> https_fn.Response:
                     }]
                 }
                 batch.set(new_item_ref, item_data)
+            
+            doc_ref.update({'last_sequence': last_seq})
             batch.commit()
 
-        return https_fn.Response(json.dumps({'success': True, 'id': product_id}), status=200, headers=headers, mimetype='application/json')
+        return https_fn.Response(json.dumps({'success': True, 'id': product_id, 'sku': final_sku}), status=200, headers=headers, mimetype='application/json')
     except Exception as e:
         return https_fn.Response(str(e), status=500, headers=headers)
 
@@ -404,6 +483,13 @@ def bulk_import_products(req: https_fn.Request) -> https_fn.Response:
         new_products = data.get('products', [])
         if not new_products: return https_fn.Response("No products", status=400, headers=headers)
 
+        # Pre-fetch existing SKUs for collision detection
+        # Since we might generate many, let's grab all codes. 
+        # (Warning: At scale this needs optimization, e.g. check per item or cache)
+        # For now, fetching just the 'code' field of all products is efficient enough for <10k items
+        all_products_ref = db.collection('products').select(['code']).stream()
+        existing_skus = {doc.to_dict().get('code') for doc in all_products_ref}
+
         batch = db.batch()
         count = 0
         now = datetime.datetime.now()
@@ -411,10 +497,10 @@ def bulk_import_products(req: https_fn.Request) -> https_fn.Response:
         session_discounts = {} 
 
         for p_data in new_products:
+            # 1. Discounts
             raw_discounts = p_data.get('discounts', [])
             processed_discounts = []
             discount_ids = []
-            
             for d in raw_discounts:
                 try:
                     val = float(d.get('value', 0))
@@ -431,7 +517,6 @@ def bulk_import_products(req: https_fn.Request) -> https_fn.Response:
                             count += 1
                             session_discounts[val] = (new_rule_id, rule_name)
                             rule_id = new_rule_id
-                        
                         processed_discounts.append({'id': rule_id, 'name': rule_name, 'value': val})
                         discount_ids.append(rule_id)
                 except: pass
@@ -439,23 +524,38 @@ def bulk_import_products(req: https_fn.Request) -> https_fn.Response:
             p_data['discounts'] = processed_discounts
             p_data['discount_ids'] = discount_ids
             
+            # 2. SKU Generation
             brand_clean = p_data.get('brand', '').strip().upper()
             category_clean = p_data.get('category', '').strip().title()
             collection_clean = p_data.get('collection', '').strip()
             
+            # Use Manufacturer Code if provided in CSV 'code' column, else try to find it
+            manufacturer_code = p_data.get('code', '').strip()
+
+            c1 = get_4char_segment(brand_clean)
+            c2 = get_4char_segment(category_clean)
+            c3 = get_4char_segment(collection_clean)
+            base_sku = f"{c1}-{c2}-{c3}"
+            
+            final_sku = resolve_sku_collision(base_sku, existing_skus)
+            existing_skus.add(final_sku) # Add to local set so next item in THIS batch doesn't collide
+
             product_id = str(uuid.uuid4())
+            total_stock = int(p_data.get('total_stock', 0))
+
             product_doc = {
                 'id': product_id,
                 'brand': brand_clean,
                 'category': category_clean,
                 'collection': collection_clean,
-                'code': p_data.get('code', '').strip(),
+                'code': final_sku,               # System SKU
+                'manufacturer_code': manufacturer_code, # Factory ID
                 'image_url': p_data.get('image_url', ''), 
                 'detail': p_data.get('detail', ''),
                 'retail_price_idr': int(p_data.get('retail_price_idr', 0)),
-                'total_stock': int(p_data.get('total_stock', 0)),
+                'total_stock': total_stock,
                 'booked_stock': 0,
-                'sold_stock': 0, # Initialize
+                'sold_stock': 0,
                 'created_at': now,
                 'nett_price_idr': int(p_data.get('nett_price_idr', 0)),
                 'discounts': processed_discounts,
@@ -463,13 +563,17 @@ def bulk_import_products(req: https_fn.Request) -> https_fn.Response:
                 'is_not_for_sale': p_data.get('is_not_for_sale', False),
                 'is_upcoming': p_data.get('is_upcoming', False),
                 'upcoming_eta': p_data.get('upcoming_eta', ''),
+                'last_sequence': total_stock
             }
             batch.set(db.collection('products').document(product_id), product_doc)
             count += 1
 
-            for i in range(product_doc['total_stock']):
+            for i in range(total_stock):
+                seq_num = i + 1
+                seq_str = str(seq_num).zfill(4)
+                qr_content = f"{final_sku}-{seq_str}"
+
                 item_ref = db.collection('inventory_items').document()
-                qr_content = f"ED-{product_id}-{uuid.uuid4().hex[:6].upper()}"
                 status = 'AVAILABLE'
                 if product_doc['is_not_for_sale']: status = 'NOT_FOR_SALE'
                 

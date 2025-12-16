@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { X, Save, Trash2, Upload, CheckCircle, Loader2, Plus, Minus, AlertTriangle, Calendar } from 'lucide-react';
+import { X, Save, Trash2, Upload, CheckCircle, Loader2, Plus, Minus, AlertTriangle, Calendar, Info } from 'lucide-react';
 import type { Product, Discount, DiscountRule } from '../types';
 import { logActivity } from '../audit';
 import axios from 'axios';
@@ -60,7 +60,7 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
         } else {
             setFormData({ 
                 brand: '', category: '', collection: '', 
-                code: '', total_stock: 0, retail_price_idr: 0, detail: '',
+                code: '', manufacturer_code: '', total_stock: 0, retail_price_idr: 0, detail: '',
                 is_not_for_sale: false, is_upcoming: false, upcoming_eta: ''
             });
             setLocalDiscounts([]);
@@ -103,7 +103,6 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
     if (!selectedRuleId) return;
     const rule = availableRules.find(r => r.id === selectedRuleId);
     if (rule) {
-        // FIX: Ensure ID is included in local state
         setLocalDiscounts([...localDiscounts, { id: rule.id, name: rule.name, value: rule.value }]);
         setSelectedRuleId(''); 
     }
@@ -268,11 +267,25 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
 
                     <div className="space-y-1">
                         <label className="text-xs font-bold text-gray-500 uppercase">Collection Name</label>
+                        {/* [MODIFIED] Removed placeholder help text */}
                         <input 
                             className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none font-bold"
-                            placeholder="e.g. Glenda Candle Holder"
+                            placeholder="" 
                             value={formData.collection || ''}
                             onChange={e => setFormData({...formData, collection: e.target.value})}
+                        />
+                    </div>
+
+                    <div className="space-y-1">
+                        <label className="text-xs font-bold text-gray-500 uppercase flex items-center gap-2">
+                             Manufacturer Product ID
+                        </label>
+                        {/* [MODIFIED] Removed placeholder help text */}
+                        <input 
+                            className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none font-mono text-gray-600"
+                            placeholder=""
+                            value={formData.manufacturer_code || ''}
+                            onChange={e => setFormData({...formData, manufacturer_code: e.target.value})}
                         />
                     </div>
 
@@ -294,15 +307,23 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-1">
-                            <label className="text-xs font-bold text-gray-500 uppercase">Product Code</label>
+                            {/* [MODIFIED] Enforce height (h-5) to match sibling for perfect alignment */}
+                            <label className="text-xs font-bold text-gray-500 uppercase flex items-center gap-1 h-5">
+                                System SKU 
+                                {/* [MODIFIED] Tooltip logic updated */}
+                                <div title="SKU is handled by the system. (BRAND-CATEGORY-NAME-SEQUENCE)" className="cursor-help">
+                                    <Info size={12} className="text-gray-400"/> 
+                                </div>
+                            </label>
                             <input 
-                                className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none bg-white"
-                                value={formData.code || ''}
-                                onChange={e => setFormData({...formData, code: e.target.value})}
+                                className="w-full border border-gray-200 bg-gray-100 p-2 text-sm text-gray-500 focus:outline-none cursor-not-allowed font-mono"
+                                value={formData.code || 'Auto-generated'} 
+                                readOnly
                             />
                         </div>
                         <div className="space-y-1">
-                            <label className="text-xs font-bold text-gray-500 uppercase">Retail Price (IDR)</label>
+                            {/* [MODIFIED] Added flex items-center h-5 to ensure alignment with SKU label */}
+                            <label className="text-xs font-bold text-gray-500 uppercase flex items-center h-5">Retail Price (IDR)</label>
                             <input 
                                 type="number"
                                 className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none bg-white font-bold"

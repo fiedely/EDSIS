@@ -197,6 +197,19 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                                 <div className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Category</div>
                                 <div className="text-base font-medium text-gray-800">{product.category}</div>
                             </div>
+                            
+                            {/* [MODIFIED] No Icon */}
+                            {product.manufacturer_code && (
+                                <div className="col-span-2">
+                                    <div className="text-[10px] text-gray-400 uppercase tracking-widest mb-1 flex items-center gap-1">
+                                        Manufacturer Product ID
+                                    </div>
+                                    <div className="text-base font-mono font-medium text-gray-600 bg-gray-50 p-2 rounded border border-gray-100 inline-block">
+                                        {product.manufacturer_code}
+                                    </div>
+                                </div>
+                            )}
+
                             <div>
                                 <div className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Dimensions</div>
                                 <div className="text-base font-medium text-gray-800">{product.dimensions}</div>
@@ -255,6 +268,7 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                             visibleInventory.map((item, index) => {
                                 const isBooked = item.status === 'BOOKED';
                                 const isBookingThis = bookingItem === item.id;
+                                const displayCode = item.qr_code;
 
                                 return (
                                 <div key={item.id} className={clsx("bg-white border shadow-sm transition-all", isBooked ? "border-blue-300 ring-1 ring-blue-100" : "border-gray-200 hover:shadow-md")}>
@@ -262,7 +276,7 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                                     <div className={clsx("p-3 border-b flex justify-between items-center", isBooked ? "bg-blue-50/50 border-blue-100" : "bg-gray-50/50 border-gray-100")}>
                                         <div className="flex items-center gap-2">
                                             <div className="bg-gray-800 text-white text-[10px] font-bold px-1.5 py-0.5">#{index + 1}</div>
-                                            <span className="text-xs font-mono text-gray-500">{item.qr_code.split('-').pop()}</span>
+                                            <span className="text-xs font-mono font-bold text-gray-600">{displayCode}</span>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <button className="text-gray-400 hover:text-primary transition-colors" title="Show QR">
