@@ -72,43 +72,11 @@ def get_product_inventory(req: https_fn.Request) -> https_fn.Response:
     try:
         query = db.collection('inventory_items').where('product_id', '==', product_id).stream()
         inventory = []
-        now = datetime.datetime.now()
-        needs_update = False
-
+        
         for doc in query:
             d = doc.to_dict()
             d['id'] = doc.id
-            
-            # --- LAZY EXPIRATION CHECK ---
-            # If item is booked and past its expiry date, auto-release it.
-            if d.get('status') == 'BOOKED' and d.get('booking'):
-                expired_str = d['booking'].get('expired_at')
-                if expired_str:
-                    try:
-                        exp_date = datetime.datetime.fromisoformat(expired_str)
-                        if now > exp_date:
-                            print(f"Auto-releasing item {d['id']}")
-                            update_data = {
-                                'status': 'AVAILABLE',
-                                'booking': firestore.DELETE_FIELD,
-                                'history_log': firestore.ArrayUnion([{
-                                    'action': 'AUTO_RELEASED',
-                                    'location': d.get('current_location', ''),
-                                    'date': now,
-                                    'note': "Booking expired"
-                                }])
-                            }
-                            db.collection('inventory_items').document(d['id']).update(update_data)
-                            d['status'] = 'AVAILABLE'
-                            if 'booking' in d: del d['booking']
-                            needs_update = True
-                    except:
-                        pass
-            
             inventory.append(serialize_doc(d))
-        
-        if needs_update:
-            update_product_counters(product_id)
 
         return https_fn.Response(json.dumps({'data': inventory}), status=200, headers=headers, mimetype='application/json')
     except Exception as e:
@@ -130,6 +98,61 @@ def get_discounts(req: https_fn.Request) -> https_fn.Response:
     except Exception as e:
         return https_fn.Response(str(e), status=500, headers=headers)
 
+# --- SYSTEM JOB FUNCTIONS ---
+
+@https_fn.on_request(region="asia-southeast2")
+def check_expired_bookings(req: https_fn.Request) -> https_fn.Response:
+    headers = {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST', 'Access-Control-Allow-Headers': 'Content-Type'}
+    if req.method == 'OPTIONS': return https_fn.Response('', status=204, headers=headers)
+
+    try:
+        booked_items = db.collection('inventory_items').where('status', '==', 'BOOKED').stream()
+        
+        now = datetime.datetime.now()
+        updated_products = set()
+        count = 0
+        batch = db.batch()
+        
+        for doc in booked_items:
+            data = doc.to_dict()
+            booking = data.get('booking', {})
+            expired_str = booking.get('expired_at')
+            
+            if expired_str:
+                try:
+                    exp_date = datetime.datetime.fromisoformat(expired_str)
+                    if now > exp_date:
+                        update_data = {
+                            'status': 'AVAILABLE',
+                            'booking': firestore.DELETE_FIELD,
+                            'history_log': firestore.ArrayUnion([{
+                                'action': 'AUTO_RELEASED',
+                                'location': data.get('current_location', ''),
+                                'date': now,
+                                'note': "Global expiration check"
+                            }])
+                        }
+                        batch.update(doc.reference, update_data)
+                        updated_products.add(data.get('product_id'))
+                        count += 1
+                except:
+                    continue
+
+            if count >= 400:
+                batch.commit()
+                batch = db.batch()
+                count = 0
+        
+        if count > 0:
+            batch.commit()
+
+        for pid in updated_products:
+            if pid: update_product_counters(pid)
+
+        return https_fn.Response(json.dumps({'success': True, 'released_count': count}), status=200, headers=headers, mimetype='application/json')
+    except Exception as e:
+        return https_fn.Response(str(e), status=500, headers=headers)
+
 # --- ACTION FUNCTIONS ---
 
 @https_fn.on_request(region="asia-southeast2")
@@ -140,10 +163,10 @@ def book_item(req: https_fn.Request) -> https_fn.Response:
     try:
         data = req.get_json()
         item_id = data.get('item_id')
-        booked_by = data.get('booked_by', 'Unknown') # Client Name
-        system_user = data.get('system_user', 'System') # Staff Name
+        booked_by = data.get('booked_by', 'Unknown')
+        system_user = data.get('system_user', 'System')
         notes = data.get('notes', '')
-        expired_at_str = data.get('expired_at') # YYYY-MM-DD
+        expired_at_str = data.get('expired_at')
         
         if not expired_at_str:
              return https_fn.Response("Missing expiration date", status=400, headers=headers)
@@ -156,8 +179,8 @@ def book_item(req: https_fn.Request) -> https_fn.Response:
         if item_data.get('status') not in ['AVAILABLE', 'NOT_FOR_SALE']:
             return https_fn.Response("Item cannot be booked", status=400, headers=headers)
 
-        # Set expiry to end of selected day
         try:
+            # Set expiry to end of selected day
             exp_date = datetime.datetime.fromisoformat(expired_at_str).replace(hour=23, minute=59, second=59)
         except ValueError:
              return https_fn.Response("Invalid date format", status=400, headers=headers)
@@ -209,40 +232,6 @@ def release_item(req: https_fn.Request) -> https_fn.Response:
                 'location': item_data.get('current_location', ''),
                 'date': datetime.datetime.now(),
                 'note': "Booking released manually"
-            }])
-        }
-        
-        doc_ref.update(update_data)
-        update_product_counters(item_data['product_id'])
-        
-        return https_fn.Response(json.dumps({'success': True}), status=200, headers=headers, mimetype='application/json')
-    except Exception as e:
-        return https_fn.Response(str(e), status=500, headers=headers)
-
-@https_fn.on_request(region="asia-southeast2")
-def sell_item(req: https_fn.Request) -> https_fn.Response:
-    headers = {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST', 'Access-Control-Allow-Headers': 'Content-Type'}
-    if req.method == 'OPTIONS': return https_fn.Response('', status=204, headers=headers)
-
-    try:
-        data = req.get_json()
-        item_id = data.get('item_id')
-        po_number = data.get('po_number', '')
-        
-        doc_ref = db.collection('inventory_items').document(item_id)
-        doc = doc_ref.get()
-        item_data = doc.to_dict()
-        
-        update_data = {
-            'status': 'SOLD',
-            'booking': firestore.DELETE_FIELD,
-            'sold_at': datetime.datetime.now().isoformat(),
-            'po_number': po_number,
-            'history_log': firestore.ArrayUnion([{
-                'action': 'SOLD',
-                'location': item_data.get('current_location', ''),
-                'date': datetime.datetime.now(),
-                'note': f"Item marked as SOLD. PO: {po_number}" if po_number else "Item marked as SOLD"
             }])
         }
         

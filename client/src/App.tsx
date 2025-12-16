@@ -41,6 +41,11 @@ function App() {
   const fetchProducts = useCallback(async (silent = false) => {
     if (!silent) setLoading(true);
     try {
+      if (!silent) {
+        // Run global expiration check on load to keep data fresh
+        await axios.post('http://127.0.0.1:5001/edievo-project/asia-southeast2/check_expired_bookings');
+      }
+      
       const res = await axios.get('http://127.0.0.1:5001/edievo-project/asia-southeast2/get_all_products');
       setProducts(res.data.data);
       return res.data.data;
@@ -123,10 +128,9 @@ function App() {
   function buildStatusTree(items: Product[]): GroupNode[] {
     const groups: Record<string, Product[]> = {
         'DISCOUNT ITEM': [],
-        'BOOKED ITEM': [], // <--- NEW GROUP
+        'BOOKED ITEM': [],
         'UPCOMING ITEM': [],
         'NOT FOR SALE': [],
-        'SOLD ITEM': [], // <--- NEW GROUP
         'NO STOCK': [] 
     };
 
@@ -136,7 +140,6 @@ function App() {
         if (p.discounts && p.discounts.length > 0) groups['DISCOUNT ITEM'].push(p);
         if (p.booked_stock > 0) groups['BOOKED ITEM'].push(p);
         if (p.total_stock === 0) groups['NO STOCK'].push(p);
-        if (p.sold_stock > 0) groups['SOLD ITEM'].push(p);
     });
 
     return Object.entries(groups)

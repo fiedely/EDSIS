@@ -20,17 +20,11 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
   
   const [isZoomed, setIsZoomed] = useState(false);
   
-  // Track previous product ID to handle tab persistence on refresh
   const prevProductIdRef = useRef<string | null>(null);
 
-  // Booking State
   const [bookingItem, setBookingItem] = useState<string | null>(null);
   const [bookForm, setBookForm] = useState({ client_name: '', expired_at: '', notes: '' });
   
-  // Sold State
-  const [sellingItem, setSellingItem] = useState<string | null>(null);
-  const [poNumber, setPoNumber] = useState('');
-
   const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
@@ -48,7 +42,6 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
     };
 
     if (isOpen && product) {
-      // Only reset tab if product ID changed (completely new item opened)
       if (prevProductIdRef.current !== product.id) {
           setActiveTab('INFO');
           prevProductIdRef.current = product.id;
@@ -56,7 +49,6 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
       setIsZoomed(false); 
       fetchInventory();
       
-      // Default expiry date: Tomorrow
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
       setBookForm({ client_name: '', expired_at: tomorrow.toISOString().split('T')[0], notes: '' });
@@ -76,7 +68,6 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
 
   if (!isOpen || !product) return null;
 
-  // --- ACTIONS ---
   const handleBookSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
       if (!bookingItem) return;
@@ -84,13 +75,13 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
       try {
           await axios.post('http://127.0.0.1:5001/edievo-project/asia-southeast2/book_item', {
               item_id: bookingItem,
-              booked_by: bookForm.client_name, // Client
-              system_user: 'Guest User', // Hardcoded for now (or pass as prop)
+              booked_by: bookForm.client_name, 
+              system_user: 'Guest User', 
               notes: bookForm.notes,
               expired_at: bookForm.expired_at
           });
           setBookingItem(null);
-          // Reset form
+          
           const tomorrow = new Date();
           tomorrow.setDate(tomorrow.getDate() + 1);
           setBookForm({ client_name: '', expired_at: tomorrow.toISOString().split('T')[0], notes: '' });
@@ -99,26 +90,6 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
       } catch (err) {
           console.error(err);
           alert("Booking failed");
-      } finally {
-          setIsProcessing(false);
-      }
-  };
-
-  const handleSellSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
-      if (!sellingItem) return;
-      setIsProcessing(true);
-      try {
-          await axios.post('http://127.0.0.1:5001/edievo-project/asia-southeast2/sell_item', { 
-              item_id: sellingItem,
-              po_number: poNumber
-          });
-          setSellingItem(null);
-          setPoNumber('');
-          await reloadData();
-      } catch (err) {
-          console.error(err);
-          alert("Error marking sold");
       } finally {
           setIsProcessing(false);
       }
@@ -138,7 +109,6 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
       }
   };
 
-  // Helpers
   const isNFS = product.is_not_for_sale;
   const isUpcoming = product.is_upcoming;
   const hasDiscount = product.discounts && product.discounts.length > 0;
@@ -150,7 +120,6 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
     <>
         <div className="fixed inset-0 z-40 bg-white flex flex-col animate-in slide-in-from-bottom-5 duration-300">
             
-            {/* Header Image Area */}
             <div className="h-64 bg-gray-100 relative shrink-0 shadow-sm group">
                 <button onClick={onClose} className="absolute top-4 right-4 bg-white shadow-md hover:bg-gray-50 p-2 rounded-full text-primary transition-all z-20">
                     <X size={24} />
@@ -176,7 +145,6 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                 </div>
             </div>
 
-            {/* Tabs */}
             <div className="flex border-b border-gray-200 bg-white shadow-sm z-10">
                 <button 
                     onClick={() => setActiveTab('INFO')}
@@ -201,7 +169,6 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                 </button>
             </div>
 
-            {/* Scrollable Content */}
             <div className="flex-grow overflow-y-auto bg-gray-50 p-4">
                 
                 {activeTab === 'INFO' && (
@@ -288,12 +255,10 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                             visibleInventory.map((item, index) => {
                                 const isBooked = item.status === 'BOOKED';
                                 const isBookingThis = bookingItem === item.id;
-                                const isSellingThis = sellingItem === item.id;
 
                                 return (
                                 <div key={item.id} className={clsx("bg-white border shadow-sm transition-all", isBooked ? "border-blue-300 ring-1 ring-blue-100" : "border-gray-200 hover:shadow-md")}>
                                     
-                                    {/* HEADER */}
                                     <div className={clsx("p-3 border-b flex justify-between items-center", isBooked ? "bg-blue-50/50 border-blue-100" : "bg-gray-50/50 border-gray-100")}>
                                         <div className="flex items-center gap-2">
                                             <div className="bg-gray-800 text-white text-[10px] font-bold px-1.5 py-0.5">#{index + 1}</div>
@@ -322,50 +287,30 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                                                 <span className="text-sm font-medium">{item.current_location || 'Unknown Location'}</span>
                                             </div>
 
-                                            {/* Action Buttons: Clean Outline Style, No Icons */}
-                                            {!isBookingThis && !isSellingThis && (
+                                            {!isBookingThis && (
                                                 <div className="flex gap-2">
                                                     {isBooked ? (
-                                                        <>
-                                                            <button 
-                                                                onClick={() => handleRelease(item.id)} 
-                                                                disabled={isProcessing} 
-                                                                className="px-3 py-1 text-[10px] font-bold border border-gray-400 text-gray-600 hover:bg-gray-100 rounded transition-colors"
-                                                            >
-                                                                {isProcessing ? '...' : 'RELEASE'}
-                                                            </button>
-                                                            <button 
-                                                                onClick={() => setSellingItem(item.id)} 
-                                                                disabled={isProcessing} 
-                                                                className="px-3 py-1 text-[10px] font-bold border border-green-600 text-green-600 hover:bg-green-50 rounded transition-colors"
-                                                            >
-                                                                SOLD
-                                                            </button>
-                                                        </>
+                                                        <button 
+                                                            onClick={() => handleRelease(item.id)} 
+                                                            disabled={isProcessing} 
+                                                            className="px-3 py-1 text-[10px] font-bold border border-gray-400 text-gray-600 hover:bg-gray-100 rounded transition-colors"
+                                                        >
+                                                            {isProcessing ? '...' : 'RELEASE'}
+                                                        </button>
                                                     ) : (
-                                                        <>
-                                                            <button 
-                                                                onClick={() => setBookingItem(item.id)} 
-                                                                disabled={item.status === 'NOT_FOR_SALE'} 
-                                                                className="px-3 py-1 text-[10px] font-bold border border-blue-600 text-blue-600 hover:bg-blue-50 rounded transition-colors disabled:opacity-50"
-                                                            >
-                                                                BOOK
-                                                            </button>
-                                                            <button 
-                                                                onClick={() => setSellingItem(item.id)} 
-                                                                disabled={isProcessing} 
-                                                                className="px-3 py-1 text-[10px] font-bold border border-green-600 text-green-600 hover:bg-green-50 rounded transition-colors"
-                                                            >
-                                                                SOLD
-                                                            </button>
-                                                        </>
+                                                        <button 
+                                                            onClick={() => setBookingItem(item.id)} 
+                                                            disabled={item.status === 'NOT_FOR_SALE'} 
+                                                            className="px-3 py-1 text-[10px] font-bold border border-blue-600 text-blue-600 hover:bg-blue-50 rounded transition-colors disabled:opacity-50"
+                                                        >
+                                                            BOOK
+                                                        </button>
                                                     )}
                                                 </div>
                                             )}
                                         </div>
 
-                                        {/* Detailed Booking Info Box */}
-                                        {isBooked && item.booking && !isBookingThis && !isSellingThis && (
+                                        {isBooked && item.booking && !isBookingThis && (
                                             <div className="mb-3 p-3 bg-blue-50 border border-blue-100 rounded text-xs text-blue-800 animate-in fade-in space-y-1.5">
                                                 <div className="flex justify-between items-start">
                                                     <div className="flex items-center gap-1.5">
@@ -385,7 +330,6 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                                             </div>
                                         )}
 
-                                        {/* Booking Form Overlay */}
                                         {isBookingThis && (
                                             <div className="bg-blue-50 p-3 rounded border border-blue-200 animate-in slide-in-from-right-2 mt-2">
                                                 <div className="text-xs font-bold text-blue-800 mb-2 flex items-center gap-2"><Edit2 size={12}/> New Booking</div>
@@ -417,31 +361,8 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
                                                 </form>
                                             </div>
                                         )}
-
-                                        {/* Selling Form Overlay */}
-                                        {isSellingThis && (
-                                            <div className="bg-green-50 p-3 rounded border border-green-200 animate-in slide-in-from-right-2 mt-2">
-                                                <div className="text-xs font-bold text-green-800 mb-2 flex items-center gap-2">Mark as Sold</div>
-                                                <form onSubmit={handleSellSubmit} className="space-y-2">
-                                                    <input 
-                                                        className="w-full p-1.5 text-xs border rounded focus:border-green-500 outline-none" 
-                                                        placeholder="PO Number (Optional)" 
-                                                        autoFocus
-                                                        value={poNumber} 
-                                                        onChange={e => setPoNumber(e.target.value)}
-                                                    />
-                                                    <div className="flex justify-end gap-2 mt-2">
-                                                        <button type="button" onClick={() => setSellingItem(null)} className="text-xs font-bold text-gray-500 hover:text-gray-700">CANCEL</button>
-                                                        <button type="submit" disabled={isProcessing} className="text-xs font-bold bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 flex items-center gap-1">
-                                                            {isProcessing && <Loader2 size={12} className="animate-spin"/>} CONFIRM SOLD
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        )}
                                         
-                                        {/* History Footer (Last 10 reversed) */}
-                                        {item.history_log && item.history_log.length > 0 && !isBookingThis && !isSellingThis && (
+                                        {item.history_log && item.history_log.length > 0 && !isBookingThis && (
                                             <div className="mt-2 pt-2 border-t border-gray-100 max-h-32 overflow-y-auto">
                                                 {[...item.history_log].reverse().slice(0, 10).map((log, i) => (
                                                     <div key={i} className="flex items-start gap-1 text-[10px] text-gray-400 mb-1 last:mb-0">
@@ -478,7 +399,6 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit,
             </div>
         </div>
 
-        {/* --- ZOOM LIGHTBOX OVERLAY --- */}
         {isZoomed && (
             <div className="fixed inset-0 z-[60] bg-black flex items-center justify-center animate-in fade-in duration-200">
                 <button onClick={() => setIsZoomed(false)} className="absolute top-4 right-4 bg-white shadow-md hover:bg-gray-50 p-2 rounded-full text-primary transition-all z-20">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Calendar, User, Loader2, CheckCircle, Unlock, DollarSign } from 'lucide-react';
+import { X, Calendar, User, Loader2, CheckCircle } from 'lucide-react';
 import axios from 'axios';
 import type { InventoryItem, Product } from '../types';
 
@@ -9,8 +9,13 @@ interface Props {
   onSuccess: () => void; 
 }
 
+interface ExtendedInventoryItem extends InventoryItem {
+    product_category?: string;
+    product_code?: string;
+}
+
 const ActiveBookingsModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) => {
-  const [bookings, setBookings] = useState<InventoryItem[]>([]);
+  const [bookings, setBookings] = useState<ExtendedInventoryItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
 
@@ -25,12 +30,19 @@ const ActiveBookingsModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =>
           const allProducts = res.data.data;
           const bookedProducts = allProducts.filter((p: Product) => p.booked_stock > 0);
           
-          let allBookedItems: InventoryItem[] = [];
+          let allBookedItems: ExtendedInventoryItem[] = [];
 
           for (const p of bookedProducts) {
               const invRes = await axios.get(`http://127.0.0.1:5001/edievo-project/asia-southeast2/get_product_inventory?product_id=${p.id}`);
               const items = invRes.data.data.filter((i: InventoryItem) => i.status === 'BOOKED');
-              allBookedItems = [...allBookedItems, ...items];
+              
+              const enrichedItems = items.map((i: InventoryItem) => ({
+                  ...i,
+                  product_category: p.category,
+                  product_code: p.code
+              }));
+              
+              allBookedItems = [...allBookedItems, ...enrichedItems];
           }
           
           setBookings(allBookedItems);
@@ -51,21 +63,6 @@ const ActiveBookingsModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =>
       } catch(err) {
           console.error(err);
           alert("Error releasing item");
-      } finally {
-          setActionLoading(null);
-      }
-  };
-
-  const handleSell = async (itemId: string) => {
-      if(!window.confirm("Mark this item as SOLD?")) return;
-      setActionLoading(itemId);
-      try {
-          await axios.post('http://127.0.0.1:5001/edievo-project/asia-southeast2/sell_item', { item_id: itemId });
-          await fetchBookings();
-          onSuccess();
-      } catch(err) {
-          console.error(err);
-          alert("Error selling item");
       } finally {
           setActionLoading(null);
       }
@@ -98,12 +95,16 @@ const ActiveBookingsModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =>
                             <div className="flex justify-between items-start mb-2">
                                 <div>
                                     <div className="font-bold text-gray-800 text-lg">{item.product_name}</div>
-                                    <div className="text-xs text-gray-400 font-mono">{item.qr_code}</div>
+                                    <div className="text-xs text-gray-500 font-bold uppercase tracking-wider">
+                                        {item.product_category} • {item.product_code}
+                                    </div>
                                 </div>
                                 <div className="text-right">
-                                     <div className={`text-xs font-bold px-2 py-1 rounded ${isExpired ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'}`}>
-                                         {isExpired ? 'EXPIRED' : 'ACTIVE'}
-                                     </div>
+                                     {isExpired && (
+                                         <div className="text-xs font-bold px-2 py-1 rounded bg-red-100 text-red-600">
+                                            EXPIRED
+                                         </div>
+                                     )}
                                 </div>
                             </div>
                             
@@ -121,20 +122,13 @@ const ActiveBookingsModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =>
                                 </div>
                             </div>
 
-                            <div className="flex justify-end gap-3">
+                            <div className="flex justify-end">
                                 <button 
                                     onClick={() => handleRelease(item.id)}
                                     disabled={!!actionLoading}
-                                    className="px-4 py-2 text-xs font-bold border border-gray-300 hover:bg-gray-100 text-gray-600 flex items-center gap-2"
+                                    className="px-4 py-2 text-xs font-bold border border-gray-400 hover:bg-gray-100 text-gray-600 transition-colors"
                                 >
-                                    {actionLoading === item.id ? <Loader2 size={12} className="animate-spin"/> : <Unlock size={12}/>} RELEASE STOCK
-                                </button>
-                                <button 
-                                    onClick={() => handleSell(item.id)}
-                                    disabled={!!actionLoading}
-                                    className="px-4 py-2 text-xs font-bold bg-green-600 hover:bg-green-700 text-white flex items-center gap-2"
-                                >
-                                    {actionLoading === item.id ? <Loader2 size={12} className="animate-spin"/> : <DollarSign size={12}/>} MARK SOLD
+                                    {actionLoading === item.id ? "PROCESSING..." : "RELEASE"}
                                 </button>
                             </div>
                         </div>
