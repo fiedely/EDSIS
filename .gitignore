@@ -8,3 +8,4 @@ functions/__pycache__
 *.pyc
 firebase-debug.log
 ui-debug.log
+firestore-debug.log
