@@ -286,6 +286,7 @@ def bulk_import_products(req: https_fn.Request) -> https_fn.Response:
         session_discounts = {} 
 
         for p_data in new_products:
+            # --- DISCOUNT PROCESSING ---
             raw_discounts = p_data.get('discounts', [])
             processed_discounts = []
             discount_ids = []
@@ -327,14 +328,20 @@ def bulk_import_products(req: https_fn.Request) -> https_fn.Response:
             p_data['discount_ids'] = discount_ids
 
             # --- PRODUCT CREATION ---
+            # FIX: Added .strip() to remove trailing spaces
+            brand_clean = p_data.get('brand', '').strip().upper()
+            category_clean = p_data.get('category', '').strip().title()
+            collection_clean = p_data.get('collection', '').strip()
+            code_clean = p_data.get('code', '').strip()
+
             product_id = str(uuid.uuid4()) 
             
             product_doc = {
                 'id': product_id,
-                'brand': p_data.get('brand', '').upper(),
-                'category': p_data.get('category', '').title(),
-                'collection': p_data.get('collection', ''),
-                'code': p_data.get('code', ''),
+                'brand': brand_clean,
+                'category': category_clean,
+                'collection': collection_clean,
+                'code': code_clean,
                 'image_url': p_data.get('image_url', ''), 
                 'detail': p_data.get('detail', ''),
                 'retail_price_idr': int(p_data.get('retail_price_idr', 0)),
