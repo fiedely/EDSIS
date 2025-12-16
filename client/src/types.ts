@@ -1,24 +1,23 @@
 export interface Discount {
-  id?: string; // <--- NEW: Link to Master Rule
+  id?: string;
   name: string;
-  value: number; 
+  value: number;
 }
 
 export interface DiscountRule {
   id: string;
   name: string;
   value: number;
-  start_date?: string; 
-  end_date?: string;   
+  start_date?: string;
+  end_date?: string;
   is_active: boolean;
 }
 
-export interface BookingInfo {
-  is_booked: boolean;
-  booked_by_user_id?: string;
-  booked_by_name?: string;
-  booked_at?: string;
-  expired_at?: string;
+export interface ItemBooking {
+  booked_by: string;   // Client Name
+  system_user?: string; // Staff/User Name
+  booked_at: string;
+  expired_at: string;
   notes?: string;
 }
 
@@ -29,26 +28,25 @@ export interface Product {
   collection: string;
   code: string;
   image_url: string;
-  total_stock: number;
   
-  // --- Prices ---
+  // Stock Counters
+  total_stock: number;
+  booked_stock: number;
+  sold_stock: number;
+  
   retail_price_idr: number;
   retail_price_eur?: number;
   nett_price_idr?: number; 
   discounts?: Discount[];   
-  discount_ids?: string[]; // <--- NEW: Helper for fast queries
+  discount_ids?: string[]; 
   
-  // --- Details ---
   dimensions?: string;
   finishing?: string;
   detail?: string;
   
-  // --- Flags & Status ---
   is_not_for_sale?: boolean;
   is_upcoming?: boolean;
   upcoming_eta?: string; 
-  
-  booking_info?: BookingInfo;
 
   search_keywords?: string[];
   created_at?: string;
@@ -59,10 +57,17 @@ export interface InventoryItem {
   product_id: string;
   product_name: string;
   qr_code: string;
-  status: 'AVAILABLE' | 'SOLD' | 'RESERVED' | 'DAMAGED' | 'NOT_FOR_SALE';
+  
+  status: 'AVAILABLE' | 'SOLD' | 'BOOKED' | 'DAMAGED' | 'NOT_FOR_SALE';
+  
+  booking?: ItemBooking;
+  sold_at?: string;
+  po_number?: string;
+  
   current_location: string;
   history_log: {
     action: string;
+    batch_id?: string;
     location: string;
     date: string;
     note?: string;

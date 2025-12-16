@@ -1,12 +1,13 @@
 import React from 'react';
-import { X, Plus, FileText, RefreshCw, Settings, Shield, User, LogOut, FileSpreadsheet, Percent } from 'lucide-react';
+import { X, Plus, FileText, RefreshCw, Settings, Shield, User, LogOut, FileSpreadsheet, Percent, Clock } from 'lucide-react';
 
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
   onAddItem: () => void;
   onImport: () => void;
-  onManageDiscounts: () => void; 
+  onManageDiscounts: () => void;
+  onOpenActiveBookings: () => void; // <--- NEW PROP
   userRole?: string;
 }
 
@@ -17,7 +18,15 @@ interface MenuButtonProps {
   disabled?: boolean;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onAddItem, onImport, onManageDiscounts, userRole = 'admin' }) => {
+const Sidebar: React.FC<SidebarProps> = ({ 
+  isOpen, 
+  onClose, 
+  onAddItem, 
+  onImport, 
+  onManageDiscounts, 
+  onOpenActiveBookings,
+  userRole = 'admin' 
+}) => {
   const canAdd = userRole === 'admin' || userRole === 'manager';
   const canAdmin = userRole === 'admin';
 
@@ -59,6 +68,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onAddItem, onImport,
                 onClick={() => { onClose(); onAddItem(); }}
                 disabled={!canAdd}
             />
+
+            <MenuButton 
+                icon={<Clock size={18} />} 
+                label="Active Bookings" 
+                onClick={() => { onClose(); onOpenActiveBookings(); }}
+            />
             
             <MenuButton 
                 icon={<FileSpreadsheet size={18} />} 
@@ -70,7 +85,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onAddItem, onImport,
             <MenuButton icon={<FileText size={18} />} label="Export Inventory" onClick={() => {}} />
             <MenuButton icon={<RefreshCw size={18} />} label="Manage Exchange" onClick={() => {}} />
             
-            {/* MOVED HERE per Req #5 */}
             <MenuButton 
                 icon={<Percent size={18} />} 
                 label="Manage Discounts" 

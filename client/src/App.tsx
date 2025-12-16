@@ -3,14 +3,15 @@ import axios from 'axios';
 import Layout from './components/Layout';
 import type { Product } from './types';
 import { buildProductTree, type GroupNode } from './utils';
-import { ChevronDown, ChevronRight, Layers, ChevronsDown, ChevronsUp, RefreshCw, AlertCircle, Clock, Percent, XCircle } from 'lucide-react';
+import { ChevronDown, ChevronRight, Layers, ChevronsDown, ChevronsUp, RefreshCw, AlertCircle, Clock, Percent, XCircle, Book } from 'lucide-react';
 import clsx from 'clsx';
 import ProductDetailModal from './components/ProductDetailModal';
 import StorageImage from './components/StorageImage';
 import Sidebar from './components/Sidebar';
 import ProductFormModal from './components/ProductFormModal';
 import ImportModal from './components/ImportModal';
-import DiscountManagerModal from './components/DiscountManagerModal'; // <--- New Import
+import DiscountManagerModal from './components/DiscountManagerModal';
+import ActiveBookingsModal from './components/ActiveBookingsModal';
 
 function App() {
   const [activeTab, setActiveTab] = useState('BRAND');
@@ -34,8 +35,8 @@ function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [productToEdit, setProductToEdit] = useState<Product | null>(null);
   const [isImportOpen, setIsImportOpen] = useState(false);
-  // NEW: State for Discount Manager
   const [isDiscountManagerOpen, setIsDiscountManagerOpen] = useState(false);
+  const [isActiveBookingsOpen, setIsActiveBookingsOpen] = useState(false); 
 
   const fetchProducts = useCallback(async (silent = false) => {
     if (!silent) setLoading(true);
@@ -122,8 +123,10 @@ function App() {
   function buildStatusTree(items: Product[]): GroupNode[] {
     const groups: Record<string, Product[]> = {
         'DISCOUNT ITEM': [],
+        'BOOKED ITEM': [], // <--- NEW GROUP
         'UPCOMING ITEM': [],
         'NOT FOR SALE': [],
+        'SOLD ITEM': [], // <--- NEW GROUP
         'NO STOCK': [] 
     };
 
@@ -131,7 +134,9 @@ function App() {
         if (p.is_not_for_sale) groups['NOT FOR SALE'].push(p);
         if (p.is_upcoming) groups['UPCOMING ITEM'].push(p);
         if (p.discounts && p.discounts.length > 0) groups['DISCOUNT ITEM'].push(p);
+        if (p.booked_stock > 0) groups['BOOKED ITEM'].push(p);
         if (p.total_stock === 0) groups['NO STOCK'].push(p);
+        if (p.sold_stock > 0) groups['SOLD ITEM'].push(p);
     });
 
     return Object.entries(groups)
@@ -176,7 +181,6 @@ function App() {
     setIsImportOpen(true);
   };
   
-  // NEW: Handler for Discount Manager
   const handleManageDiscountsClick = () => {
     setIsDiscountManagerOpen(true);
   };
@@ -267,6 +271,7 @@ function App() {
     const isNFS = item.is_not_for_sale;
     const isUpcoming = item.is_upcoming;
     const isNoStock = item.total_stock === 0;
+    const isBooked = item.booked_stock > 0; 
 
     return (
         <div 
@@ -292,6 +297,12 @@ function App() {
                 {isNFS && <span className="text-[9px] bg-gray-200 text-gray-600 px-1 rounded font-bold flex items-center"><AlertCircle size={8} className="mr-0.5"/> NFS</span>}
                 {isUpcoming && <span className="text-[9px] bg-blue-100 text-blue-600 px-1 rounded font-bold flex items-center"><Clock size={8} className="mr-0.5"/> ETA</span>}
                 
+                {isBooked && (
+                    <span className="text-[9px] bg-indigo-100 text-indigo-600 px-1 rounded font-bold flex items-center">
+                        <Book size={8} className="mr-0.5"/> BOOK
+                    </span>
+                )}
+
                 {isNoStock && (
                     <span className="text-[9px] bg-orange-100 text-orange-600 px-1 rounded font-bold flex items-center">
                         <XCircle size={8} className="mr-0.5"/> 
@@ -385,6 +396,7 @@ function App() {
             onAddItem={handleAddClick}
             onImport={handleImportClick}
             onManageDiscounts={handleManageDiscountsClick}
+            onOpenActiveBookings={() => setIsActiveBookingsOpen(true)} 
         />
 
         <ProductDetailModal 
@@ -392,6 +404,7 @@ function App() {
             isOpen={!!selectedProduct} 
             onClose={() => setSelectedProduct(null)} 
             onEdit={() => selectedProduct && handleEditClick(selectedProduct)}
+            onRefresh={handleRefresh} 
         />
 
         <ProductFormModal 
@@ -410,11 +423,16 @@ function App() {
             existingProducts={products} 
         />
         
-        {/* NEW: Discount Manager Modal with refresh callback */}
         <DiscountManagerModal 
             isOpen={isDiscountManagerOpen}
             onClose={() => setIsDiscountManagerOpen(false)}
-            onSuccess={handleRefresh} // <--- Pass this function
+            onSuccess={handleRefresh} 
+        />
+
+        <ActiveBookingsModal 
+            isOpen={isActiveBookingsOpen}
+            onClose={() => setIsActiveBookingsOpen(false)}
+            onSuccess={handleRefresh}
         />
     </>
   );
