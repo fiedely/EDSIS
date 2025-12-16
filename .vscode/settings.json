@@ -4,5 +4,6 @@
   "less.validate": false,
   "files.associations": {
     "*.css": "tailwindcss"
-  }
+  },
+  "json.schemaDownload.enable": false
 }

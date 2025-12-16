@@ -3,12 +3,14 @@ import axios from 'axios';
 import Layout from './components/Layout';
 import type { Product } from './types';
 import { buildProductTree, type GroupNode } from './utils';
-import { ChevronDown, ChevronRight, Layers, ChevronsDown, ChevronsUp, RefreshCw } from 'lucide-react';
+import { ChevronDown, ChevronRight, Layers, ChevronsDown, ChevronsUp, RefreshCw, AlertCircle, Clock, Percent, XCircle } from 'lucide-react';
 import clsx from 'clsx';
 import ProductDetailModal from './components/ProductDetailModal';
 import StorageImage from './components/StorageImage';
 import Sidebar from './components/Sidebar';
 import ProductFormModal from './components/ProductFormModal';
+import ImportModal from './components/ImportModal';
+import DiscountManagerModal from './components/DiscountManagerModal'; // <--- New Import
 
 function App() {
   const [activeTab, setActiveTab] = useState('BRAND');
@@ -16,21 +18,31 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   
-  const [expandedKeys, setExpandedKeys] = useState<Set<string>>(new Set());
+  const [expandedState, setExpandedState] = useState<Record<string, Set<string>>>({
+    BRAND: new Set(),
+    CATEGORY: new Set(),
+    STATUS: new Set(),
+    LOCATION: new Set()
+  });
+  
+  const currentExpandedKeys = expandedState[activeTab] || new Set();
+
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [formMode, setFormMode] = useState<'ADD' | 'EDIT'>('ADD');
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [productToEdit, setProductToEdit] = useState<Product | null>(null);
+  const [isImportOpen, setIsImportOpen] = useState(false);
+  // NEW: State for Discount Manager
+  const [isDiscountManagerOpen, setIsDiscountManagerOpen] = useState(false);
 
-  // Moved fetch logic out to be reusable
   const fetchProducts = useCallback(async (silent = false) => {
     if (!silent) setLoading(true);
     try {
       const res = await axios.get('http://127.0.0.1:5001/edievo-project/asia-southeast2/get_all_products');
       setProducts(res.data.data);
-      return res.data.data; // Return for chaining
+      return res.data.data;
     } catch (err) {
       console.error("API Error:", err);
       return [];
@@ -44,32 +56,17 @@ function App() {
   }, [fetchProducts]);
 
   const toggleExpand = (uniqueKey: string) => {
-    const newSet = new Set(expandedKeys);
+    const newSet = new Set(currentExpandedKeys);
     if (newSet.has(uniqueKey)) {
       newSet.delete(uniqueKey);
     } else {
       newSet.add(uniqueKey);
     }
-    setExpandedKeys(newSet);
+    setExpandedState(prev => ({
+        ...prev,
+        [activeTab]: newSet
+    }));
   };
-
-  const treeData = useMemo(() => {
-    const filtered = products.filter(p => {
-      if (!searchQuery) return true;
-      const terms = searchQuery.toLowerCase().split(',').map(t => t.trim()).filter(t => t.length > 0);
-      if (terms.length === 0) return true;
-      const searchableText = `${p.brand} ${p.category} ${p.collection} ${p.code}`.toLowerCase();
-      return terms.every(term => searchableText.includes(term));
-    });
-
-    let levels: string[] = [];
-    if (activeTab === 'BRAND') levels = ['brand', 'category'];
-    if (activeTab === 'CATEGORY') levels = ['category', 'brand'];
-    if (activeTab === 'STATUS') levels = ['status', 'brand', 'category']; 
-    if (activeTab === 'LOCATION') levels = ['current_location', 'brand', 'category'];
-
-    return buildProductTree(filtered, levels);
-  }, [products, activeTab, searchQuery]);
 
   const handleExpandAll = () => {
     const allKeys = new Set<string>();
@@ -81,11 +78,86 @@ function App() {
         });
     };
     traverse(treeData);
-    setExpandedKeys(allKeys);
+    setExpandedState(prev => ({ ...prev, [activeTab]: allKeys }));
   };
 
   const handleCollapseAll = () => {
-    setExpandedKeys(new Set());
+    setExpandedState(prev => ({ ...prev, [activeTab]: new Set() }));
+  };
+
+  const treeData = useMemo(() => {
+    const filtered = products.filter(p => {
+      // 1. Search Logic
+      if (searchQuery) {
+        const terms = searchQuery.toLowerCase().split(',').map(t => t.trim()).filter(t => t.length > 0);
+        if (terms.length > 0) {
+            const searchableText = `${p.brand} ${p.category} ${p.collection} ${p.code}`.toLowerCase();
+            const matches = terms.every(term => searchableText.includes(term));
+            if (!matches) return false;
+        }
+      }
+
+      // 2. Tab Visibility Logic
+      if (activeTab === 'BRAND' || activeTab === 'CATEGORY') {
+          if (p.is_not_for_sale || p.is_upcoming) return false;
+      }
+      
+      return true;
+    });
+
+    let levels: string[] = [];
+    if (activeTab === 'BRAND') levels = ['brand', 'category'];
+    if (activeTab === 'CATEGORY') levels = ['category', 'brand'];
+    
+    // Custom Grouping for STATUS Tab
+    if (activeTab === 'STATUS') {
+        return buildStatusTree(filtered);
+    }
+
+    if (activeTab === 'LOCATION') levels = ['current_location', 'brand', 'category'];
+
+    return buildProductTree(filtered, levels);
+  }, [products, activeTab, searchQuery]);
+
+  function buildStatusTree(items: Product[]): GroupNode[] {
+    const groups: Record<string, Product[]> = {
+        'DISCOUNT ITEM': [],
+        'UPCOMING ITEM': [],
+        'NOT FOR SALE': [],
+        'NO STOCK': [] 
+    };
+
+    items.forEach(p => {
+        if (p.is_not_for_sale) groups['NOT FOR SALE'].push(p);
+        if (p.is_upcoming) groups['UPCOMING ITEM'].push(p);
+        if (p.discounts && p.discounts.length > 0) groups['DISCOUNT ITEM'].push(p);
+        if (p.total_stock === 0) groups['NO STOCK'].push(p);
+    });
+
+    return Object.entries(groups)
+        .filter(([, list]) => list.length > 0) 
+        .map(([key, list]) => {
+            const subTree = buildProductTree(list, ['brand']);
+            
+            const shiftLevel = (nodes: GroupNode[]): GroupNode[] => {
+                return nodes.map(n => ({
+                    ...n,
+                    level: n.level + 1,
+                    subgroups: shiftLevel(n.subgroups)
+                }));
+            };
+
+            return {
+                key,
+                level: 0,
+                items: list, 
+                subgroups: shiftLevel(subTree)
+            };
+        });
+  }
+
+  const getGroupCount = (node: GroupNode): number => {
+    return node.items.length;
   };
 
   const handleAddClick = () => {
@@ -99,19 +171,23 @@ function App() {
     setProductToEdit(product);
     setIsFormOpen(true);
   };
+  
+  const handleImportClick = () => {
+    setIsImportOpen(true);
+  };
+  
+  // NEW: Handler for Discount Manager
+  const handleManageDiscountsClick = () => {
+    setIsDiscountManagerOpen(true);
+  };
 
-  // --- REFRESH LOGIC ---
   const handleRefresh = async () => {
-    // 1. Fetch new data in background
     const newProducts: Product[] = await fetchProducts(true); 
-    
-    // 2. If we are editing an item, update the 'selectedProduct' so the modal updates live
     if (selectedProduct) {
         const updatedItem = newProducts.find(p => p.id === selectedProduct.id);
         if (updatedItem) {
             setSelectedProduct(updatedItem);
         } else {
-            // Item might have been deleted
             setSelectedProduct(null);
         }
     }
@@ -119,9 +195,9 @@ function App() {
 
   const renderNode = (node: GroupNode, parentKey: string = '') => {
     const uniqueKey = parentKey ? `${parentKey}-${node.key}` : node.key;
-    const isExpanded = expandedKeys.has(uniqueKey) || searchQuery.length > 0;
+    const isExpanded = currentExpandedKeys.has(uniqueKey) || searchQuery.length > 0;
     const isDeepLevel = node.level > 0;
-
+    
     return (
       <div key={uniqueKey} className={clsx("border-gray-100", isDeepLevel ? "border-l-2 ml-4" : "border-b bg-white")}>
         <div 
@@ -163,16 +239,18 @@ function App() {
                     <Layers size={14} />
                     <span>ALL {node.key.toUpperCase()}</span>
                     <span className="ml-auto text-gray-400">{node.items.length} Items</span>
-                    {expandedKeys.has(`${uniqueKey}-ALL`) ? <ChevronDown size={14}/> : <ChevronRight size={14}/>}
+                    {currentExpandedKeys.has(`${uniqueKey}-ALL`) ? <ChevronDown size={14}/> : <ChevronRight size={14}/>}
                   </div>
-                  {expandedKeys.has(`${uniqueKey}-ALL`) && (
+                  {currentExpandedKeys.has(`${uniqueKey}-ALL`) && (
                     <div className="pl-4">
                       {node.items.map(item => renderItemCard(item))}
                     </div>
                   )}
                </div>
             )}
+            
             {node.subgroups.map(subgroup => renderNode(subgroup, uniqueKey))}
+            
             {node.subgroups.length === 0 && (
               <div className="pl-4 pb-2 bg-gray-50/50">
                 {node.items.map(item => renderItemCard(item))}
@@ -184,32 +262,58 @@ function App() {
     );
   };
 
-  const renderItemCard = (item: Product) => (
-    <div 
-        key={item.id} 
-        onClick={() => setSelectedProduct(item)} 
-        className="p-3 flex gap-3 border-b border-gray-200/50 last:border-0 hover:bg-white transition-colors cursor-pointer group bg-white"
-    >
-      <div className="w-12 h-12 flex-shrink-0 bg-gray-100 border border-gray-200 overflow-hidden">
-        <StorageImage 
-            filename={item.image_url} 
-            alt={item.collection} 
-            className="w-full h-full object-cover" 
-        />
-      </div>
+  const renderItemCard = (item: Product) => {
+    const isDiscount = item.discounts && item.discounts.length > 0;
+    const isNFS = item.is_not_for_sale;
+    const isUpcoming = item.is_upcoming;
+    const isNoStock = item.total_stock === 0;
 
-      <div className="flex-grow">
-        <div className="text-sm font-bold text-gray-800 line-clamp-1">{item.collection}</div>
-        <div className="text-[10px] text-gray-500 font-medium">
-          {item.code} 
-          {activeTab !== 'BRAND' && <span className="text-primary/70"> • {item.brand}</span>}
+    return (
+        <div 
+            key={item.id} 
+            onClick={() => setSelectedProduct(item)} 
+            className="p-3 flex gap-3 border-b border-gray-200/50 last:border-0 hover:bg-white transition-colors cursor-pointer group bg-white relative"
+        >
+        <div className="w-12 h-12 flex-shrink-0 bg-gray-100 border border-gray-200 overflow-hidden relative">
+            <StorageImage 
+                filename={item.image_url} 
+                alt={item.collection} 
+                className="w-full h-full object-cover" 
+            />
+            {isNFS && <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-[8px] text-white font-bold text-center leading-tight">NOT FOR<br/>SALE</div>}
+            {isUpcoming && <div className="absolute inset-0 bg-blue-900/60 flex items-center justify-center text-[8px] text-white font-bold text-center leading-tight">SOON</div>}
         </div>
-      </div>
-      <div className="flex flex-col items-end justify-center min-w-[50px]">
-        <span className="text-xs font-bold text-primary">{item.total_stock}</span>
-      </div>
-    </div>
-  );
+
+        <div className="flex-grow min-w-0">
+            <div className="flex items-center gap-2">
+                <div className="text-sm font-bold text-gray-800 line-clamp-1">{item.collection}</div>
+                
+                {isDiscount && <span className="text-[9px] bg-red-100 text-red-600 px-1 rounded font-bold flex items-center"><Percent size={8} className="mr-0.5"/> SALE</span>}
+                {isNFS && <span className="text-[9px] bg-gray-200 text-gray-600 px-1 rounded font-bold flex items-center"><AlertCircle size={8} className="mr-0.5"/> NFS</span>}
+                {isUpcoming && <span className="text-[9px] bg-blue-100 text-blue-600 px-1 rounded font-bold flex items-center"><Clock size={8} className="mr-0.5"/> ETA</span>}
+                
+                {isNoStock && (
+                    <span className="text-[9px] bg-orange-100 text-orange-600 px-1 rounded font-bold flex items-center">
+                        <XCircle size={8} className="mr-0.5"/> 
+                        <span className="decoration-orange-600 line-through">STK</span>
+                    </span>
+                )}
+            </div>
+            
+            <div className="text-[10px] text-gray-500 font-medium">
+            {item.code} 
+            {activeTab !== 'BRAND' && <span className="text-primary/70"> • {item.brand}</span>}
+            </div>
+        </div>
+        
+        <div className="flex flex-col items-end justify-center min-w-[50px]">
+            <span className={clsx("text-xs font-bold", item.total_stock > 0 ? "text-primary" : "text-gray-300")}>
+                {item.total_stock}
+            </span>
+        </div>
+        </div>
+    );
+  };
 
   return (
     <>
@@ -217,7 +321,6 @@ function App() {
             activeTab={activeTab} 
             onTabChange={(tab) => {
                 setActiveTab(tab);
-                setExpandedKeys(new Set());
                 setSearchQuery(''); 
             }}
             searchQuery={searchQuery}
@@ -231,21 +334,16 @@ function App() {
             </div>
         ) : (
             <div className="pb-10">
-                {/* Control Bar: Expand/Collapse & Refresh */}
                 <div className="sticky top-0 z-10 bg-gray-50/95 backdrop-blur-sm border-b border-gray-200 px-4 py-2 flex justify-between items-center shadow-sm">
-                    
-                    {/* Left: Count */}
                     <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">
                         {searchQuery ? (
-                            <>Found {treeData.reduce((acc, node) => acc + node.items.length, 0)} items</>
+                            <>Found {treeData.reduce((acc, node) => acc + getGroupCount(node), 0)} items</>
                         ) : (
                             <>{treeData.length} Groups</>
                         )}
                     </span>
                     
-                    {/* Right: Actions */}
                     <div className="flex items-center gap-4">
-                        {/* REFRESH BUTTON */}
                         <button 
                             onClick={() => handleRefresh()}
                             disabled={loading}
@@ -285,6 +383,8 @@ function App() {
             isOpen={isSidebarOpen} 
             onClose={() => setSidebarOpen(false)} 
             onAddItem={handleAddClick}
+            onImport={handleImportClick}
+            onManageDiscounts={handleManageDiscountsClick}
         />
 
         <ProductDetailModal 
@@ -301,6 +401,20 @@ function App() {
             existingProducts={products} 
             onClose={() => setIsFormOpen(false)}
             onSuccess={handleRefresh}
+        />
+        
+        <ImportModal
+            isOpen={isImportOpen}
+            onClose={() => setIsImportOpen(false)}
+            onSuccess={handleRefresh}
+            existingProducts={products} 
+        />
+        
+        {/* NEW: Discount Manager Modal with refresh callback */}
+        <DiscountManagerModal 
+            isOpen={isDiscountManagerOpen}
+            onClose={() => setIsDiscountManagerOpen(false)}
+            onSuccess={handleRefresh} // <--- Pass this function
         />
     </>
   );

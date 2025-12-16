@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { X, MapPin, QrCode, History, Package, ZoomIn, Settings } from 'lucide-react';
+import { X, MapPin, QrCode, History, Package, ZoomIn, Settings, AlertTriangle, Clock, Percent } from 'lucide-react';
 import axios from 'axios';
 import type { Product, InventoryItem } from '../types';
 import StorageImage from './StorageImage';
@@ -44,6 +44,11 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit 
 
   if (!isOpen || !product) return null;
 
+  // Helpers for Badges
+  const isNFS = product.is_not_for_sale;
+  const isUpcoming = product.is_upcoming;
+  const hasDiscount = product.discounts && product.discounts.length > 0;
+
   return (
     <>
         {/* --- MAIN MODAL --- */}
@@ -70,7 +75,6 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit 
                     className="w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-105" 
                 />
                 
-                {/* Zoom Hint Overlay */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/10">
                     <div className="bg-white/80 backdrop-blur-sm p-3 rounded-full shadow-lg">
                         <ZoomIn size={24} className="text-primary" />
@@ -79,7 +83,12 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit 
             </div>
             
             <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4 pt-10 text-white pointer-events-none">
-                <div className="text-xs font-bold text-primary-light uppercase tracking-wider mb-1">{product.brand}</div>
+                <div className="flex items-center gap-2 mb-1">
+                    <div className="text-xs font-bold text-primary-light uppercase tracking-wider">{product.brand}</div>
+                    {/* Header Badges */}
+                    {isNFS && <span className="bg-gray-800 text-white text-[9px] px-2 py-0.5 rounded font-bold uppercase">Not For Sale</span>}
+                    {isUpcoming && <span className="bg-blue-600 text-white text-[9px] px-2 py-0.5 rounded font-bold uppercase">Upcoming</span>}
+                </div>
                 <h2 className="text-2xl font-bold leading-tight">{product.collection}</h2>
                 <div className="text-xs text-white/70 mt-1">{product.code}</div>
             </div>
@@ -110,14 +119,32 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit 
                 
                 {activeTab === 'INFO' && (
                     <div className="bg-white border border-gray-200 p-6 space-y-6 shadow-sm">
+                        
+                        {/* WARNING BANNERS */}
+                        {isNFS && (
+                            <div className="bg-gray-100 border-l-4 border-gray-500 p-3 flex items-start gap-3">
+                                <AlertTriangle size={18} className="text-gray-500 mt-0.5"/>
+                                <div>
+                                    <div className="text-sm font-bold text-gray-800">Item Not For Sale</div>
+                                    <div className="text-xs text-gray-500">This item is for display or reference only.</div>
+                                </div>
+                            </div>
+                        )}
+                        {isUpcoming && (
+                            <div className="bg-blue-50 border-l-4 border-blue-500 p-3 flex items-start gap-3">
+                                <Clock size={18} className="text-blue-500 mt-0.5"/>
+                                <div>
+                                    <div className="text-sm font-bold text-blue-800">Coming Soon</div>
+                                    <div className="text-xs text-blue-600">Expected Arrival: {product.upcoming_eta || 'TBA'}</div>
+                                </div>
+                            </div>
+                        )}
+
                         <div className="grid grid-cols-2 gap-6">
-                            {/* 1. Category */}
                             <div className="col-span-2">
                                 <div className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Category</div>
                                 <div className="text-base font-medium text-gray-800">{product.category}</div>
                             </div>
-
-                            {/* 2. Dimensions & Finishing */}
                             <div>
                                 <div className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Dimensions</div>
                                 <div className="text-base font-medium text-gray-800">{product.dimensions}</div>
@@ -127,7 +154,7 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit 
                                 <div className="text-base font-medium text-gray-800">{product.finishing || '-'}</div>
                             </div>
 
-                            {/* 3. NEW POSITION: Detail / Description */}
+                            {/* Detail */}
                             {product.detail && (
                                 <div className="col-span-2 pt-2">
                                     <div className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Detail</div>
@@ -137,12 +164,41 @@ const ProductDetailModal: React.FC<Props> = ({ product, isOpen, onClose, onEdit 
                                 </div>
                             )}
 
-                            {/* 4. Price (Always at bottom) */}
+                            {/* PRICE SECTION (Updated for Discounts) */}
                             <div className="col-span-2 pt-4 border-t border-gray-100">
                                 <div className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Retail Price (IDR)</div>
-                                <div className="text-xl font-bold text-primary">
-                                    {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(product.retail_price_idr)}
-                                </div>
+                                
+                                {hasDiscount ? (
+                                    <div className="flex flex-col">
+                                        {/* Original Strikethrough */}
+                                        <div className="text-sm text-gray-400 line-through decoration-red-400 decoration-1">
+                                            {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(product.retail_price_idr)}
+                                        </div>
+                                        
+                                        {/* Nett Price */}
+                                        <div className="text-2xl font-bold text-red-600 flex items-center gap-2">
+                                            {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(product.nett_price_idr || product.retail_price_idr)}
+                                            <span className="bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wide">
+                                                Promo
+                                            </span>
+                                        </div>
+
+                                        {/* Discount Details */}
+                                        <div className="flex gap-2 mt-2">
+                                            {product.discounts?.map((d, i) => (
+                                                <div key={i} className="flex items-center gap-1 text-[10px] font-bold text-white bg-red-500 px-2 py-1 rounded">
+                                                    <Percent size={10} />
+                                                    {d.name} OFF
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ) : (
+                                    // Normal Price
+                                    <div className="text-xl font-bold text-primary">
+                                        {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(product.retail_price_idr)}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

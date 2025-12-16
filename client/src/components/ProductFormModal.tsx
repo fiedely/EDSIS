@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { X, Save, Trash2, Upload, CheckCircle, Loader2 } from 'lucide-react';
-import type { Product } from '../types';
+import { X, Save, Trash2, Upload, CheckCircle, Loader2, Plus, Minus, AlertTriangle, Calendar } from 'lucide-react';
+import type { Product, Discount, DiscountRule } from '../types';
 import { logActivity } from '../audit';
 import axios from 'axios';
 import { ref, uploadBytes } from 'firebase/storage';
@@ -24,7 +24,11 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // --- Suggestion Logic ---
+  const [localDiscounts, setLocalDiscounts] = useState<Discount[]>([]);
+  
+  const [availableRules, setAvailableRules] = useState<DiscountRule[]>([]);
+  const [selectedRuleId, setSelectedRuleId] = useState<string>('');
+
   const suggestions = useMemo(() => {
     const brands = new Set<string>();
     const categories = new Set<string>();
@@ -40,20 +44,42 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
 
   useEffect(() => {
     if (isOpen) {
+        axios.get('http://127.0.0.1:5001/edievo-project/asia-southeast2/get_discounts')
+            .then(res => setAvailableRules(res.data.data))
+            .catch(err => console.error(err));
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen) {
         if (mode === 'EDIT' && initialData) {
             setFormData({ ...initialData });
+            setLocalDiscounts(initialData.discounts || []);
             setImagePreview(null); 
             setImageFile(null);
         } else {
             setFormData({ 
                 brand: '', category: '', collection: '', 
-                code: '', total_stock: 0, retail_price_idr: 0, detail: ''
+                code: '', total_stock: 0, retail_price_idr: 0, detail: '',
+                is_not_for_sale: false, is_upcoming: false, upcoming_eta: ''
             });
+            setLocalDiscounts([]);
             setImagePreview(null);
             setImageFile(null);
         }
     }
   }, [isOpen, mode, initialData]);
+
+  const calculatedNettPrice = useMemo(() => {
+    const retail = formData.retail_price_idr || 0;
+    if (localDiscounts.length === 0) return retail;
+
+    let current = retail;
+    localDiscounts.forEach(d => {
+        current = current * ((100 - d.value) / 100);
+    });
+    return Math.round(current);
+  }, [formData.retail_price_idr, localDiscounts]);
 
   if (!isOpen) return null;
 
@@ -73,6 +99,21 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
     return fileName;
   };
 
+  const addDiscountFromRule = () => {
+    if (!selectedRuleId) return;
+    const rule = availableRules.find(r => r.id === selectedRuleId);
+    if (rule) {
+        // FIX: Ensure ID is included in local state
+        setLocalDiscounts([...localDiscounts, { id: rule.id, name: rule.name, value: rule.value }]);
+        setSelectedRuleId(''); 
+    }
+  };
+
+  const removeDiscount = (index: number) => {
+    const newDiscounts = localDiscounts.filter((_, i) => i !== index);
+    setLocalDiscounts(newDiscounts);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -80,14 +121,18 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
     try {
         const finalImageFilename = await uploadImageToStorage();
 
-        // Ensure consistency before sending
         const payload = {
             ...formData,
-            // Double enforce casing here as well
             brand: formData.brand?.toUpperCase(),
-            category: formData.category?.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()), // Title Case
+            category: formData.category?.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()),
             image_url: finalImageFilename,
-            id: formData.id || uuidv4() 
+            id: formData.id || uuidv4(),
+            
+            discounts: localDiscounts.filter(d => d.value > 0),
+            nett_price_idr: calculatedNettPrice,
+            is_not_for_sale: formData.is_not_for_sale || false,
+            is_upcoming: formData.is_upcoming || false,
+            upcoming_eta: formData.upcoming_eta || ''
         };
 
         await axios.post('http://127.0.0.1:5001/edievo-project/asia-southeast2/manage_product', {
@@ -102,7 +147,7 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
             payload
         );
 
-        onSuccess(); // App.tsx will handle the refresh logic
+        onSuccess();
         onClose();
     } catch (err) {
         console.error("Failed to save product:", err);
@@ -147,82 +192,186 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
                 <button onClick={onClose}><X size={20}/></button>
             </div>
 
-            <div className="p-6 overflow-y-auto space-y-4">
+            <div className="p-6 overflow-y-auto space-y-6">
                 
-                {/* Brand & Category with DATALIST */}
-                <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-1">
-                        <label className="text-xs font-bold text-gray-500 uppercase">Brand</label>
-                        <input 
-                            list="brand-suggestions"
-                            className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none"
-                            placeholder="Select or Type..."
-                            value={formData.brand || ''}
-                            onChange={e => setFormData({...formData, brand: e.target.value.toUpperCase()})} // Force visual uppercase
-                        />
-                        <datalist id="brand-suggestions">
-                            {suggestions.brands.map(b => <option key={b} value={b} />)}
-                        </datalist>
+                {/* 1. STATUS & FLAGS */}
+                <div className="bg-gray-50 p-4 border border-gray-200 space-y-4 rounded-sm">
+                    <div className="text-xs font-bold text-gray-400 uppercase tracking-widest">Status & Visibility</div>
+                    
+                    <div className="flex gap-4">
+                        <label className={`flex-1 flex items-center justify-center gap-2 p-3 border cursor-pointer transition-all ${formData.is_not_for_sale ? 'bg-gray-800 text-white border-gray-800' : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-100'}`}>
+                            <input 
+                                type="checkbox" 
+                                className="hidden"
+                                checked={formData.is_not_for_sale || false}
+                                onChange={e => setFormData({...formData, is_not_for_sale: e.target.checked})}
+                            />
+                            <AlertTriangle size={16} />
+                            <span className="text-xs font-bold uppercase">Not For Sale</span>
+                        </label>
+
+                        <label className={`flex-1 flex items-center justify-center gap-2 p-3 border cursor-pointer transition-all ${formData.is_upcoming ? 'bg-blue-600 text-white border-blue-600' : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-100'}`}>
+                            <input 
+                                type="checkbox" 
+                                className="hidden"
+                                checked={formData.is_upcoming || false}
+                                onChange={e => setFormData({...formData, is_upcoming: e.target.checked})}
+                            />
+                            <Calendar size={16} />
+                            <span className="text-xs font-bold uppercase">Upcoming</span>
+                        </label>
                     </div>
+
+                    {formData.is_upcoming && (
+                        <div className="animate-in slide-in-from-top-2 duration-200">
+                            <label className="text-xs font-bold text-blue-600 uppercase mb-1 block">Expected Arrival Date</label>
+                            <input 
+                                type="date"
+                                className="w-full border border-blue-200 bg-blue-50 p-2 text-sm focus:border-blue-500 outline-none"
+                                value={formData.upcoming_eta || ''}
+                                onChange={e => setFormData({...formData, upcoming_eta: e.target.value})}
+                            />
+                        </div>
+                    )}
+                </div>
+
+                {/* 2. BASIC INFO */}
+                <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                            <label className="text-xs font-bold text-gray-500 uppercase">Brand</label>
+                            <input 
+                                list="brand-suggestions"
+                                className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none"
+                                placeholder="Select or Type..."
+                                value={formData.brand || ''}
+                                onChange={e => setFormData({...formData, brand: e.target.value.toUpperCase()})}
+                            />
+                            <datalist id="brand-suggestions">
+                                {suggestions.brands.map(b => <option key={b} value={b} />)}
+                            </datalist>
+                        </div>
+                        <div className="space-y-1">
+                            <label className="text-xs font-bold text-gray-500 uppercase">Category</label>
+                            <input 
+                                list="category-suggestions"
+                                className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none"
+                                placeholder="Select or Type..."
+                                value={formData.category || ''}
+                                onChange={e => setFormData({...formData, category: e.target.value})}
+                            />
+                            <datalist id="category-suggestions">
+                                {suggestions.categories.map(c => <option key={c} value={c} />)}
+                            </datalist>
+                        </div>
+                    </div>
+
                     <div className="space-y-1">
-                        <label className="text-xs font-bold text-gray-500 uppercase">Category</label>
+                        <label className="text-xs font-bold text-gray-500 uppercase">Collection Name</label>
                         <input 
-                            list="category-suggestions"
-                            className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none"
-                            placeholder="Select or Type..."
-                            value={formData.category || ''}
-                            onChange={e => setFormData({...formData, category: e.target.value})}
+                            className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none font-bold"
+                            placeholder="e.g. Glenda Candle Holder"
+                            value={formData.collection || ''}
+                            onChange={e => setFormData({...formData, collection: e.target.value})}
                         />
-                        <datalist id="category-suggestions">
-                            {suggestions.categories.map(c => <option key={c} value={c} />)}
-                        </datalist>
+                    </div>
+
+                    <div className="space-y-1">
+                        <label className="text-xs font-bold text-gray-500 uppercase">Product Detail / Description</label>
+                        <textarea 
+                            className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none min-h-[80px]"
+                            value={formData.detail || ''}
+                            onChange={e => setFormData({...formData, detail: e.target.value})}
+                        />
                     </div>
                 </div>
 
-                {/* Collection */}
-                <div className="space-y-1">
-                    <label className="text-xs font-bold text-gray-500 uppercase">Collection Name</label>
-                    <input 
-                        className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none font-bold"
-                        placeholder="e.g. Glenda Candle Holder"
-                        value={formData.collection || ''}
-                        onChange={e => setFormData({...formData, collection: e.target.value})}
-                    />
-                </div>
-
-                {/* NEW: Detail / Description Input */}
-                <div className="space-y-1">
-                    <label className="text-xs font-bold text-gray-500 uppercase">Product Detail / Description</label>
-                    <textarea 
-                        className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none min-h-[80px]"
-                        placeholder="e.g. Hand-blown glass, includes mounting hardware..."
-                        value={formData.detail || ''}
-                        onChange={e => setFormData({...formData, detail: e.target.value})}
-                    />
-                </div>
-
-                {/* Code & Price */}
-                <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-1">
-                        <label className="text-xs font-bold text-gray-500 uppercase">Product Code</label>
-                        <input 
-                            className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none"
-                            value={formData.code || ''}
-                            onChange={e => setFormData({...formData, code: e.target.value})}
-                        />
+                {/* 3. PRICING ENGINE */}
+                <div className="bg-red-50 p-4 border border-red-100 space-y-4 rounded-sm">
+                    <div className="text-xs font-bold text-red-800 uppercase tracking-widest flex items-center gap-2">
+                        Pricing & Discounts
                     </div>
-                    <div className="space-y-1">
-                        <label className="text-xs font-bold text-gray-500 uppercase">Price (IDR)</label>
-                        <input 
-                            type="number"
-                            className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none"
-                            value={formData.retail_price_idr || 0}
-                            onChange={e => setFormData({...formData, retail_price_idr: Number(e.target.value)})}
-                        />
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                            <label className="text-xs font-bold text-gray-500 uppercase">Product Code</label>
+                            <input 
+                                className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none bg-white"
+                                value={formData.code || ''}
+                                onChange={e => setFormData({...formData, code: e.target.value})}
+                            />
+                        </div>
+                        <div className="space-y-1">
+                            <label className="text-xs font-bold text-gray-500 uppercase">Retail Price (IDR)</label>
+                            <input 
+                                type="number"
+                                className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none bg-white font-bold"
+                                value={formData.retail_price_idr || 0}
+                                onChange={e => setFormData({...formData, retail_price_idr: Number(e.target.value)})}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Discount List */}
+                    <div className="space-y-2">
+                         <div className="flex justify-between items-end gap-2">
+                            <div className="flex-grow space-y-1">
+                                <label className="text-xs font-bold text-gray-400 uppercase">Add Discount Rule</label>
+                                <select 
+                                    className="w-full border border-gray-300 p-2 text-xs focus:border-primary outline-none bg-white"
+                                    value={selectedRuleId}
+                                    onChange={e => setSelectedRuleId(e.target.value)}
+                                >
+                                    <option value="">-- Select a Discount --</option>
+                                    {availableRules
+                                        .filter(r => {
+                                            const now = new Date().toISOString().split('T')[0];
+                                            const activeStart = !r.start_date || r.start_date <= now;
+                                            const activeEnd = !r.end_date || r.end_date >= now;
+                                            return activeStart && activeEnd;
+                                        })
+                                        .map(r => (
+                                            <option key={r.id} value={r.id}>
+                                                {r.name} ({r.value}%)
+                                            </option>
+                                        ))
+                                    }
+                                </select>
+                            </div>
+                            <button 
+                                onClick={addDiscountFromRule} 
+                                type="button" 
+                                disabled={!selectedRuleId}
+                                className="bg-white border border-gray-300 hover:bg-gray-100 px-3 py-2 flex items-center justify-center gap-1 font-bold text-gray-600 transition-colors disabled:opacity-50 h-[34px]"
+                            >
+                                <Plus size={14} /> ADD
+                            </button>
+                         </div>
+                         
+                         {localDiscounts.length > 0 && (
+                            <div className="bg-white border border-red-100 p-2 space-y-2 mt-2">
+                                {localDiscounts.map((d, index) => (
+                                    <div key={index} className="flex justify-between items-center text-xs text-gray-700">
+                                        <span>{d.name} <span className="font-bold">({d.value}%)</span></span>
+                                        <button type="button" onClick={() => removeDiscount(index)} className="text-gray-400 hover:text-red-500">
+                                            <Minus size={14} />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                         )}
+                    </div>
+
+                    {/* Nett Price Calculation Display */}
+                    <div className="pt-2 border-t border-red-200 flex justify-between items-center">
+                        <span className="text-xs font-bold text-red-800 uppercase">Nett Price (After Discount)</span>
+                        <span className="text-lg font-bold text-red-600">
+                             {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(calculatedNettPrice)}
+                        </span>
                     </div>
                 </div>
 
-                {/* Dimensions & Finish */}
+                {/* 4. SPECS & IMAGE */}
                 <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1">
                         <label className="text-xs font-bold text-gray-500 uppercase">Dimensions</label>
@@ -242,7 +391,6 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
                     </div>
                 </div>
                 
-                 {/* Image Upload */}
                  <div className="space-y-1">
                     <label className="text-xs font-bold text-gray-500 uppercase">Product Image</label>
                     <input 
@@ -277,7 +425,6 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
                 {mode === 'ADD' && (
                     <div className="bg-gray-50 p-4 border border-gray-200">
                         <label className="text-xs font-bold text-gray-500 uppercase">Initial Stock Quantity</label>
-                        <div className="text-[10px] text-gray-400 mb-2">This will generate individual QR codes for each item.</div>
                         <input 
                             type="number"
                             className="w-full border border-gray-300 p-2 text-sm focus:border-primary outline-none font-bold"

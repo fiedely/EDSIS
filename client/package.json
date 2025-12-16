@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/papaparse": "^5.5.2",
     "@types/uuid": "^10.0.0",
     "axios": "^1.13.2",
     "clsx": "^2.1.1",
     "firebase": "^12.6.0",
     "lucide-react": "^0.561.0",
+    "papaparse": "^5.5.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "tailwind-merge": "^3.4.0",
