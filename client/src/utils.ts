@@ -32,10 +32,11 @@ export const buildProductTree = (
     });
 
     return Object.entries(groups)
-      .sort((a, b) => a[0].localeCompare(b[0]))
+      .sort((a, b) => a[0].localeCompare(b[0])) // Sorts the Groups (A-Z)
       .map(([key, groupItems]) => ({
         key,
-        items: groupItems,
+        // [NEW] Sort the Items inside the group by Collection Name
+        items: groupItems.sort((a, b) => a.collection.localeCompare(b.collection)),
         level: currentLevelIndex,
         subgroups: groupRecursive(groupItems, currentLevelIndex + 1)
       }));
