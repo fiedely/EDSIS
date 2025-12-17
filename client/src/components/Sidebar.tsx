@@ -8,8 +8,8 @@ interface SidebarProps {
   onImport: () => void;
   onManageDiscounts: () => void;
   onOpenActiveBookings: () => void;
-  // [NEW] Prop for Exchange Rates
-  onManageRates: () => void; 
+  onManageRates: () => void;
+  onExport: () => void; // [NEW] Added Export handler
   userRole?: string;
 }
 
@@ -28,6 +28,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onManageDiscounts, 
   onOpenActiveBookings,
   onManageRates,
+  onExport, // [NEW]
   userRole = 'admin' 
 }) => {
   const canAdd = userRole === 'admin' || userRole === 'manager';
@@ -85,9 +86,13 @@ const Sidebar: React.FC<SidebarProps> = ({
                 disabled={!canAdd}
             />
             
-            <MenuButton icon={<FileText size={18} />} label="Export Inventory" onClick={() => {}} />
+            {/* [MODIFIED] Wired up Export Button */}
+            <MenuButton 
+                icon={<FileText size={18} />} 
+                label="Export Inventory" 
+                onClick={() => { onClose(); onExport(); }} 
+            />
             
-            {/* [MODIFIED] Wired up the Manage Exchange button */}
             <MenuButton 
                 icon={<RefreshCw size={18} />} 
                 label="Manage Exchange" 

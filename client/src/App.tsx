@@ -13,6 +13,7 @@ import ImportModal from './components/ImportModal';
 import DiscountManagerModal from './components/DiscountManagerModal';
 import ActiveBookingsModal from './components/ActiveBookingsModal';
 import ExchangeRateModal from './components/ExchangeRateModal'; 
+import ExportModal from './components/ExportModal'; // [NEW]
 
 function App() {
   const [activeTab, setActiveTab] = useState('BRAND');
@@ -40,7 +41,8 @@ function App() {
   const [productToEdit, setProductToEdit] = useState<Product | null>(null);
   const [isImportOpen, setIsImportOpen] = useState(false);
   const [isDiscountManagerOpen, setIsDiscountManagerOpen] = useState(false);
-  const [isActiveBookingsOpen, setIsActiveBookingsOpen] = useState(false); 
+  const [isActiveBookingsOpen, setIsActiveBookingsOpen] = useState(false);
+  const [isExportOpen, setIsExportOpen] = useState(false); // [NEW] State for Export Modal
 
   const fetchProducts = useCallback(async (silent = false) => {
     if (!silent) setLoading(true);
@@ -299,7 +301,6 @@ function App() {
             <div className="flex items-center gap-2">
                 <div className="text-sm font-bold text-gray-800 line-clamp-1">{item.collection}</div>
                 
-                {/* [MODIFIED] Standardized Tags */}
                 {isDiscount && <span className="text-[9px] bg-primary/10 text-primary px-1 rounded font-bold flex items-center"><Percent size={8} className="mr-0.5"/> SALE</span>}
                 {isNFS && <span className="text-[9px] bg-gray-200 text-gray-600 px-1 rounded font-bold flex items-center"><AlertCircle size={8} className="mr-0.5"/> NFS</span>}
                 {isUpcoming && <span className="text-[9px] bg-gray-100 text-gray-600 px-1 rounded font-bold flex items-center"><Clock size={8} className="mr-0.5"/> ETA</span>}
@@ -404,7 +405,8 @@ function App() {
             onImport={handleImportClick}
             onManageDiscounts={handleManageDiscountsClick}
             onOpenActiveBookings={() => setIsActiveBookingsOpen(true)} 
-            onManageRates={() => setIsRateModalOpen(true)} 
+            onManageRates={() => setIsRateModalOpen(true)}
+            onExport={() => setIsExportOpen(true)} // [NEW] Wire up export
         />
 
         <ProductDetailModal 
@@ -450,6 +452,12 @@ function App() {
             onClose={() => setIsRateModalOpen(false)}
             currentRates={rates}
             onSuccess={() => fetchProducts(true)} 
+        />
+
+        {/* [NEW] Export Modal */}
+        <ExportModal 
+            isOpen={isExportOpen}
+            onClose={() => setIsExportOpen(false)}
         />
     </>
   );
