@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Calendar, User, Loader2, CheckCircle } from 'lucide-react';
+import { X, Calendar, User, Loader2, Clock } from 'lucide-react';
 import axios from 'axios';
 import type { InventoryItem, Product } from '../types';
 
@@ -76,8 +76,9 @@ const ActiveBookingsModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =>
       
       <div className="bg-white w-full max-w-2xl shadow-2xl z-10 flex flex-col max-h-[85vh] rounded-none">
         <div className="p-4 bg-primary text-white flex justify-between items-center shrink-0">
+            {/* [MODIFIED] Icon matched to Sidebar (Clock) */}
             <h2 className="text-lg font-bold tracking-wide flex items-center gap-2">
-                <CheckCircle size={20}/> ACTIVE BOOKINGS
+                <Clock size={20}/> ACTIVE BOOKINGS
             </h2>
             <button onClick={onClose}><X size={20}/></button>
         </div>
@@ -126,9 +127,13 @@ const ActiveBookingsModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =>
                                 <button 
                                     onClick={() => handleRelease(item.id)}
                                     disabled={!!actionLoading}
-                                    className="px-4 py-2 text-xs font-bold border border-gray-400 hover:bg-gray-100 text-gray-600 transition-colors"
+                                    className="px-4 py-2 text-xs font-bold border border-gray-400 hover:bg-gray-100 text-gray-600 transition-colors flex items-center gap-2"
                                 >
-                                    {actionLoading === item.id ? "PROCESSING..." : "RELEASE"}
+                                    {actionLoading === item.id ? (
+                                        <><Loader2 size={12} className="animate-spin" /> PROCESSING...</>
+                                    ) : (
+                                        "RELEASE"
+                                    )}
                                 </button>
                             </div>
                         </div>

@@ -9,7 +9,7 @@ interface SidebarProps {
   onManageDiscounts: () => void;
   onOpenActiveBookings: () => void;
   onManageRates: () => void;
-  onExport: () => void; // [NEW] Added Export handler
+  onExport: () => void; 
   userRole?: string;
 }
 
@@ -28,7 +28,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onManageDiscounts, 
   onOpenActiveBookings,
   onManageRates,
-  onExport, // [NEW]
+  onExport, 
   userRole = 'admin' 
 }) => {
   const canAdd = userRole === 'admin' || userRole === 'manager';
@@ -86,7 +86,6 @@ const Sidebar: React.FC<SidebarProps> = ({
                 disabled={!canAdd}
             />
             
-            {/* [MODIFIED] Wired up Export Button */}
             <MenuButton 
                 icon={<FileText size={18} />} 
                 label="Export Inventory" 
@@ -95,7 +94,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             
             <MenuButton 
                 icon={<RefreshCw size={18} />} 
-                label="Manage Exchange" 
+                label="Manage Rates" 
                 onClick={() => { onClose(); onManageRates(); }} 
             />
             
@@ -118,7 +117,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         <div className="p-4 border-t border-gray-200">
-            <button className="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors">
+            <button className="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-primary hover:bg-primary/5 transition-colors">
                 <LogOut size={18} />
                 Sign Out
             </button>

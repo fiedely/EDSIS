@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { X, Save, Trash2, Upload, CheckCircle, Loader2, Plus, Minus, AlertTriangle, Calendar, Info, DollarSign, Euro } from 'lucide-react';
+import { X, Save, Trash2, Upload, CheckCircle, Loader2, Plus, Minus, AlertTriangle, Calendar, Info, DollarSign, Euro, Edit2 } from 'lucide-react';
 import type { Product, Discount, DiscountRule, ExchangeRates } from '../types';
 import { logActivity } from '../audit';
 import axios from 'axios';
@@ -203,8 +203,9 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
         
         <div className="bg-white w-full max-w-lg shadow-2xl z-10 flex flex-col max-h-[90vh]">
             <div className="p-4 bg-primary text-white flex justify-between items-center shrink-0">
-                <h2 className="text-lg font-bold tracking-wide">
-                    {mode === 'ADD' ? 'ADD NEW ITEM' : 'EDIT ITEM'}
+                {/* [MODIFIED] Added Icon beside Title */}
+                <h2 className="text-lg font-bold tracking-wide flex items-center gap-2">
+                    {mode === 'ADD' ? <><Plus size={20}/> ADD NEW ITEM</> : <><Edit2 size={20}/> EDIT ITEM</>}
                 </h2>
                 <button onClick={onClose}><X size={20}/></button>
             </div>
@@ -241,7 +242,6 @@ const ProductFormModal: React.FC<Props> = ({ isOpen, mode, initialData, existing
 
                     {formData.is_upcoming && (
                         <div className="animate-in slide-in-from-top-2 duration-200">
-                            {/* [MODIFIED] Replaced Blue with Primary */}
                             <label className="text-xs font-bold text-primary uppercase mb-1 block">Expected Arrival Date</label>
                             <input 
                                 type="date"

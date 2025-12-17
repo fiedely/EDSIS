@@ -296,6 +296,7 @@ const ImportModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, existingProd
       <div className="bg-white w-full max-w-lg shadow-2xl z-10 flex flex-col max-h-[90vh] rounded-none">
         
         <div className="p-4 bg-primary text-white flex justify-between items-center shrink-0">
+            {/* [MODIFIED] Ensure icon matches Sidebar */}
             <h2 className="text-lg font-bold tracking-wide flex items-center gap-2">
                 <FileSpreadsheet size={20}/> IMPORT INVENTORY
             </h2>

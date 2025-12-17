@@ -12,7 +12,8 @@ interface Props {
 const DiscountManagerModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) => {
   const [discounts, setDiscounts] = useState<DiscountRule[]>([]);
   const [loading, setLoading] = useState(false);
-  const [actionLoading, setActionLoading] = useState(false);
+  // [MODIFIED] Changed from boolean to string | null to track specific ID being processed
+  const [actionLoading, setActionLoading] = useState<string | null>(null);
   
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<Partial<DiscountRule>>({});
@@ -50,7 +51,7 @@ const DiscountManagerModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =
   const handleSave = async () => {
     if (!formData.name || !formData.value) return;
     
-    setActionLoading(true);
+    setActionLoading('SAVE');
     try {
         await axios.post('http://127.0.0.1:5001/edievo-project/asia-southeast2/manage_discount', {
             mode: 'EDIT', 
@@ -67,13 +68,13 @@ const DiscountManagerModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =
         }
         alert(msg);
     } finally {
-        setActionLoading(false);
+        setActionLoading(null);
     }
   };
 
   const handleDelete = async (id: string) => {
     if (!window.confirm("Delete this discount rule?")) return;
-    setActionLoading(true);
+    setActionLoading(id);
     try {
         await axios.post('http://127.0.0.1:5001/edievo-project/asia-southeast2/manage_discount', {
             mode: 'DELETE',
@@ -85,13 +86,12 @@ const DiscountManagerModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =
         console.error(err);
         alert("Failed to delete");
     } finally {
-        setActionLoading(false);
+        setActionLoading(null);
     }
   };
 
   const getRuleStatus = (rule: DiscountRule) => {
       const now = new Date().toISOString().split('T')[0];
-      // [MODIFIED] Neutral Gray for Future, Maroon for Expired, Primary/10 for Active
       if (rule.start_date && rule.start_date > now) return { label: 'NOT STARTED', color: 'bg-gray-100 text-gray-500' };
       if (rule.end_date && rule.end_date < now) return { label: 'EXPIRED', color: 'bg-primary/10 text-primary' };
       return { label: 'ACTIVE', color: 'bg-primary text-white' };
@@ -115,7 +115,7 @@ const DiscountManagerModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =
              {!editingId && (
                 <button 
                     onClick={() => handleEdit()}
-                    disabled={actionLoading}
+                    disabled={!!actionLoading}
                     className="w-full py-3 border-2 border-dashed border-gray-300 text-gray-400 font-bold hover:bg-white hover:text-primary transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                     <Plus size={16} /> ADD NEW DISCOUNT RULE
@@ -171,10 +171,10 @@ const DiscountManagerModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =
                      <div className="flex gap-2">
                          <button 
                             onClick={handleSave} 
-                            disabled={actionLoading}
+                            disabled={!!actionLoading}
                             className="flex-1 bg-primary text-white text-xs font-bold py-2 hover:bg-primary-dark disabled:opacity-50 flex justify-center items-center gap-2"
                          >
-                            {actionLoading && <Loader2 size={12} className="animate-spin" />}
+                            {actionLoading === 'SAVE' && <Loader2 size={12} className="animate-spin" />}
                             SAVE
                          </button>
                          <button onClick={() => setEditingId(null)} className="flex-1 bg-gray-100 text-gray-600 text-xs font-bold py-2 hover:bg-gray-200">CANCEL</button>
@@ -184,6 +184,7 @@ const DiscountManagerModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =
 
              {discounts.map(d => {
                  const status = getRuleStatus(d);
+                 const isDeleting = actionLoading === d.id;
                  return (
                     <div key={d.id} className={`bg-white border p-3 flex justify-between items-center ${!d.is_active ? 'opacity-50' : ''}`}>
                         <div>
@@ -201,8 +202,14 @@ const DiscountManagerModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =
                             </div>
                         </div>
                         <div className="flex gap-2">
-                            <button onClick={() => handleEdit(d)} disabled={actionLoading} className="p-1.5 hover:bg-gray-100 text-gray-600 rounded disabled:opacity-50"><Edit2 size={16} /></button>
-                            <button onClick={() => handleDelete(d.id)} disabled={actionLoading} className="p-1.5 hover:bg-primary/10 text-primary rounded disabled:opacity-50"><Trash2 size={16} /></button>
+                            <button onClick={() => handleEdit(d)} disabled={!!actionLoading} className="p-1.5 hover:bg-gray-100 text-gray-600 rounded disabled:opacity-50"><Edit2 size={16} /></button>
+                            <button 
+                                onClick={() => handleDelete(d.id)} 
+                                disabled={!!actionLoading} 
+                                className="p-1.5 hover:bg-primary/10 text-primary rounded disabled:opacity-50 w-8 flex justify-center"
+                            >
+                                {isDeleting ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={16} />}
+                            </button>
                         </div>
                     </div>
                  );

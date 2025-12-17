@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Save, Loader2, DollarSign, Euro, Coins } from 'lucide-react';
+import { X, Save, Loader2, DollarSign, Euro, RefreshCw } from 'lucide-react';
 import axios from 'axios';
 import type { ExchangeRates } from '../types';
 
@@ -42,10 +42,9 @@ const ExchangeRateModal: React.FC<Props> = ({ isOpen, onClose, currentRates, onS
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
       
       <div className="bg-white w-full max-w-sm shadow-xl z-10 flex flex-col rounded-none">
-        {/* [MODIFIED] Uniform Header Style */}
         <div className="p-4 bg-primary text-white flex justify-between items-center shrink-0">
             <h2 className="text-lg font-bold tracking-wide flex items-center gap-2">
-                <Coins size={20}/> EXCHANGE RATES
+                <RefreshCw size={20}/> MANAGE RATES
             </h2>
             <button onClick={onClose}><X size={20}/></button>
         </div>

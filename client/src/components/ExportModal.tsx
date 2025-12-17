@@ -74,8 +74,9 @@ const ExportModal: React.FC<Props> = ({ isOpen, onClose }) => {
         
         {/* Maroon Header */}
         <div className="p-4 bg-primary text-white flex justify-between items-center shrink-0">
+            {/* [MODIFIED] Icon matched to Sidebar (FileText) */}
             <h2 className="text-lg font-bold tracking-wide flex items-center gap-2">
-                <Download size={20}/> EXPORT INVENTORY
+                <FileText size={20}/> EXPORT INVENTORY
             </h2>
             <button onClick={onClose}><X size={20}/></button>
         </div>
