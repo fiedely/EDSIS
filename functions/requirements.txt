@@ -3,3 +3,5 @@ firebase-admin
 pandas
 google-cloud-firestore
 openpyxl
+reportlab
+requests
